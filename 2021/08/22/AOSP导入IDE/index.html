@@ -1,0 +1,472 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>AOSP导入IDE - Cola&#39;S Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Cola'S Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="AOSP导入IDE">
+              
+                AOSP导入IDE
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-22 01:07" pubdate>
+        2021年8月22日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      551 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      8
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">AOSP导入IDE</h1>
+            
+            <div class="markdown-body">
+              <h2 id="Java代码导入-Android-Studio"><a href="#Java代码导入-Android-Studio" class="headerlink" title="Java代码导入 Android Studio"></a>Java代码导入 Android Studio</h2><h3 id="1-source-build-envsetup-sh"><a href="#1-source-build-envsetup-sh" class="headerlink" title="1.source build/envsetup.sh"></a>1.source build/envsetup.sh</h3><h3 id="2-编译生成-idegen-jar"><a href="#2-编译生成-idegen-jar" class="headerlink" title="2.编译生成 idegen.jar"></a>2.编译生成 idegen.jar</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">mmm development<span class="hljs-regexp">/tools/i</span>degen/ <br></code></pre></td></tr></table></figure>
+<p>运行完毕上面的命令之后，就在根目录生成了2个文件：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">android.ipr </span>和 <span class="hljs-keyword">android.iml</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-排除不必要的模块，提高加载速度"><a href="#3-排除不必要的模块，提高加载速度" class="headerlink" title="3.排除不必要的模块，提高加载速度"></a>3.排除不必要的模块，提高加载速度</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">打开<span class="hljs-keyword">android.iml, </span>找到excludeFolder属性,只添加framework<br></code></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/abi&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/art&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/bionic&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/bootable&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/build&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/cts&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/dalvik&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/developers&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/development&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/device&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/docs&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/external&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/hardware&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/libcore&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/libnativehelper&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/ndk&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/out&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/pdk&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/prebuilts&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/sdk&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/system&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/tools&quot;</span>/&gt;<br>&lt;excludeFolder <span class="hljs-attribute">url</span>=<span class="hljs-string">&quot;file://<span class="hljs-variable">$MODULE_DIR</span>$/kernel&quot;</span>/&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-使用Android-Studio直接android-ipr文件"><a href="#4-使用Android-Studio直接android-ipr文件" class="headerlink" title="4.使用Android Studio直接android.ipr文件"></a>4.使用Android Studio直接android.ipr文件</h3><h3 id="5-存在问题"><a href="#5-存在问题" class="headerlink" title="5.存在问题"></a>5.存在问题</h3><p>打开的Java代码，查看集成关系或者调用关系的时候，还是会跳转到.class文件中，而不是相应的Java类?</p>
+<h4 id="5-1-删除多余的JDK和SDK"><a href="#5-1-删除多余的JDK和SDK" class="headerlink" title="5.1 删除多余的JDK和SDK"></a>5.1 删除多余的JDK和SDK</h4> <img src="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/images/%E5%88%A0%E9%99%A4%E5%A4%9A%E4%BD%99%E7%9A%84JDK%E5%92%8CSDK.png" srcset="/img/loading.gif" lazyload class="">
+
+<h4 id="5-2添加JDK"><a href="#5-2添加JDK" class="headerlink" title="5.2添加JDK"></a>5.2添加JDK</h4> <img src="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/images/%E6%B7%BB%E5%8A%A0sdk.png" srcset="/img/loading.gif" lazyload class="">
+
+<h4 id="5-3删除JDK中Classpath和Sourcepath中的内容"><a href="#5-3删除JDK中Classpath和Sourcepath中的内容" class="headerlink" title="5.3删除JDK中Classpath和Sourcepath中的内容"></a>5.3删除JDK中Classpath和Sourcepath中的内容</h4> <img src="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/images/%E5%88%A0%E9%99%A4Classpath.png" srcset="/img/loading.gif" lazyload class="">
+
+<h4 id="5-4-删除SDK中Classpath和Sourcepath中的内容"><a href="#5-4-删除SDK中Classpath和Sourcepath中的内容" class="headerlink" title="5.4 删除SDK中Classpath和Sourcepath中的内容"></a>5.4 删除SDK中Classpath和Sourcepath中的内容</h4> <img src="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/images/%E5%88%A0%E9%99%A4Sourcepath.png" srcset="/img/loading.gif" lazyload class="">
+
+<h4 id="5-5-配置Modules"><a href="#5-5-配置Modules" class="headerlink" title="5.5 配置Modules"></a>5.5 配置Modules</h4> <img src="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/images/%E9%85%8D%E7%BD%AEModules.png" srcset="/img/loading.gif" lazyload class="">
+
+<h4 id="5-6把framework添加到Dependencies中"><a href="#5-6把framework添加到Dependencies中" class="headerlink" title="5.6把framework添加到Dependencies中"></a>5.6把framework添加到Dependencies中</h4> <img src="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/images/framework%E6%B7%BB%E5%8A%A0%E5%88%B0Dependencies1.png" srcset="/img/loading.gif" lazyload class="">
+
+<ul>
+<li></li>
+</ul>
+ <img src="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/images/framework%E6%B7%BB%E5%8A%A0%E5%88%B0Dependencies2.png" srcset="/img/loading.gif" lazyload class="">
+
+<ul>
+<li></li>
+</ul>
+ <img src="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/images/framework%E6%B7%BB%E5%8A%A0%E5%88%B0Dependencies3.png" srcset="/img/loading.gif" lazyload class="">
+
+<ul>
+<li></li>
+</ul>
+ <img src="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/images/framework%E6%B7%BB%E5%8A%A0%E5%88%B0Dependencies4.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h4 id="5-7-确定Project-SDK选择正确"><a href="#5-7-确定Project-SDK选择正确" class="headerlink" title="5.7 确定Project SDK选择正确"></a>5.7 确定Project SDK选择正确</h4> <img src="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/images/%E7%A1%AE%E5%AE%9AProjectSDK.png" srcset="/img/loading.gif" lazyload class="">
+
+<h2 id="Native代码导入CLion"><a href="#Native代码导入CLion" class="headerlink" title="Native代码导入CLion"></a>Native代码导入CLion</h2><h3 id="1-打开开关，编译时生成CMakeLists-txt"><a href="#1-打开开关，编译时生成CMakeLists-txt" class="headerlink" title="1.打开开关，编译时生成CMakeLists.txt"></a>1.打开开关，编译时生成CMakeLists.txt</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">SOONG_GEN_CMAKEFILES</span>=1<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">SOONG_GEN_CMAKEFILES_DEBUG</span>=1<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-编译"><a href="#2-编译" class="headerlink" title="2.编译"></a>2.编译</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">make</span> -j<span class="hljs-number">16</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-生成CMakeLists-txt"><a href="#3-生成CMakeLists-txt" class="headerlink" title="3.生成CMakeLists.txt"></a>3.生成CMakeLists.txt</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">out<span class="hljs-regexp">/development/i</span>de<span class="hljs-regexp">/clion/</span>xxxx<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-创建CMakeLists-txt用于合并"><a href="#4-创建CMakeLists-txt用于合并" class="headerlink" title="4. 创建CMakeLists.txt用于合并"></a>4. 创建CMakeLists.txt用于合并</h3><p><code>在clion目录下创建CMakeLists.txt</code></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">cmake_minimum_required</span><span class="hljs-params">(VERSION <span class="hljs-number">3.6</span>)</span></span><br><span class="hljs-function"><span class="hljs-title">project</span><span class="hljs-params">(AOSP-Native)</span></span><br><br><span class="hljs-comment">//用到了哪个模块再导入即可，要保证改目录下有CMakeLists.txt</span><br><span class="hljs-comment">// 添加子模块，导入了部分工程</span><br><span class="hljs-function"><span class="hljs-title">add_subdirectory</span><span class="hljs-params">(frameworks/native)</span></span><br>.......<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-CLion导入"><a href="#5-CLion导入" class="headerlink" title="5. CLion导入"></a>5. CLion导入</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">1.</span> 打开CLion<br><span class="hljs-bullet">2.</span> 选择「open xxxxxx」<br><span class="hljs-bullet">3.</span> 指定包含 CMakeLists.txt 的目录out/development/ide/clion<br><span class="hljs-bullet">4.</span> 选择「Open Existing Project」<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-更改工程根目录"><a href="#6-更改工程根目录" class="headerlink" title="6.更改工程根目录"></a>6.更改工程根目录</h3><p>设置root为aosp源码根目录</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xl">T<span class="hljs-function"><span class="hljs-title">ools</span> -&gt;</span> CM<span class="hljs-function"><span class="hljs-title">ake</span> -&gt;</span> Change Project Root<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">https</span>://www.jianshu.com/p/<span class="hljs-number">2</span>ba<span class="hljs-number">5</span>d<span class="hljs-number">6</span>bd<span class="hljs-number">461</span>e<br></code></pre></td></tr></table></figure>
+
+
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/android/">android</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/android/">android</a>
+                    
+                      <a class="hover-with-bg" href="/tags/rom/">rom</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/22/JDB%E8%B0%83%E8%AF%95APP/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JDB调试APP</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/22/Android-so%E5%BA%93%E4%B8%8E%E6%BA%90%E7%A0%81%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/">
+                        <span class="hidden-mobile">Android SO库与源码对应关系</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,616 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>am常用命令 - Cola&#39;S Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Cola'S Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="am常用命令">
+              
+                am常用命令
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-21 23:56" pubdate>
+        2021年8月21日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">am常用命令</h1>
+            
+            <div class="markdown-body">
+              <h2 id="拨打电话10086"><a href="#拨打电话10086" class="headerlink" title="拨打电话10086"></a>拨打电话10086</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">adb shell am start -<span class="hljs-selector-tag">a</span> android<span class="hljs-selector-class">.intent</span><span class="hljs-selector-class">.action</span><span class="hljs-selector-class">.CALL</span> -d tel:<span class="hljs-number">10086</span><br></code></pre></td></tr></table></figure>
+<h2 id="打开网址"><a href="#打开网址" class="headerlink" title="打开网址"></a>打开网址</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">adb shell am start -<span class="hljs-selector-tag">a</span> android<span class="hljs-selector-class">.intent</span><span class="hljs-selector-class">.action</span><span class="hljs-selector-class">.VIEW</span> -d  http:<span class="hljs-comment">//gityuan.com</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="启动Activity"><a href="#启动Activity" class="headerlink" title="启动Activity"></a>启动Activity</h2><p> 启动包名为<code>com.yuanhh.app</code>，主Activity为<code>.MainActivity</code>  且extra数据以”website”为key, “yuanh.com”为value</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">am</span> start -n <span class="hljs-keyword">com</span>.yuanhh.app/.MainActivity -es website gityuan.<span class="hljs-keyword">com</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="发送广播"><a href="#发送广播" class="headerlink" title="发送广播"></a>发送广播</h2><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">adb shell am broadcast -a com.android.test <span class="hljs-params">--es</span> test_string <span class="hljs-string">&quot;this is test string&quot;</span> <span class="hljs-params">--ei</span> test_int 100 <span class="hljs-params">--ez</span> test_boolean <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>命令列表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">功能</th>
+<th align="left">实现方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">am start [options] <INTENT></td>
+<td align="left">启动Activity</td>
+<td align="left">startActivityAsUser</td>
+</tr>
+<tr>
+<td align="left">am startservice <INTENT></td>
+<td align="left">启动Service</td>
+<td align="left">startService</td>
+</tr>
+<tr>
+<td align="left">am stopservice <INTENT></td>
+<td align="left">停止Service</td>
+<td align="left">stopService</td>
+</tr>
+<tr>
+<td align="left">am broadcast <INTENT></td>
+<td align="left">发送广播</td>
+<td align="left">broadcastIntent</td>
+</tr>
+<tr>
+<td align="left">am kill <PACKAGE></td>
+<td align="left">杀指定后台进程</td>
+<td align="left">killBackgroundProcesses</td>
+</tr>
+<tr>
+<td align="left">am kill-all</td>
+<td align="left">杀所有后台进程</td>
+<td align="left">killAllBackgroundProcesses</td>
+</tr>
+<tr>
+<td align="left">am force-stop <PACKAGE></td>
+<td align="left">强杀进程</td>
+<td align="left">forceStopPackage</td>
+</tr>
+<tr>
+<td align="left">am hang</td>
+<td align="left">系统卡住</td>
+<td align="left">hang</td>
+</tr>
+<tr>
+<td align="left">am restart</td>
+<td align="left">重启</td>
+<td align="left">restart</td>
+</tr>
+<tr>
+<td align="left">am bug-report</td>
+<td align="left">创建bugreport</td>
+<td align="left">requestBugReport</td>
+</tr>
+<tr>
+<td align="left">am dumpheap <pid> <file></td>
+<td align="left">进程pid的堆信息输出到file</td>
+<td align="left">dumpheap</td>
+</tr>
+<tr>
+<td align="left">am send-trim-memory <pid> <level></td>
+<td align="left">收紧进程的内存</td>
+<td align="left">setProcessMemoryTrimLevel</td>
+</tr>
+<tr>
+<td align="left">am monitor</td>
+<td align="left">监控</td>
+<td align="left">MyActivityController.run</td>
+</tr>
+</tbody></table>
+<p>am命令实的实现方式在Am.java，最终几乎都是调用<code>ActivityManagerService</code>相应的方法来完成的，<code>am monitor</code>除外。比如前面概述中介绍的命令<code>am start -a android.intent.action.VIEW -d http://gityuan.com</code>， 启动Acitivty最终调用的是ActivityManagerService类的startActivityAsUser()方法来完成的。再比如<code>am kill-all</code>命令，最终的实现工作是由ActivityManagerService的killBackgroundProcesses()方法完成的</p>
+<h2 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h2><p>主要是启动Activity命令<code>am start [options] </code>使用options参数，接下来列举Activity命令的[options]参数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">-D: 允许调试功能<br>-W: 等待app启动完成<br>-R &lt;COUNT&gt;: 重复启动Activity COUNT次<br>-S: 启动activity之前，先调用forceStopPackage()方法强制停止app.<br>–opengl-trace: 运行获取OpenGL函数的trace<br>–user &lt;USER_ID&gt; | current: 指定用户来运行App,默认为当前用户。<br>–start-profiler &lt;FILE&gt;: 启动profiler，并将结果发送到 &lt;FILE&gt;;<br>-P &lt;FILE&gt;: 类似 –start-profiler，不同的是当app进入idle状态，则停止profiling<br>–sampling INTERVAL: 设置profiler 取样时间间隔，单位ms;<br></code></pre></td></tr></table></figure>
+
+
+<p>启动Activity的实现原理： 存在-W参数则调用startActivityAndWait()方法来运行，否则startActivityAsUser()。</p>
+<h2 id="收紧内存"><a href="#收紧内存" class="headerlink" title="收紧内存"></a>收紧内存</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">am</span> send-trim-memory  <span class="hljs-symbol">&lt;pid&gt;</span> <span class="hljs-symbol">&lt;level&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>例如： 向pid=12345的进程，发出level=RUNNING_LOW的收紧内存命令</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">am send-<span class="hljs-keyword">trim</span>-<span class="hljs-keyword">memory</span> <span class="hljs-number">12345</span> RUNNING_LOW。<br></code></pre></td></tr></table></figure>
+
+<p>那么level取值范围为： HIDDEN、RUNNING_MODERATE、BACKGROUND、RUNNING_LOW、MODERATE、RUNNING_CRITICAL、COMPLETE。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>对于am的子命令，startservice, stopservice, broadcast, kill, profile start, profile stop, dumpheap的可选参数都允许设置<code>--user </code>。目前市面上的绝大多数手机还是单用户模式，故可以忽略该参数，默认为当前用户。</p>
+<p>例如：启动id=10010的用户的指定service。</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">am startservice --<span class="hljs-keyword">user</span> <span class="hljs-title">10010</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h2><p>Intent的参数和flags较多，分为3种类型参数，常用参数，Extra参数，Flags参数</p>
+<h3 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h3><ul>
+<li><code>-a </code>: 指定Intent action， 实现原理Intent.setAction()；</li>
+<li><code>-n </code>: 指定组件名，格式为{包名}/.{主Activity名}，实现原理Intent.setComponent(）；</li>
+<li><code>-d </code>: 指定Intent data URI</li>
+<li><code>-t </code>: 指定Intent MIME Type</li>
+<li> <code>-c &lt;CATEGORY&gt; [-c &lt;CATEGORY&gt;] ...]:</code>:指定Intent category，实现原理Intent.addCategory()</li>
+<li><code>-p </code>: 指定包名，实现原理Intent.setPackage();</li>
+<li><code>-f </code>: 添加flags，实现原理Intent.setFlags(int )，紧接着的参数必须是int型；</li>
+</ul>
+<p>实例</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">am start -<span class="hljs-selector-tag">a</span> android<span class="hljs-selector-class">.intent</span><span class="hljs-selector-class">.action</span><span class="hljs-selector-class">.VIEW</span><br>am start -n com<span class="hljs-selector-class">.yuanhh</span>.app/<span class="hljs-selector-class">.MainActivity</span><br>am start -d <span class="hljs-attribute">content</span>://contacts/people/<span class="hljs-number">1</span><br>am start -t image/png<br>am start -c android<span class="hljs-selector-class">.intent</span><span class="hljs-selector-class">.category</span>.APP_CONTACTS<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="Extra参数"><a href="#Extra参数" class="headerlink" title="Extra参数"></a>Extra参数</h3><h4 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>-e/-es</th>
+<th>-esn</th>
+<th>-ez</th>
+<th>-ei</th>
+<th>-el</th>
+<th>-ef</th>
+<th>-eu</th>
+<th>-ecn</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>类型</td>
+<td>String</td>
+<td>(String)null</td>
+<td>boolean</td>
+<td>int</td>
+<td>long</td>
+<td>float</td>
+<td>uri</td>
+<td>component</td>
+</tr>
+</tbody></table>
+<p>比如参数es是Extra String首字母简称，实例：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">am</span> start -n <span class="hljs-keyword">com</span>.yuanhh.app/.MainActivity -es website gityuan.<span class="hljs-keyword">com</span><br></code></pre></td></tr></table></figure>
+
+<p>此处<code>-es website gityuan.com</code>，等价于Intent.putExtra(“website”, “gityuan.com”);</p>
+<h4 id="数组类型"><a href="#数组类型" class="headerlink" title="数组类型"></a>数组类型</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>-esa</th>
+<th>-eia</th>
+<th>-ela</th>
+<th>-efa</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数组类型</td>
+<td>String[]</td>
+<td>int[]</td>
+<td>long[]</td>
+<td>float[]</td>
+</tr>
+</tbody></table>
+<p>比如参数eia，是Extra int array首字母简称，多个value值之间以逗号隔开.。</p>
+<p>实例：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">am</span> start -n com.yuanhh.app/.MainActivity -ela weekday <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+
+<p>此处<code>-ela weekday 1,2,3,4,5</code>，等价于Intent.putExtra(“weekday”, new int[]{1,2,3,4,5});</p>
+<h4 id="ArrayList类型"><a href="#ArrayList类型" class="headerlink" title="ArrayList类型"></a>ArrayList类型</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>-esal</th>
+<th>-eial</th>
+<th>-elal</th>
+<th>-efal</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>List类型</td>
+<td>String</td>
+<td>int</td>
+<td>long</td>
+<td>float</td>
+</tr>
+</tbody></table>
+<p>比如参数efal，是Extra float Array List首字母简称，多个value值之间以逗号隔开。</p>
+<p>实例：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">am</span> start -n com.yuanhh.app/.MainActivity -efal nums <span class="hljs-number">1</span>.<span class="hljs-number">2</span>,<span class="hljs-number">2</span>.<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<p>此处<code>-efal nums 1.2,2.2</code>，等价于先构造ArrayList变量，再通过putExtra放入第二个参数。</p>
+<h3 id="Flags参数"><a href="#Flags参数" class="headerlink" title="Flags参数"></a>Flags参数</h3><p>在参数类型1中，提到有<code>-f </code>，是通过<code>Intent.setFlags(int )</code>方法，来设置Intent的flags.本小节也是关于flags，是通过<code>Intent.addFlags(int )</code>方法。如下所示，所有的flags参数。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs json">[--grant-read-uri-permission] [--grant-write-uri-permission]<br>[--grant-persistable-uri-permission] [--grant-prefix-uri-permission]<br>[--debug-log-resolution]<br>[--exclude-stopped-packages] [--include-stopped-packages]<br>[--activity-brought-to-front] [--activity-clear-top]<br>[--activity-clear-when-task-reset] [--activity-exclude-from-recents]<br>[--activity-launched-from-history] [--activity-multiple-task]<br>[--activity-no-animation] [--activity-no-history]<br>[--activity-no-user-action] [--activity-previous-is-top]<br>[--activity-reorder-to-front] [--activity-reset-task-if-needed]<br>[--activity-single-top] [--activity-clear-task]<br>[--activity-task-on-home]<br>[--receiver-registered-only] [--receiver-replace-pending]<br></code></pre></td></tr></table></figure>
+
+<p>例如，发送action=”broadcast.demo”的广播，并且对于forceStopPackage()的应用不允许接收该广播，命令如下：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">am broadcast -<span class="hljs-keyword">a</span> broadcast.demo <span class="hljs-comment">--exclude-stopped-packages</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>www.jianshu.com<span class="hljs-regexp">/p/</span>ea84febaa7bd<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/android/">android</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/android/">android</a>
+                    
+                      <a class="hover-with-bg" href="/tags/adb/">adb</a>
+                    
+                      <a class="hover-with-bg" href="/tags/am/">am</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/22/adb%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">adb设置代理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/21/IOS13-3-1-%E8%B6%8A%E7%8B%B1%E5%90%8E%E8%AE%BE%E7%BD%AE%E4%B8%AD%E6%9C%AA%E6%98%BE%E7%A4%BA%E8%B6%8A%E7%8B%B1%E6%8F%92%E4%BB%B6/">
+                        <span class="hidden-mobile">IOS13.3.1 越狱后设置中未显示越狱插件</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
