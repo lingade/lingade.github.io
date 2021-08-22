@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>存储芯片 - Cola&#39;S Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Cola'S Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="存储芯片">
+              
+                存储芯片
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-22 23:16" pubdate>
+        2021年8月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      776 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      8
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">存储芯片</h1>
+            
+            <div class="markdown-body">
+              <h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><p> CE：片选，大致来说，一个DIE(<strong>die:晶圆上的一个小块，就是一个晶片晶圆体，学名叫做die，封装后就成为一个颗粒</strong>)有一个CE，多CE的 单片闪存，就是多管芯的闪存，相当于一片闪存那么大的地方，装下了不止一片闪存，特别是BGA的板子，能实现单片双通道，就是这个原理。</p>
+<p>通道数：通道数取决于主控IC的设计，一般现在的3.0板子都是双通道板子(还有坑爹的916单通道),也就是说支持双通道需要：主控的支持加上电路板的设计。理论上通道数翻倍，速度翻倍，TSOP的板子，一般来说，一面就是一个通道，多管芯的 TSOP 闪存，一般也只能单通道。尽量双贴。</p>
+<p> DDR 、Toggle：它俩可以用约等于，”同步“，同步闪存 速度比 异步闪存快了很多，尽量选用支持 同步模式的 闪存，一般来说，DDR 需要在量产的时候勾选，但是Toggle 是 默认开启的，不需要特殊操作。<br>interleave ： 交错操作，简单的把U盘的存储过程分解，可以解释为：</p>
+<pre><code>第一步：数据发到存储总线、存储总线 到 NAND Flash；
+第二步就是反过来，interleave模式 就是 一个CE在 执行 第一步的时候，另一个CE 可以同时的 执行第二步，interleave 的等级，取决于 一个通道上的闪存的 CE数。
+</code></pre>
+<h2 id="东芝闪存-日本"><a href="#东芝闪存-日本" class="headerlink" title="东芝闪存(日本)"></a>东芝闪存(日本)</h2><p>东芝（Toshiba），是日本最大的半导体制造商，也是第二大综合电机制造商，隶属于三井集团。公司创立于1875年7月，原名东京芝浦电气株式会社，1939年由东京电气株式会社和芝浦制作所合并而成。</p>
+<h3 id="闪存命名规则"><a href="#闪存命名规则" class="headerlink" title="闪存命名规则"></a>闪存命名规则</h3> <img src="/2021/08/22/%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87/images/%E4%B8%9C%E8%8A%9D%E9%97%AA%E5%AD%98%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99.png" srcset="/img/loading.gif" lazyload class="">
+
+ <img src="/2021/08/22/%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87/images/%E4%B8%9C%E8%8A%9D%E9%97%AA%E5%AD%98%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%991.png" srcset="/img/loading.gif" lazyload class="">
+
+
+<h4 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h4><p>对于东芝闪存来说，所有闪存部件都以字母T开头，分为TC58和TH58两种，前者代表单芯片封装（颗粒内只有一个闪存die），后者代表多芯片封装（颗粒内有多于1个die）。</p>
+<p>五位“T”代表闪存接口类型为Toggle：一种由东芝和三星领导的闪存接口标准，区别于美光和海力士提出的ONFI标准。</p>
+<p>第六位的“F”代表闪存工作的Vcc电压为2.35V<del>3.6V、VccQ电压为2.7V</del>3.6V或1.7V~1.95V。</p>
+<p>第七和第八位需要连同在一起来看，代表闪存颗粒的容量，T0对应的是1T比特，也就是128GB。</p>
+<p>第九位的“T“代表8 Level（3bit/cell），即TLC类型。</p>
+<p>第十位的2代表Page页大小为16KB。</p>
+<p>第11和第12位连在一起表达封装形式，TA表示使用无铅、无卤素环保工艺的TSOP封装。右数倒数第二位的“2”代表单闪存通道、2个CE引脚。</p>
+<h2 id="旺宏MXIC-中国台湾"><a href="#旺宏MXIC-中国台湾" class="headerlink" title="旺宏MXIC(中国台湾)"></a>旺宏MXIC(中国台湾)</h2><p>MXIC 36nm NAND Flash，1GB闪存</p>
+ <img src="/2021/08/22/%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87/images/%E6%97%BA%E5%AE%8FFlash1.png" srcset="/img/loading.gif" lazyload class="">
+
+
+<h2 id="Foresee江波龙-中国深圳"><a href="#Foresee江波龙-中国深圳" class="headerlink" title="Foresee江波龙(中国深圳)"></a>Foresee江波龙(中国深圳)</h2><p>FORESEE 江波龙 FS33ND01GS108TFI0 1Gib NAND 闪存颗粒</p>
+ <img src="/2021/08/22/%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87/images/%E6%B1%9F%E6%B3%A2%E9%BE%99Flash1.png" srcset="/img/loading.gif" lazyload class="">
+
+<h2 id="ESMT晶豪科技-中国台湾"><a href="#ESMT晶豪科技-中国台湾" class="headerlink" title="ESMT晶豪科技(中国台湾)"></a>ESMT晶豪科技(中国台湾)</h2><p>晶豪ESMT M15T1G1664A，DDR3 1Gb 内存</p>
+ <img src="/2021/08/22/%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87/images/%E6%99%B6%E8%B1%AA%E7%A7%91%E6%8A%80Flash1.png" srcset="/img/loading.gif" lazyload class="">
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/IOT/">IOT</a>
+                    
+                      <a class="hover-with-bg" href="/tags/flash/">flash</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%97%AA%E5%AD%98/">闪存</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/22/IOT%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%80%BB%E7%BB%93/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">IOT渗透测试总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/22/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E6%B8%97%E9%80%8F/">
+                        <span class="hidden-mobile">邮件服务渗透</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

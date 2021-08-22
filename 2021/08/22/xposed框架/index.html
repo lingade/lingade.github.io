@@ -1,0 +1,573 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>xposed框架 - Cola&#39;S Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Cola'S Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="xposed框架">
+              
+                xposed框架
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-22 22:24" pubdate>
+        2021年8月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      82
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">xposed框架</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h2><p>hook是Windows中提供的一种用以替换DOS下“中断”的系统机制。每当特定的消息发出，在没有到达目的窗口前，钩子程序就先捕获该消息，亦即钩子函数先得到控制权。这时钩子函数即可以加工处理（改变）该消息，也可以不作处理而继续传递该消息，还可以强制结束消息的传递。</p>
+<p><strong>Xposed框架核心思想:在于将java层普通函数注册成本地JNI方法，以此来变相实现HOOk机制。</strong></p>
+<h3 id="1-1-核心思想"><a href="#1-1-核心思想" class="headerlink" title="1.1 核心思想"></a>1.1 核心思想</h3><p>一、Xposed框架的核心原理</p>
+<p>修改/system/bin/app-process程序。在android执行第一个程序zygote进程之前进行截获，改变执行流程，进入到自身的Main函数体内。Main函数执行体内主要完成以下四步流程：</p>
+<ol>
+<li>initNative(). 为了方便Xposed框架的native方法对上层Java方法的调用，在该部分对相关native方法进行初始化工作。</li>
+<li>initXbrigdeZygote().主要hook几个涉及到应用进程创建，启动的关键类。</li>
+<li>loadModules,读取系统中放置的hook模块，然后把该模块的路径写进conf/moudules.list中。</li>
+<li>Xposed框架加载完毕后，将执行权还给第一个程序zygote,完成正常的系统启动流程。<br>（XPOSED的安装器替换安卓系统的app_process文件，从而实现对系统的接管，通过回调模块的方式来达到不用修改APK就能改变其表现行为的目的。该框架比较成熟，对应的模块也非常多，常用的还有模拟地理位置，伪装手机设备信息等，脑洞是非常之大，基本上能想到的都能做到。）</li>
+</ol>
+<p>app_process其实是一个程序，存放在systen/bin目录下的，作用就是启动一个程序，启动zygote进程，所有App启动。app_process只要找到需要运行程序的main函数，也就是入口函数，然后执行，他不仅能执行C/C++程序，也可以执行Java程序。</p>
+<p>在Android中，zygote是整个系统创建新进程的核心进程。</p>
+<p>Android系统是基于Linux内核的，而在Linux系统中，所有的进程都是Zygoteinit进程的子孙进程，也就是说，所有的进程都是直接或者间接地由Zygoteinit进程fork出来的。</p>
+<p>由于Xposed框架Hook了Android的核心进程Zygote，而其他应用启动都是从Zygote进程fork而来，就够达到针对系统上所有的应用程序进程的Hook。</p>
+<h3 id="1-2-Xposed内部执行流程"><a href="#1-2-Xposed内部执行流程" class="headerlink" title="1.2 Xposed内部执行流程"></a>1.2 Xposed内部执行流程</h3><ul>
+<li><p>创建新应用，获取包名等信息。</p>
+</li>
+<li><p>调用XC_LoadPackage.callAll，依次执行各hook模块的代码。</p>
+</li>
+<li><p>如果有包名匹配的hook模块，则注册模块中要hook的方法为本地方法。</p>
+</li>
+<li><p>当该方被调用的时候，转移到本地xposedCallHandler。</p>
+</li>
+<li><p>xposedCallHandler回调上层handlerHookedMethod(因为加载的hook模块代码，一些变量都存储在java层)。</p>
+</li>
+<li><p>handlerHookedMethod执行加载的各hook模块</p>
+</li>
+</ul>
+<p>beforeHookedMethod 该方法在hook目标方法执行前调用，其中，参数param指的是目标方法的相关参数、回调、方法等信息</p>
+<p>afterHookedMethod该方法在hook目标方法执行后调用，其中，参数param指的是目标方法的相关参数、回调、方法等信息。</p>
+<p>Xposed运行多个模块对同一个方法进行hook时，框架就会根据Xposed模块的优先级来排序，在具有a.before、a.after、b.before、b.after的情    况下，运行的先后顺序如下：（a优先级高于b）</p>
+<p>before -&gt; b.before -&gt;originalMethod -&gt; b.after -&gt; a.after</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs">1、如何Hook静态变量<br>2、如何Hook构造方法<br>3、如何Hook复杂参数的方法<br>4、如何替换函数执行内容<br>5、如何Hook内部类中的函数<br>6、如何Hook匿名类的函数<br>7、如何获取调用对象去调用函数，或者新建新建示例去调用方法<br></code></pre></td></tr></table></figure>
+
+<p> 学会这些方法，在结合逆向smail的一些知识，应该可以满足大多数java层的hook了。</p>
+<h2 id="2-API"><a href="#2-API" class="headerlink" title="2. API"></a>2. API</h2><ol>
+<li><p>IXposedHookLoadPackage</p>
+<p>方法: handleLoadPackage,这个方法用于在加载应用程序的包的时候执行用户的操作</p>
+<p>参数说明: final LoadPackageParam lpparam 这个参数包含了加载的应用程序的一些基本信息.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java">方法: findAndHookMethod,这是一个辅助方法，可以通过静态导入使用<br><br>参数说明: findAndHookMethod(Class&lt;?&gt; clazz,  ClassLoader，  methodName, Object…，  parameterTypesAndCallback )<br><br><br>Class&lt;?&gt; clazz, <span class="hljs-comment">//需要 Hook 的类名;</span><br><br>ClassLoader，<span class="hljs-comment">//类加载器，可以设置为 null String;</span><br><br>methodName, <span class="hljs-comment">//需要 Hook 的方法名;</span><br><br>Object…，<span class="hljs-comment">//对象类型;  </span><br><br>parameterTypesAndCallback <span class="hljs-comment">//回调方法</span><br></code></pre></td></tr></table></figure></li>
+<li><p>XposedBridge</p>
+<p>方法: log（）,打日志。</p>
+<p>该方法可以将 log 信息以及 Throwable 抛出的异常信息输出到标准的logcat 以及/data/xposed/debug.log 这个文件中 </p>
+<p>无参方法: hookAllMethods/hookAllConstructors，该方法可以用来 hook 某个类中的所有方法或者构造函数，但是不同的Rom（非Android原生 Rom）会有不同的变种。</p>
+</li>
+<li><p>XC_LoadPackage.LoadPackageParam</p>
+<table>
+<thead>
+<tr>
+<th>fields</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>packageName</td>
+<td>String</td>
+<td>应用包名</td>
+</tr>
+<tr>
+<td>processName</td>
+<td>String</td>
+<td>应用加载后的进程名</td>
+</tr>
+<tr>
+<td>classLoader</td>
+<td>ClassLoader</td>
+<td>应用的classloader</td>
+</tr>
+<tr>
+<td>appInfo</td>
+<td>ApplicationInfo</td>
+<td>应用的信息，包括verisonCode，uid等</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<ol start="5">
+<li><p>IXposedHookInitPackageResources</p>
+<p>XposedHookInitPackageResources的resparam参数有以下两个字段</p>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>packageName</td>
+<td>String</td>
+<td>应用包名</td>
+</tr>
+<tr>
+<td>res</td>
+<td>XResources</td>
+<td>资源相关</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<ol start="6">
+<li><p>XposedHelpers</p>
+<ul>
+<li><p>查找类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//className  完整类名，classLoader 类加载器（app应用的类加载器）</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Class&lt;?&gt; findClass(String className, ClassLoader classLoader)<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Class&lt;?&gt; findClassIfExists(String className, ClassLoader classLoader)<br></code></pre></td></tr></table></figure></li>
+<li><p>查找字段</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// clazz 通过findClass获取,调用findFieldRecursiveImpl获取</span><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Field <span class="hljs-title">findFieldRecursiveImpl</span><span class="hljs-params">(Class&lt;?&gt; clazz, String fieldName)</span> <span class="hljs-keyword">throws</span> NoSuchFieldException </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">return</span> clazz.getDeclaredField(fieldName);<br>        &#125; <span class="hljs-keyword">catch</span> (NoSuchFieldException e) &#123;<br>            <span class="hljs-keyword">while</span> (<span class="hljs-keyword">true</span>) &#123;<br>                clazz = clazz.getSuperclass();<br>                <span class="hljs-keyword">if</span> (clazz == <span class="hljs-keyword">null</span> || clazz.equals(Object.class))<br>                    <span class="hljs-keyword">break</span>;<br><br>                <span class="hljs-keyword">try</span> &#123;<br>                    <span class="hljs-keyword">return</span> clazz.getDeclaredField(fieldName);<br>                &#125; <span class="hljs-keyword">catch</span> (NoSuchFieldException ignored) &#123;&#125;<br>            &#125;<br>            <span class="hljs-keyword">throw</span> e;<br>        &#125;<br>    &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Field <span class="hljs-title">findFirstFieldByExactType</span><span class="hljs-params">(Class&lt;?&gt; clazz, Class&lt;?&gt; type)</span></span><br><span class="hljs-function"></span><br><span class="hljs-function"><span class="hljs-comment">//获取实例字段的引用</span></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title">getObjectField</span><span class="hljs-params">(Object obj, String fieldName)</span></span><br><span class="hljs-function"></span><br><span class="hljs-function"> <span class="hljs-comment">/*获取Field的方法，具体实现是在findFieldRecursiveImpl方法里面获取，外部不能访问，Field是通过getDeclaredField获取，所以只能获取static类型的字段。indFirstFieldByExactType()方法是匹配Field的classType,如果类型一样，则返回该字段，该方法的局限性是只能获取到第一个匹配到的字段，后面相同类型的无法获取*/</span></span><br><span class="hljs-function"></span><br></code></pre></td></tr></table></figure></li>
+<li><p>设置字段</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setXXXField</span><span class="hljs-params">(Object obj, String fieldName, XXX value)</span></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setStaticXXXField</span><span class="hljs-params">(Class&lt;?&gt; clazz, String fieldName, XXX value)</span></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Xxx <span class="hljs-title">getXxxField</span><span class="hljs-params">(Object obj, String fieldName)</span></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Xxx <span class="hljs-title">getStaticXxxField</span><span class="hljs-params">(Class&lt;?&gt; clazzj, String fieldName)</span></span><br></code></pre></td></tr></table></figure></li>
+<li><p>查找方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Method <span class="hljs-title">findMethodExact</span><span class="hljs-params">(Class&lt;?&gt; clazz, String methodName, Object... parameterTypes)</span> </span><br><span class="hljs-function"></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Method <span class="hljs-title">findMethodExactIfExists</span><span class="hljs-params">(Class&lt;?&gt; clazz, String methodName, Object... parameterTypes)</span></span><br></code></pre></td></tr></table></figure></li>
+<li><p>调用方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title">callMethod</span><span class="hljs-params">(Object obj, String methodName, Object... args)</span></span><br><span class="hljs-function"></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title">callMethod</span><span class="hljs-params">(Object obj, String methodName, Class&lt;?&gt;[] parameterTypes, Object... args)</span></span><br><span class="hljs-function"></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title">callStaticMethod</span><span class="hljs-params">(Class&lt;?&gt; clazz, String methodName, Object... args)</span></span><br><span class="hljs-function"></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title">callStaticMethod</span><span class="hljs-params">(Class&lt;?&gt; clazz, String methodName, Class&lt;?&gt;[] parameterTypes, Object... args)</span></span><br></code></pre></td></tr></table></figure></li>
+<li><p>调用实例/静态Method，返回值为方法返回值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> XC_MethodHook.<span class="hljs-function">Unhook <span class="hljs-title">findAndHookMethod</span><span class="hljs-params">(Class&lt;?&gt; clazz, String methodName, Object... parameterTypesAndCallback)</span></span><br><span class="hljs-function"></span><br><span class="hljs-function"><span class="hljs-comment">//通过className和classLoader获取Class&lt;?&gt; ，再调用上面的方法</span></span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> XC_MethodHook.Unhook <span class="hljs-title">findAndHookMethod</span><span class="hljs-params">(String className, ClassLoader classLoader, String methodName, Object... parameterTypesAndCallback)</span></span><br><span class="hljs-function"></span><br></code></pre></td></tr></table></figure>
+
+<p>Hook方法的一个方法，其中parameterTypesAndCallback和findConstructorExact方法的parameterTypes类似，不过这里可变数组最后一个对象必须为XC_MethodHook对象或者其子类，前面的对象为参数的ClassType或者类字符串，在hook成功后，当调用hook的方法时，会在XC_MethodHook回调。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">XC_MethodHook</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">XCallback</span> </span>&#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                <span class="hljs-comment">//方法调用前的回调</span><br>                <span class="hljs-keyword">super</span>.beforeHookedMethod(param);<br>            &#125;<br><br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                <span class="hljs-comment">//方法调用后的回调</span><br>                <span class="hljs-keyword">super</span>.afterHookedMethod(param);<br>            &#125;<br>        &#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">XC_MethodReplacement</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">XC_MethodHook</span></span>&#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">protected</span> Object <span class="hljs-title">replaceHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                <span class="hljs-comment">//带返回值的方法执行时调用</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>            &#125;<br>        &#125;<br>    <br></code></pre></td></tr></table></figure></li>
+<li><p>hook构造器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Constructor&lt;?&gt; findConstructorExact(Class&lt;?&gt; clazz, Object... parameterTypes)<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Constructor&lt;?&gt; findConstructorExactIfExists(Class&lt;?&gt; clazz, Object... parameterTypes) <br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Constructor&lt;?&gt; findConstructorBestMatch(Class&lt;?&gt; clazz, Class&lt;?&gt;... parameterTypes)<br>  <br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*获取Constructor方法，其中Object... parameterTypes 是一个Object的可变数组，parameterTypes由Class&lt;?&gt;的可变数组 ，完整类名字符串和XC_MethodHook抽象类 组成。XC_MethodHook为可选参数，并且总在最后一个。XC_MethodHook在这里并无实际意义，Class&lt;?&gt;[] 为相应的构造函数的类型，通过一个例子简单说明，有一个T类，构造函数有三个参数，可以用以下几种方式获取：*/</span><br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span> </span>&#123;<br>    String str;<br>    Context mContext;<br>    View mView;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">T</span><span class="hljs-params">(String str, Context context, View view)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.str = str;<br>        mContext = context;<br>        mView = view;<br><br>    &#125;<br><br>&#125;<br><br><span class="hljs-comment">//方式1：</span><br>Constructor constructor = XposedHelpers.findConstructorExact(clazz, String.class, Context.class, View.class);<br><br><span class="hljs-comment">//方式2：</span><br>Constructor constructor = XposedHelpers.findConstructorExact(T.class, String.class, <span class="hljs-string">&quot;android.content.Context&quot;</span>, View.class);<br><br><span class="hljs-comment">//方式3：（XC_MethodHook无实际意义）</span><br>Constructor constructor = XposedHelpers.findConstructorExact(T.class, String.class, <span class="hljs-string">&quot;android.content.Context&quot;</span>, View.class, <span class="hljs-keyword">new</span> XC_MethodHook() &#123;&#125;);<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="3-Hook加固APP"><a href="#3-Hook加固APP" class="headerlink" title="3. Hook加固APP"></a>3. Hook加固APP</h2><p>一.hook原理</p>
+<p>使用加固之后的应用的classloader会被换成其加固应用本身的，所以只需要在hook的时候把classloader换成壳的就可以了。</p>
+<p>二.具体操作和分析</p>
+<p>被加固的应用是可以反编译的，反编译之后dex里面只有很少的几个类，比较重要的就是壳入口这个类，可以在这个类里面的里面去获取context参数，然后就可以通过context获得到壳的类加载器，之后只需要用这个类加载器来hook就可以成功的hook到加固的app</p>
+<p>注：</p>
+<p>Android源码中<a target="_blank" rel="noopener" href="http://androidxref.com/7.1.2_r36/xref/frameworks/base/core/java/android/app/Application.java#188">android.app.Applocation 188行</a>,attachBaseContext方法在Application的attach方法被调用，基本上所有的壳都会在attachBaseContext里完成代码解密并且内存加载dex，所以在<br>attachBaseContext执行之后，拿到的classloader就已经加载过加固dex的classloader。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java">               XposedHelpers.findAndHookMethod(<span class="hljs-string">&quot;com.tencent.StubShell.TxAppEntry&quot;</span>, loadPackageParam.classLoader,<br>                    <span class="hljs-string">&quot;attachBaseContext&quot;</span>, Context.class, <span class="hljs-keyword">new</span> XC_MethodHook() &#123;<br>                        <span class="hljs-meta">@Override</span><br>                        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                            <span class="hljs-keyword">super</span>.afterHookedMethod(param);<br>                            <span class="hljs-comment">//获取到Context对象，通过这个对象来获取classloader</span><br>                            Context context = (Context) param.args[<span class="hljs-number">0</span>];<br>                            <span class="hljs-comment">//获取classloader，之后hook加固后的就使用这个classloader</span><br>                            ClassLoader classLoader =context.getClassLoader();<br>                            <span class="hljs-comment">//下面就是强classloader修改成壳的classloader就可以成功的hook了</span><br>                            XposedHelpers.findAndHookMethod(<span class="hljs-string">&quot;xxx.xxx.xxx.xxx&quot;</span>, classLoader, <span class="hljs-string">&quot;xxx&quot;</span>, String.class, String.class, <span class="hljs-keyword">new</span> XC_MethodHook() &#123;<br>                                <span class="hljs-meta">@Override</span><br>                                <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                                    <span class="hljs-keyword">super</span>.beforeHookedMethod(param);<br>                                    LogUtils.log( <span class="hljs-string">&quot;key： &quot;</span> + (String) param.args[<span class="hljs-number">0</span>]);<br>                                    LogUtils.log( <span class="hljs-string">&quot;value： &quot;</span> + (String) param.args[<span class="hljs-number">1</span>]);<br>                                    param.setResult((String) param.args[<span class="hljs-number">1</span>]);<br>                                &#125;<br>                            &#125;);<br>                       <br>        &#125;<br> <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="3-获取所有类"><a href="#3-获取所有类" class="headerlink" title="3. 获取所有类"></a>3. 获取所有类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RequiresApi(api = Build.VERSION_CODES.KITKAT)</span><br><span class="hljs-keyword">public</span> String[] getClass(ClassLoader classLoader)&#123;<br>    <span class="hljs-keyword">int</span> i;<br>    <span class="hljs-keyword">int</span> j;<br>    <span class="hljs-keyword">int</span> k;<br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-comment">//取得PathClassLoader的pathList的属性</span><br>        Field pathList = classLoader.getClass().getSuperclass().getDeclaredField(<span class="hljs-string">&quot;pathList&quot;</span>);<br>        pathList.setAccessible(<span class="hljs-keyword">true</span>);<br>      <span class="hljs-comment">// 取得PathClassLoader的pathList的属性真实值（得到一个DexPathList对象）</span><br>        Object dexPathListObj=pathList.get(classLoader);<br>      <span class="hljs-comment">//获得DexPathList中的dexElements 属性</span><br>        Field dexElementsField =         	dexPathListObj.getClass().getDeclaredField(<span class="hljs-string">&quot;dexElements&quot;</span>);<br>        dexElementsField.setAccessible(<span class="hljs-keyword">true</span>);<br>      <span class="hljs-comment">// 获得DexPathList对象中dexElements 属性的真实值</span><br>        Object dexElements_objs=dexElementsField.get(dexPathListObj);<br><br>            <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;Array.getLength(dexElements_objs);i++)&#123;<br>                Object dexElements_obj=Array.get(dexElements_objs,i);<br>   Field dexfileField =dexElements_obj.getClass().getDeclaredField(<span class="hljs-string">&quot;dexFile&quot;</span>);<br>                dexfileField.setAccessible(<span class="hljs-keyword">true</span>);<br>                Object clz=dexfileField.get(dexElements_obj);<br>                Method[] methods=clz.getClass().getDeclaredMethods();<br>                <span class="hljs-keyword">for</span> (j=<span class="hljs-number">0</span>;j&lt;methods.length;j++)&#123;<br>                    Method method=methods[j];<br>                    <span class="hljs-keyword">if</span> (method.getName().equalsIgnoreCase(<span class="hljs-string">&quot;getClassNameList&quot;</span>))&#123;<br>                        method.setAccessible(<span class="hljs-keyword">true</span>);<br>                        Field mCookieField = clz.getClass().getDeclaredField(<span class="hljs-string">&quot;mCookie&quot;</span>);<br>                        mCookieField.setAccessible(<span class="hljs-keyword">true</span>);<br>                        Object classoes_bj=method.invoke(clz,mCookieField.get(clz));<br>                        <span class="hljs-keyword">int</span> classes_len=Array.getLength(classoes_bj);<br>                        String[] classes=<span class="hljs-keyword">new</span> String[classes_len];<br>                        <span class="hljs-keyword">for</span> (k=<span class="hljs-number">0</span>;k&lt;classes_len;k++)&#123;<br>                            classes[k]= (String) Array.get(classoes_bj,k);<br>                        &#125;<br>                       <span class="hljs-keyword">return</span> classes;<br>                    &#125;<br>                &#125;<br>            &#125;<br> &#125; <span class="hljs-keyword">catch</span> (NoSuchFieldException | IllegalAccessException | InvocationTargetException e) &#123;<br>        e.printStackTrace();<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> String[<span class="hljs-number">0</span>];<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="4-Hook所有方法"><a href="#4-Hook所有方法" class="headerlink" title="4. Hook所有方法"></a>4. Hook所有方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.xposed.enumeratorClassHook;<br><br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.lang.reflect.Method;<br><span class="hljs-keyword">import</span> java.lang.reflect.Modifier;<br><br><span class="hljs-keyword">import</span> de.robv.android.xposed.IXposedHookLoadPackage;<br><span class="hljs-keyword">import</span> de.robv.android.xposed.XC_MethodHook;<br><span class="hljs-keyword">import</span> de.robv.android.xposed.XC_MethodHook.MethodHookParam;<br><span class="hljs-keyword">import</span> de.robv.android.xposed.XposedBridge;<br><span class="hljs-keyword">import</span> de.robv.android.xposed.XposedHelpers;<br><span class="hljs-keyword">import</span> de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;<br><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> de.robv.android.xposed.XposedHelpers.findAndHookMethod;<br><br><span class="hljs-comment">// 自定义的回调函数接口</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Module</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IXposedHookLoadPackage</span> </span>&#123;<br><br>    <span class="hljs-keyword">static</span> String strClassName = <span class="hljs-string">&quot;&quot;</span>;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handleLoadPackage</span><span class="hljs-params">(LoadPackageParam lpparam)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br><br>        <span class="hljs-comment">// 被Hook操作的目标Android应用的包名，进行Hook操作的过滤</span><br>        String strPackageName = <span class="hljs-string">&quot;com.guji.loveparty&quot;</span>;<br>        <span class="hljs-keyword">if</span> (lpparam.packageName.equals(strPackageName)) &#123;<br><br>            XposedBridge.log(<span class="hljs-string">&quot;Loaded App:&quot;</span> + lpparam.packageName);<br>  findAndHookMethod(ClassLoader.class, <span class="hljs-string">&quot;loadClass&quot;</span>, String.class, <span class="hljs-keyword">new</span> XC_MethodHook() &#123;<br><br>                <span class="hljs-comment">// 在类方法loadClass执行之后执行的代码</span><br>                <span class="hljs-meta">@Override</span><br>                <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br><br>                    <span class="hljs-comment">// 参数的检查</span><br>                    <span class="hljs-keyword">if</span> (param.hasThrowable()) &#123;<br>                        <span class="hljs-keyword">return</span>;<br>                    &#125;<br><br>                    <span class="hljs-comment">// 获取指定名称的类加载之后的Class&lt;?&gt;</span><br>                    Class&lt;?&gt; clazz = (Class&lt;?&gt;) param.getResult();<br>                    <span class="hljs-comment">// 获取加载的指定类的名称</span><br>                    String strClazz = clazz.getName();<br>                    XposedBridge.log(<span class="hljs-string">&quot;LoadClass : &quot;</span>+strClazz);<br>                    <span class="hljs-comment">// 所有的类都是通过loadClass方法加载的</span><br>                    <span class="hljs-comment">// 过滤掉Android系统的类以及一些常见的java类库</span><br>                    <span class="hljs-keyword">if</span> (!strClazz.startsWith(<span class="hljs-string">&quot;android.&quot;</span>) <br>                        &amp;&amp; !strClazz.startsWith(<span class="hljs-string">&quot;.system&quot;</span>)<br>                        &amp;&amp; !strClazz.startsWith(<span class="hljs-string">&quot;java.&quot;</span>) <br>                        &amp;&amp; !strClazz.startsWith(<span class="hljs-string">&quot;org.&quot;</span>) <br>                        &amp;&amp; !strClazz.contains(<span class="hljs-string">&quot;umeng.&quot;</span>)<br>                        &amp;&amp; !strClazz.contains(<span class="hljs-string">&quot;com.google&quot;</span>)<br>                        &amp;&amp; !strClazz.contains(<span class="hljs-string">&quot;.alipay&quot;</span>)<br>                        &amp;&amp; !strClazz.contains(<span class="hljs-string">&quot;.netease&quot;</span>)<br>                        &amp;&amp; !strClazz.contains(<span class="hljs-string">&quot;.alibaba&quot;</span>)<br>                        &amp;&amp; !strClazz.contains(<span class="hljs-string">&quot;.pgyersdk&quot;</span>)<br>                        &amp;&amp; !strClazz.contains(<span class="hljs-string">&quot;.daohen&quot;</span>)<br>                        &amp;&amp; !strClazz.contains(<span class="hljs-string">&quot;.bugly&quot;</span>)<br>                        &amp;&amp; !strClazz.contains(<span class="hljs-string">&quot;mini&quot;</span>)<br>                        &amp;&amp; !strClazz.contains(<span class="hljs-string">&quot;xposed&quot;</span>)) &#123;<br>                        <span class="hljs-comment">// 或者只Hook加密算法类、网络数据传输类、按钮事件类等协议分析的重要类</span><br><br>                        <span class="hljs-comment">// 同步处理一下</span><br>                        <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>.getClass()) &#123;<br><br>                            <span class="hljs-comment">// 获取被Hook的目标类的名称</span><br>                            strClassName = strClazz;<br>                            <span class="hljs-comment">//XposedBridge.log(&quot;HookedClass : &quot;+strClazz);</span><br>                            <span class="hljs-comment">// 获取到指定名称类声明的所有方法的信息</span><br>                            Method[] m = clazz.getDeclaredMethods();<br>                            <span class="hljs-comment">// 打印获取到的所有的类方法的信息</span><br>                            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; m.length; i++) &#123;<br><br>  											<span class="hljs-comment">// 过滤掉指定名称类中声明的抽象方法</span><br>                                <span class="hljs-keyword">if</span> (!Modifier.isAbstract(m[i].getModifiers())  <br>                                    <span class="hljs-comment">// 过滤掉指定名称类中声明的Native方法</span><br>                                     &amp;&amp; !Modifier.isNative(m[i].getModifiers())  <br>                                    <span class="hljs-comment">// 过滤掉指定名称类中声明的接口方法</span><br>                                     &amp;&amp; !Modifier.isInterface(m[i].getModifiers())  <br>                                     ) &#123;<br><br>                                    <span class="hljs-comment">// 对指定名称类中声明的非抽象方法进行java Hook处理</span><br>                                    XposedBridge.hookMethod(m[i], <span class="hljs-keyword">new</span> XC_MethodHook() &#123;<br><br>                                        <span class="hljs-comment">// 被java Hook的类方法执行完毕之后，打印log日志</span><br>                                        <span class="hljs-meta">@Override</span><br>              <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br><br>                                            <span class="hljs-comment">// 打印被java Hook的类方法的名称和参数类型等信息</span><br> 						XposedBridge.log(<span class="hljs-string">&quot;HOOKED METHOD: &quot;</span>+strClassName+<span class="hljs-string">&quot;-&quot;</span>+param.method.toString());<br>                                        &#125;<br>                                    &#125;);<br>                                &#125;<br>                            &#125;<br>                        &#125;<br><br>                    &#125;<br>                &#125;<br>            &#125;);<br>        &#125;<br><br>    &#125;<br><br>    <span class="hljs-comment">// 获取指定名称的类声明的类成员变量、类方法、内部类的信息</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dumpClass</span><span class="hljs-params">(Class&lt;?&gt; actions)</span> </span>&#123;<br><br>        XposedBridge.log(<span class="hljs-string">&quot;Dump class &quot;</span> + actions.getName());<br>        XposedBridge.log(<span class="hljs-string">&quot;Methods&quot;</span>);<br><br>        <span class="hljs-comment">// 获取到指定名称类声明的所有方法的信息</span><br>        Method[] m = actions.getDeclaredMethods();<br>        <span class="hljs-comment">// 打印获取到的所有的类方法的信息</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; m.length; i++) &#123;<br><br>            XposedBridge.log(m[i].toString());<br>        &#125;<br><br>        XposedBridge.log(<span class="hljs-string">&quot;Fields&quot;</span>);<br>        <span class="hljs-comment">// 获取到指定名称类声明的所有变量的信息</span><br>        Field[] f = actions.getDeclaredFields();<br>        <span class="hljs-comment">// 打印获取到的所有变量的信息</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; f.length; j++) &#123;<br><br>            XposedBridge.log(f[j].toString());<br>        &#125;<br><br>        XposedBridge.log(<span class="hljs-string">&quot;Classes&quot;</span>);<br>        <span class="hljs-comment">// 获取到指定名称类中声明的所有内部类的信息</span><br>        Class&lt;?&gt;[] c = actions.getDeclaredClasses();<br>        <span class="hljs-comment">// 打印获取到的所有内部类的信息</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; c.length; k++) &#123;<br><br>            XposedBridge.log(c[k].toString());<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="5、XposedHook程序源码"><a href="#5、XposedHook程序源码" class="headerlink" title="5、XposedHook程序源码"></a>5、XposedHook程序源码</h2><p>HookDemo.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span></span>&#123;<br>    <span class="hljs-keyword">int</span> anonymoutInt = <span class="hljs-number">500</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">eatFunc</span><span class="hljs-params">(String value)</span></span>;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HookDemo</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> String Tag = <span class="hljs-string">&quot;HookDemo&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span>  <span class="hljs-keyword">int</span> staticInt = <span class="hljs-number">100</span>;<br>    <span class="hljs-keyword">public</span>  <span class="hljs-keyword">int</span> publicInt = <span class="hljs-number">200</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> privateInt = <span class="hljs-number">300</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">HookDemo</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">this</span>(<span class="hljs-string">&quot;NOHook&quot;</span>);<br>        Log.d(Tag, <span class="hljs-string">&quot;HookDemo() was called|||&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">HookDemo</span><span class="hljs-params">(String str)</span></span>&#123;<br>        Log.d(Tag, <span class="hljs-string">&quot;HookDemo(String str) was called|||&quot;</span> + str);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">hookDemoTest</span><span class="hljs-params">()</span></span>&#123;<br>        Log.d(Tag, <span class="hljs-string">&quot;staticInt = &quot;</span> + staticInt);<br>        Log.d(Tag, <span class="hljs-string">&quot;PublicInt = &quot;</span> + publicInt);<br>        Log.d(Tag, <span class="hljs-string">&quot;privateInt = &quot;</span> + privateInt);<br>        publicFunc(<span class="hljs-string">&quot;NOHook&quot;</span>);<br>        Log.d(Tag, <span class="hljs-string">&quot;PublicInt = &quot;</span> + publicInt);<br>        Log.d(Tag, <span class="hljs-string">&quot;privateInt = &quot;</span> + privateInt);<br>        privateFunc(<span class="hljs-string">&quot;NOHook&quot;</span>);<br>        staticPrivateFunc(<span class="hljs-string">&quot;NOHook&quot;</span>);<br><br>        String[][] str = <span class="hljs-keyword">new</span> String[<span class="hljs-number">1</span>][<span class="hljs-number">2</span>];<br>        Map map = <span class="hljs-keyword">new</span> HashMap&lt;String, String&gt;();<br>        map.put(<span class="hljs-string">&quot;key&quot;</span>, <span class="hljs-string">&quot;value&quot;</span>);<br>        ArrayList arrayList = <span class="hljs-keyword">new</span> ArrayList();<br>        arrayList.add(<span class="hljs-string">&quot;listValue&quot;</span>);<br>        complexParameterFunc(<span class="hljs-string">&quot;NOHook&quot;</span>, str, map, arrayList);<br><br>        repleaceFunc();<br>        anonymousInner(<span class="hljs-keyword">new</span> Animal() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">eatFunc</span><span class="hljs-params">(String value)</span> </span>&#123;<br>                Log.d(Tag, <span class="hljs-string">&quot;eatFunc(String value)  was called|||&quot;</span> + value);<br>                Log.d(Tag, <span class="hljs-string">&quot;anonymoutInt =  &quot;</span> + anonymoutInt);<br>            &#125;<br>        &#125;, <span class="hljs-string">&quot;NOHook&quot;</span>);<br><br>        InnerClass innerClass = <span class="hljs-keyword">new</span> InnerClass();<br>        innerClass.InnerFunc(<span class="hljs-string">&quot;NOHook&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">publicFunc</span><span class="hljs-params">(String value)</span></span>&#123;<br>        Log.d(Tag, <span class="hljs-string">&quot;publicFunc(String value) was called|||&quot;</span> + value);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">privateFunc</span><span class="hljs-params">(String value)</span></span>&#123;<br>        Log.d(Tag, <span class="hljs-string">&quot;privateFunc(String value) was called|||&quot;</span> + value);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">staticPrivateFunc</span><span class="hljs-params">(String value)</span></span>&#123;<br>        Log.d(<span class="hljs-string">&quot;HookDemo&quot;</span>, <span class="hljs-string">&quot;staticPrivateFunc(Strin value) was called|||&quot;</span> + value);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">complexParameterFunc</span><span class="hljs-params">(String value, String[][] str, Map&lt;String,String&gt; map, ArrayList arrayList)</span></span><br><span class="hljs-function">    </span>&#123;<br>        Log.d(<span class="hljs-string">&quot;HookDemo&quot;</span>, <span class="hljs-string">&quot;complexParameter(Strin value) was called|||&quot;</span> + value);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">repleaceFunc</span><span class="hljs-params">()</span></span>&#123;<br>        Log.d(Tag, <span class="hljs-string">&quot;repleaceFunc will be replace|||&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">anonymousInner</span><span class="hljs-params">(Animal dog, String value)</span></span>&#123;<br>        Log.d(Tag, <span class="hljs-string">&quot;anonymousInner was called|||&quot;</span> + value);<br>        dog.eatFunc(<span class="hljs-string">&quot;NOHook&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">hideFunc</span><span class="hljs-params">(String value)</span></span>&#123;<br>        Log.d(Tag, <span class="hljs-string">&quot;hideFunc was called|||&quot;</span> + value);<br>    &#125;<br><br>    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InnerClass</span></span>&#123;<br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> innerPublicInt = <span class="hljs-number">10</span>;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> innerPrivateInt = <span class="hljs-number">20</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">InnerClass</span><span class="hljs-params">()</span></span>&#123;<br>            Log.d(Tag, <span class="hljs-string">&quot;InnerClass constructed func was called&quot;</span>);<br>        &#125;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InnerFunc</span><span class="hljs-params">(String value)</span></span>&#123;<br>            Log.d(Tag, <span class="hljs-string">&quot;InnerFunc(String value) was called|||&quot;</span> + value);<br>            Log.d(Tag, <span class="hljs-string">&quot;innerPublicInt = &quot;</span> + innerPublicInt);<br>            Log.d(Tag, <span class="hljs-string">&quot;innerPrivateInt = &quot;</span> + innerPrivateInt);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">XposedHook</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IXposedHookLoadPackage</span> </span>&#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handleLoadPackage</span><span class="hljs-params">(XC_LoadPackage.LoadPackageParam loadPackageParam)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>        <span class="hljs-keyword">if</span> (loadPackageParam.packageName.equals(<span class="hljs-string">&quot;com.example.xposedhooktarget&quot;</span>)) &#123;<br>            <span class="hljs-keyword">final</span> Class&lt;?&gt; clazz = XposedHelpers.findClass(<span class="hljs-string">&quot;com.example.xposedhooktarget.HookDemo&quot;</span>, loadPackageParam.classLoader);<br>            <span class="hljs-comment">//getClassInfo(clazz);</span><br><br>            <span class="hljs-comment">//不需要获取类对象，即可直接修改类中的私有静态变量staticInt</span><br>            XposedHelpers.setStaticIntField(clazz, <span class="hljs-string">&quot;staticInt&quot;</span>, <span class="hljs-number">99</span>);<br><br>            <span class="hljs-comment">//Hook无参构造函数，啥也不干。。。。</span><br>            XposedHelpers.findAndHookConstructor(clazz, <span class="hljs-keyword">new</span> XC_MethodHook() &#123;<br>                <span class="hljs-meta">@Override</span><br>                <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                    XposedBridge.log(<span class="hljs-string">&quot;Haha, HookDemo constructed was hooked&quot;</span> );<br>                    <span class="hljs-comment">//大坑，此时对象还没有建立，即不能获取对象，也不能修改非静态变量的值</span><br>                    <span class="hljs-comment">//XposedHelpers.setIntField(param.thisObject, &quot;publicInt&quot;, 199);</span><br>                    <span class="hljs-comment">//XposedHelpers.setIntField(param.thisObject, &quot;privateInt&quot;, 299);</span><br>                &#125;<br>            &#125;);<br><br>            <span class="hljs-comment">//Hook有参构造函数，修改参数</span><br>            XposedHelpers.findAndHookConstructor(clazz, String.class,  <span class="hljs-keyword">new</span> XC_MethodHook() &#123;<br>                <span class="hljs-meta">@Override</span><br>                <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                    param.args[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;Haha, HookDemo(str) are hooked&quot;</span>;<br>                &#125;<br>            &#125;);<br><br>            <span class="hljs-comment">//Hook有参构造函数，修改参数------不能使用XC_MethodReplacement()替换构造函数内容，</span><br>            <span class="hljs-comment">//XposedHelpers.findAndHookConstructor(clazz, String.class, new XC_MethodReplacement() &#123;</span><br>            <span class="hljs-comment">//    @Override</span><br>            <span class="hljs-comment">//    protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable &#123;</span><br>            <span class="hljs-comment">//        Log.d(&quot;HookDemo&quot; , &quot;HookDemo(str) was replace&quot;);</span><br>            <span class="hljs-comment">//    &#125;</span><br>            <span class="hljs-comment">//&#125;);</span><br><br>            <span class="hljs-comment">//Hook公有方法publicFunc，</span><br>            <span class="hljs-comment">// 1、修改参数</span><br>            <span class="hljs-comment">// 2、修改下publicInt和privateInt的值</span><br>            <span class="hljs-comment">// 3、再顺便调用一下隐藏函数hideFunc</span><br>            <span class="hljs-comment">//XposedHelpers.findAndHookMethod(&quot;com.example.xposedhooktarget.HookDemo&quot;, clazz.getClassLoader(), &quot;publicFunc&quot;, String.class, new XC_MethodHook()</span><br>            XposedHelpers.findAndHookMethod(clazz, <span class="hljs-string">&quot;publicFunc&quot;</span>, String.class, <span class="hljs-keyword">new</span> XC_MethodHook() &#123;<br>                <span class="hljs-meta">@Override</span><br>                <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                    param.args[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;Haha, publicFunc are hooked&quot;</span>;<br>                    XposedHelpers.setIntField(param.thisObject, <span class="hljs-string">&quot;publicInt&quot;</span>, <span class="hljs-number">199</span>);<br>                    XposedHelpers.setIntField(param.thisObject, <span class="hljs-string">&quot;privateInt&quot;</span>, <span class="hljs-number">299</span>);<br>                    <span class="hljs-comment">// 让hook的对象本身去执行流程</span><br>                    Method md = clazz.getDeclaredMethod(<span class="hljs-string">&quot;hideFunc&quot;</span>, String.class);<br>                    md.setAccessible(<span class="hljs-keyword">true</span>);<br>                    <span class="hljs-comment">//md.invoke(param.thisObject, &quot;Haha, hideFunc was hooked&quot;);</span><br>                    XposedHelpers.callMethod(param.thisObject, <span class="hljs-string">&quot;hideFunc&quot;</span>, <span class="hljs-string">&quot;Haha, hideFunc was hooked&quot;</span>);<br><br>                    <span class="hljs-comment">//实例化对象，然后再调用HideFunc方法</span><br>                    <span class="hljs-comment">//Constructor constructor = clazz.getConstructor();</span><br>                    <span class="hljs-comment">//XposedHelpers.callMethod(constructor.newInstance(), &quot;hideFunc&quot;, &quot;Haha, hideFunc was hooked&quot;);</span><br>                &#125;<br>            &#125;);<br><br>            <span class="hljs-comment">//Hook私有方法privateFunc，修改参数</span><br>            <span class="hljs-comment">//XposedHelpers.findAndHookMethod(&quot;com.example.xposedhooktarget.HookDemo&quot;, clazz.getClassLoader(), &quot;privateFunc&quot;, String.class, new XC_MethodHook()</span><br>            XposedHelpers.findAndHookMethod(clazz, <span class="hljs-string">&quot;privateFunc&quot;</span>, String.class, <span class="hljs-keyword">new</span> XC_MethodHook() &#123;<br>                <span class="hljs-meta">@Override</span><br>                <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                    param.args[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;Haha, privateFunc are hooked&quot;</span>;<br>                &#125;<br>            &#125;);<br><br>            <span class="hljs-comment">//Hook私有静态方法staticPrivateFunc, 修改参数</span><br>            XposedHelpers.findAndHookMethod(clazz, <span class="hljs-string">&quot;staticPrivateFunc&quot;</span>, String.class, <span class="hljs-keyword">new</span> XC_MethodHook() &#123;<br>                <span class="hljs-meta">@Override</span><br>                <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                    param.args[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;Haha, staticPrivateFunc are hooked&quot;</span>;<br>                &#125;<br>            &#125;);<br><br>            <span class="hljs-comment">//Hook复杂参数函数complexParameterFunc</span><br>            Class fclass1 = XposedHelpers.findClass(<span class="hljs-string">&quot;java.util.Map&quot;</span>, loadPackageParam.classLoader);<br>            Class fclass2 = XposedHelpers.findClass(<span class="hljs-string">&quot;java.util.ArrayList&quot;</span>, loadPackageParam.classLoader);<br>            XposedHelpers.findAndHookMethod(clazz, <span class="hljs-string">&quot;complexParameterFunc&quot;</span>, String.class,<br>                    <span class="hljs-string">&quot;[[Ljava.lang.String;&quot;</span>, fclass1, fclass2, <span class="hljs-keyword">new</span> XC_MethodHook() &#123;<br>                        <span class="hljs-meta">@Override</span><br>                        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                            param.args[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;Haha, complexParameterFunc are hooked&quot;</span>;<br>                        &#125;<br>                    &#125;);<br><br>            <span class="hljs-comment">//Hook私有方法repleaceFunc, 替换打印内容</span><br>            XposedHelpers.findAndHookMethod(clazz, <span class="hljs-string">&quot;repleaceFunc&quot;</span>, <span class="hljs-keyword">new</span> XC_MethodReplacement() &#123;<br>                <span class="hljs-meta">@Override</span><br>                <span class="hljs-function"><span class="hljs-keyword">protected</span> Object <span class="hljs-title">replaceHookedMethod</span><span class="hljs-params">(MethodHookParam methodHookParam)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                    Log.d(<span class="hljs-string">&quot;HookDemo&quot;</span>, <span class="hljs-string">&quot;Haha, repleaceFunc are replaced&quot;</span>);<br>                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>                &#125;<br>            &#125;);<br>            <span class="hljs-comment">//Hook方法, anonymousInner， 参数是抽象类，先加载所需要的类即可</span><br>            Class animalClazz  = loadPackageParam.classLoader.loadClass(<span class="hljs-string">&quot;com.example.xposedhooktarget.Animal&quot;</span>);<br>            XposedHelpers.findAndHookMethod(clazz, <span class="hljs-string">&quot;anonymousInner&quot;</span>, animalClazz, String.class, <span class="hljs-keyword">new</span> XC_MethodHook() &#123;<br>                <span class="hljs-meta">@Override</span><br>                <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                    XposedBridge.log(<span class="hljs-string">&quot;HookDemo This is test&quot;</span>);<br>                    param.args[<span class="hljs-number">1</span>] = <span class="hljs-string">&quot;Haha, anonymousInner are hooked&quot;</span>;<br>                &#125;<br>            &#125;);<br><br>            <span class="hljs-comment">//Hook匿名类的eatFunc方法，修改参数，顺便修改类中的anonymoutInt变量</span><br>            XposedHelpers.findAndHookMethod(<span class="hljs-string">&quot;com.example.xposedhooktarget.HookDemo$1&quot;</span>, clazz.getClassLoader(),<br>                    <span class="hljs-string">&quot;eatFunc&quot;</span>, String.class, <span class="hljs-keyword">new</span> XC_MethodHook() &#123;<br>                        <span class="hljs-meta">@Override</span><br>                        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                            param.args[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;Haha, eatFunc are hooked&quot;</span>;<br>                            XposedHelpers.setIntField(param.thisObject, <span class="hljs-string">&quot;anonymoutInt&quot;</span>, <span class="hljs-number">499</span>);<br>                        &#125;<br>                    &#125;);<br><br>            <span class="hljs-comment">//hook内部类的构造方法失败，且会导致hook内部类的InnerFunc方法也失败，原因不明</span><br><span class="hljs-comment">//            XposedHelpers.findAndHookConstructor(clazz1, new XC_MethodHook() &#123;</span><br><span class="hljs-comment">//                        @Override</span><br><span class="hljs-comment">//                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable &#123;</span><br><span class="hljs-comment">//                            XposedBridge.log(&quot;Haha, InnerClass constructed was hooked&quot; );</span><br><span class="hljs-comment">//                        &#125;</span><br><span class="hljs-comment">//                    &#125;);</span><br><br>            <span class="hljs-comment">//Hook内部类InnerClass的InnerFunc方法，修改参数，顺便修改类中的innerPublicInt和innerPrivateInt变量</span><br>            <span class="hljs-keyword">final</span> Class&lt;?&gt; clazz1 = XposedHelpers.findClass(<span class="hljs-string">&quot;com.example.xposedhooktarget.HookDemo$InnerClass&quot;</span>, loadPackageParam.classLoader);<br>            XposedHelpers.findAndHookMethod(clazz1, <span class="hljs-string">&quot;InnerFunc&quot;</span>, String.class, <span class="hljs-keyword">new</span> XC_MethodHook() &#123;<br>                        <span class="hljs-meta">@Override</span><br>                        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">beforeHookedMethod</span><span class="hljs-params">(MethodHookParam param)</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123;<br>                            param.args[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;Haha, InnerFunc was hooked&quot;</span>;<br>                            XposedHelpers.setIntField(param.thisObject, <span class="hljs-string">&quot;innerPublicInt&quot;</span>, <span class="hljs-number">9</span>);<br>                            XposedHelpers.setIntField(param.thisObject, <span class="hljs-string">&quot;innerPrivateInt&quot;</span>, <span class="hljs-number">19</span>);<br>                        &#125;<br>                    &#125;);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getClassInfo</span><span class="hljs-params">(Class clazz)</span> </span>&#123;<br>        <span class="hljs-comment">//getFields()与getDeclaredFields()区别:getFields()只能访问类中声明为公有的字段,私有的字段它无法访问，</span><br>        <span class="hljs-comment">//能访问从其它类继承来的公有方法.getDeclaredFields()能访问类中所有的字段,与public,private,protect无关，</span><br>        <span class="hljs-comment">//不能访问从其它类继承来的方法</span><br>        <span class="hljs-comment">//getMethods()与getDeclaredMethods()区别:getMethods()只能访问类中声明为公有的方法,私有的方法它无法访问,</span><br>        <span class="hljs-comment">//能访问从其它类继承来的公有方法.getDeclaredFields()能访问类中所有的字段,与public,private,protect无关,</span><br>        <span class="hljs-comment">//不能访问从其它类继承来的方法</span><br>        <span class="hljs-comment">//getConstructors()与getDeclaredConstructors()区别:getConstructors()只能访问类中声明为public的构造函数</span><br>        <span class="hljs-comment">//getDeclaredConstructors()能访问类中所有的构造函数,与public,private,protect无关</span><br><br>        <span class="hljs-comment">//XposedHelpers.setStaticObjectField(clazz,&quot;sMoney&quot;,110);</span><br>        <span class="hljs-comment">//Field sMoney = clazz.getDeclaredField(&quot;sMoney&quot;);</span><br>        <span class="hljs-comment">//sMoney.setAccessible(true);</span><br>        Field[] fs;<br>        Method[] md;<br>        Constructor[] cl;<br>        fs = clazz.getFields();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; fs.length; i++) &#123;<br>            XposedBridge.log(<span class="hljs-string">&quot;HookDemo getFiled: &quot;</span> + Modifier.toString(fs[i].getModifiers()) + <span class="hljs-string">&quot; &quot;</span> +<br>                    fs[i].getType().getName() + <span class="hljs-string">&quot; &quot;</span> + fs[i].getName());<br>        &#125;<br>        fs = clazz.getDeclaredFields();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; fs.length; i++) &#123;<br>            XposedBridge.log(<span class="hljs-string">&quot;HookDemo getDeclaredFields: &quot;</span> + Modifier.toString(fs[i].getModifiers()) + <span class="hljs-string">&quot; &quot;</span> +<br>                    fs[i].getType().getName() + <span class="hljs-string">&quot; &quot;</span> + fs[i].getName());<br>        &#125;<br>        md = clazz.getMethods();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; md.length; i++) &#123;<br>            Class&lt;?&gt; returnType = md[i].getReturnType();<br>            XposedBridge.log(<span class="hljs-string">&quot;HookDemo getMethods: &quot;</span> + Modifier.toString(md[i].getModifiers()) + <span class="hljs-string">&quot; &quot;</span> +<br>                    returnType.getName() + <span class="hljs-string">&quot; &quot;</span> + md[i].getName());<br>            <span class="hljs-comment">//获取参数</span><br>            <span class="hljs-comment">//Class&lt;?&gt; para[] = md[i].getParameterTypes();</span><br>            <span class="hljs-comment">//for (int j = 0; j &lt; para.length; ++j) &#123;</span><br>            <span class="hljs-comment">//System.out.print(para[j].getName() + &quot; &quot; + &quot;arg&quot; + j);</span><br>            <span class="hljs-comment">//if (j &lt; para.length - 1) &#123;</span><br>            <span class="hljs-comment">//    System.out.print(&quot;,&quot;);</span><br>            <span class="hljs-comment">//&#125;</span><br>            <span class="hljs-comment">//&#125;</span><br>        &#125;<br>        md = clazz.getDeclaredMethods();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; md.length; i++) &#123;<br>            Class&lt;?&gt; returnType = md[i].getReturnType();<br>            XposedBridge.log(<span class="hljs-string">&quot;HookDemo getDeclaredMethods: &quot;</span> + Modifier.toString(md[i].getModifiers()) + <span class="hljs-string">&quot; &quot;</span> +<br>                    returnType.getName() + <span class="hljs-string">&quot; &quot;</span> + md[i].getName());<br>        &#125;<br>        cl = clazz.getConstructors();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; cl.length; i++) &#123;<br>            XposedBridge.log(<span class="hljs-string">&quot;HookDemo getConstructors: &quot;</span> + Modifier.toString(cl[i].getModifiers()) + <span class="hljs-string">&quot; &quot;</span> +<br>                    md[i].getName());<br>        &#125;<br>        cl = clazz.getDeclaredConstructors();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; cl.length; i++) &#123;<br>            XposedBridge.log(<span class="hljs-string">&quot;HookDemo getDeclaredConstructors: &quot;</span> + Modifier.toString(cl[i].getModifiers()) + <span class="hljs-string">&quot; &quot;</span> +<br>                    md[i].getName());<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="6-参考文献"><a href="#6-参考文献" class="headerlink" title="6.参考文献"></a>6.参考文献</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html">//hook所有方法<br>https://blog.csdn.net/QQ1084283172/article/details/80954759?depth_1-utm_source=distribute.pc_relevant.none-task&amp;utm_source=distribute.pc_relevant.none-task<br><br>//热修补<br>https://zhuanlan.zhihu.com/p/96773935<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/xposed/">xposed</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/android/">android</a>
+                    
+                      <a class="hover-with-bg" href="/tags/hook/">hook</a>
+                    
+                      <a class="hover-with-bg" href="/tags/xposed/">xposed</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/22/%E8%AF%81%E4%B9%A6%E4%BD%93%E7%B3%BB/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">证书体系</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/22/iOS%E4%BF%AE%E6%94%B9deubgserver%E8%B0%83%E8%AF%95%E6%89%80%E6%9C%89APP/">
+                        <span class="hidden-mobile">iOS修改deubgserver调试所有APP</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

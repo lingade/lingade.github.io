@@ -1,0 +1,1067 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>车联网整车架构 - Cola&#39;S Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Cola'S Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="车联网整车架构">
+              
+                车联网整车架构
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-22 23:33" pubdate>
+        2021年8月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      16.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      178
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">车联网整车架构</h1>
+            
+            <div class="markdown-body">
+              <h1 id="车机娱乐系统"><a href="#车机娱乐系统" class="headerlink" title="车机娱乐系统"></a>车机娱乐系统</h1><p>基本来说，当今的智能汽车基本有以下特点：</p>
+<ol>
+<li>基于操作系统，Android、Linux、yunos等</li>
+<li>基本是虚拟按键</li>
+<li>具备外网连接功能，即搭载Tbox盒子</li>
+<li>有配套的车联网APP，可以远程当作手机钥匙和远程车控等功能</li>
+<li>具备控制：空调、数字液晶仪、360环式摄像头、天窗、大灯的应用程序</li>
+</ol>
+<p>由上可知, 与车机娱乐系统互联且能在车机端直接控制的车内智能硬件有: 空调, 仪表, 360环视摄像头, 其他车身设备(天窗, 车窗, 大灯)这4类.</p>
+<p>由以下拓扑图可知: </p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E6%8B%93%E6%89%91%E5%9B%BE.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<ol>
+<li>车机娱乐系统是ECAN上的一个节点，节点名称为VAES</li>
+<li>空调时BCAN上的一个节点，名称为AC</li>
+<li>仪表是ECAN上的节点，节点名称为IPK，也有叫ICU</li>
+<li>360智能环视摄像头是BCAN上的节点，节点名称为AVM</li>
+<li>其他车身设备（天窗、车窗、大灯）等设备是BCAN上的BCM节点统一管理</li>
+</ol>
+<p>所以车机娱乐系统就是整车CAN网络中的ECAN总线的一个节点，该节点一般叫VAES（Video Audio Entertainment System）。</p>
+<p><strong>VAES(车机)节点订阅消息(接收): 车机就是一台显示器</strong></p>
+<p>注:<em>ECU（电子控制单元）都是带EEPROM(可擦写可编程存储器)的, 基本上任何一次修改后, 都会在ECU内部做参数保存的</em></p>
+<p><strong>场景一:</strong> </p>
+<p>车机一开机, 自动显示上一次的空调状态.</p>
+<p>比如空调是开启还是关闭状态, 车内温度, 空调风量, 运行模式是自动还是手动等, 即开机后, AC(空调)节点自动源源不断地发送自己的参数及状态信号,</p>
+<p>以上信号经由网关转发并广播后, 被VAES(车机)节点订阅(接收)后显示在空调APP上。</p>
+<p><strong>场景二:</strong></p>
+<p>车机一开机, 自动显示上一次保存的大灯高度设置值</p>
+<p>即开机后, BCM(天窗, 车窗, 大灯)节点自动源源不断地发送自己的参数及状态信号, 以上信号经由网关转发并广播后, 被VAES(车机)节点订阅(接收)后显示到车辆控制与设置界面.</p>
+<p><strong>VAES(车机)节点发送消息: 车机就是一台远程控制器</strong></p>
+<p><strong>场景一:</strong> </p>
+<p>运行空调App, 比如手动调节到30度, 大风量, 以上信号由CAN网关转发并广播后, 最终被给AC(空调)节点订阅(接收)并成功解析后执行, 并在AC节点端保存以上设置数据.</p>
+<p><strong>场景二:</strong> </p>
+<p>点击车辆控制界面, 设置大灯设置信号, 比如我手动调节大灯高度或持续时间等, 以上信号会由CAN网关转发, 最终被BCM节点订阅(接收)并成功解析后执行, 并在BCM节点端保存以上设置.</p>
+<p><strong>场景三:</strong> </p>
+<p>智能液晶仪表tab切换显示, 比如从地图tab切到音乐tab, 以上信号直接传给IPK(仪表)节点进行解析执行并在IPK节点端保存以上设置. (由于仪表和车机同属于ECAN所以无需通过CAN网关转发, 可直接互传信号)</p>
+<p><strong>场景四:</strong> </p>
+<p>运行360环视App, 将自动打开所有4个方位的摄像头, 以上信号是先发给CAN网关, CAN网关广播后最终被AVM节点订阅后执行.</p>
+<p>Q:车机节点是如何把原始CAN信号转成用户能够看得懂的文字或图像的呢.</p>
+<p>A: 车机节点是车机上的一块MCU, 专门负责车机主机对整车CAN网络的CAN信号转换的, 业界一般用IPCL协议进行CAN信号到字符串信号(程序员能识别的信号)的转换, 以上字符串信号经过Carservice或App的解析后, 转成文字或者图像的界面供用户选择和使用。</p>
+<h1 id="TBOX介绍"><a href="#TBOX介绍" class="headerlink" title="TBOX介绍"></a>TBOX介绍</h1><p>上一节 讲到了智能车载娱乐系统的5个基本特征:</p>
+<p>基本来说, 当今的智能车机基本有以下几个特点:</p>
+<ol>
+<li>基于智能操作系统: Android, Yunos, Linux等</li>
+<li>基本都是虚拟按键, 较少用实体按键</li>
+<li>具备外网连接功能, 即搭载了Tbox盒子</li>
+<li>有配套的车联网手机App, 具有手机钥匙及远程车控等功能</li>
+<li>具备控制: 空调, 数字液晶仪表, 360度环视摄像头, 其他车身设备(天窗, 车窗, 大灯)的应用程序.</li>
+</ol>
+<p>以上涉及的第3点，第4点都必须有Tbox设备才能实现</p>
+<p>Tbox是汽车上的一个盒子，其实是一个Android操作系统的带通讯功能的盒子，<br>内含一张SIM卡，一般是中国联通SIM卡，与这个盒子配套硬件还有GPS天线，4G天线等。<br>车机要联网必须有Tbox设备才能实现。</p>
+<p>Tbox实例图：</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/tbox.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>TBOX的功能如下：</p>
+<ol>
+<li>Tbox可以给车机提供外网连接功能。</li>
+</ol>
+<p>如何提供外网, 原理很简单, 可以简单的把它当做是USB上网卡。</p>
+<p>将这个接口接入自己的笔记本电脑, 在电脑网络连接那边就会多一个USB Ethernet的本地连接. 且确认过可以通过此连接成功上网.</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/USBEthernet.png" srcset="/img/loading.gif" lazyload class="">
+
+<ol start="2">
+<li><p>Tbox可以提供GPS定位服务。</p>
+<p> Tbox有GPS天线接入，车机通过USB数据输出接口实时获取GPS定位信息。<br>(Tbox的USB接口，除了提供外网数据, 提供GPS数据外，开发人员还可以通过这个USB线进行Tbox开发及adb debug等。)</p>
+<p>实车路试过程中, 只要把tbox的GPS天线接入接口拔掉, 整个车机的地图定位将完全废掉, 地图定位将出现各种飘…</p>
+</li>
+<li><p>Tbox是Diag CAN(诊断CAN)上的一个节点, 该节点可提供本地诊断和远程诊断等功能</p>
+<p>一般地, 智能车机娱乐系统有配套的车联网手机App,<br>该车联网手机App可远程查看车机状态, 远程开启座椅加热, 远程开启空调, 远程获取车机状态信息等.</p>
+<p>比如以下是某公司开发的车联网手机App.</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E8%BD%A6%E8%81%94%E7%BD%91%E6%89%8B%E6%9C%BAApp.png" srcset="/img/loading.gif" lazyload class=""></li>
+</ol>
+<p>车联网手机App控制车辆的拓扑图：</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/App%E6%8E%A7%E5%88%B6%E8%BD%A6%E8%BE%86%E6%8B%93%E6%89%91%E5%9B%BE.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>车联网手机App状态查询/远程控制功能的实现，全部依托Tbox节点，<br>Tbox节点可以接收远程4G信号，<br>之后由Tbox在诊断CAN上发起CAN诊断及控制命令，<br>Tbox还实时获取相关CAN信号并上传云平台，云平台返回数据到车联网手机App。<br>最终达到<strong>远程诊断</strong>(远程获取车辆状态, 远程读取故障码等…) 和 <strong>远程控制</strong>(控制车上某些智能硬件的作用, 比如空调, 座椅加热等…)。</p>
+<p>这也是Tbox最最最主要的功能了, 因为他已经实现了远程诊断并控制整车了, 只要功能开发的好, 理论上整车上的所有智能硬件设备均可以被tbox远程控制!!!</p>
+<p>Q:Tbox既然接了4G SIM卡, 那是不是可以直接打电话呢??</p>
+<p>A: 不可以, 这张SIM一般只给车主用户提供网络服务, 虽然这张电话可以打电话, 但是由于车机系统的功能接口限定(软件界面上的功能限定), 限定了其只可以拨打道路救援电话, 厂商客服电话, 110等紧急电话, 不可拨打普通手机号码或电话号码等.</p>
+<p>一个Tbox一个号码, 一般绑定了固定的一辆车.</p>
+<p>比如当救援公司接到你通过车机的道路救援功能拨打的救援电话后, 救援公司立马就知道车主是哪位, 绑定的是哪辆车, 及可能知道车辆的具体位置等, 之后就可快速实施道路救援了.</p>
+<p>Q:Tbox上这么多PIN脚是干嘛的??</p>
+<p>A: 包括12V正负极电源供电pin脚, 诊断CAN高/CAN低pin脚, 部分外设信号pin脚, 还包括预留的部分pin脚等。</p>
+<h1 id="整车CAN网络介绍"><a href="#整车CAN网络介绍" class="headerlink" title="整车CAN网络介绍"></a>整车CAN网络介绍</h1><p>在了解can网络之前, 先了解1个问题:</p>
+<h2 id="1-什么是智能硬件与ECU？"><a href="#1-什么是智能硬件与ECU？" class="headerlink" title="1. 什么是智能硬件与ECU？"></a>1. 什么是智能硬件与ECU？</h2><p>何为智能硬件, 就是包含智能控制单元的硬件, 比如发动机, 发动机上有一块儿专门负责控制发动机进气量, 喷油量, 排气量的控制单元, 这块单元相当于发动机的大脑. 他具有信号发送, 信号接收, 参数存储等基本功能, 这个控制单元就是ECU.</p>
+<pre><code> ECU(Electronic ControlUnit）电子控制单元，是汽车专用微机控制器, 一个ECU一般负责1个或多个智能硬件设备.
+
+ 随着汽车的发展, 车上的智能设备越来越多, 也就是说车上的ECU也越来越多, 如何用一个网络把这些智能设备的ECU全部连接起来并整体协调控制?
+</code></pre>
+<p><strong>这就是CAN网络</strong></p>
+<h2 id="2-什么是CAN网络"><a href="#2-什么是CAN网络" class="headerlink" title="2. 什么是CAN网络"></a>2. 什么是CAN网络</h2><p>CAN是控制器局域网络(Controller Area Network, CAN)的简称，目前普遍运用在汽车网络.</p>
+<h2 id="3-CAN网络的优势"><a href="#3-CAN网络的优势" class="headerlink" title="3. CAN网络的优势"></a>3. CAN网络的优势</h2><ol>
+<li>开放的标准</li>
+<li>低成本</li>
+<li>高速实时传递数据更安全可靠</li>
+<li>适用于各种汽车</li>
+</ol>
+<h2 id="4-早期基本结构图"><a href="#4-早期基本结构图" class="headerlink" title="4. 早期基本结构图"></a>4. 早期基本结构图</h2><p>CAN网络在早期的整车应用中以BCM(车身控制器)为控制中心，<br>主要是车身零部件(雨刮/大灯/车窗…)，智能硬件较少，所以早期的正常CAN网络把所有其他的ECU全部放在Other ECU里边，<br>如下图。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E6%97%A9%E6%9C%9F%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%9B%BE.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h2 id="5-当今主流结构图"><a href="#5-当今主流结构图" class="headerlink" title="5. 当今主流结构图"></a>5. 当今主流结构图</h2><p>随着智能硬件的越来越多, 且考虑到成本与安全, </p>
+<p>BCM已经不够完成如此庞大的网络管理了, 网关应运而生, </p>
+<p>网关管理了5条CAN总线的各类ECU, </p>
+<p>并对这5条CAN总线的波特率及信号优先级做了区分. </p>
+<p>之前管理一堆车身零部件(雨刮/大灯/车窗…)的BCM也成了BCAN的一个节点!</p>
+<p>现如今的燃油车整车CAN网络主要以网关为控制中心,   以下主要介绍这种类型的CAN网络.</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="6-CAN基本构成单元ECU节点"><a href="#6-CAN基本构成单元ECU节点" class="headerlink" title="6. CAN基本构成单元ECU节点"></a>6. CAN基本构成单元ECU节点</h2><p>车上的智能硬件设备里ECU控制单元。</p>
+<p>比如ABS(防抱死系统)这个ECU是专门用于车辆制动过程中防止车轮被抱死的一套智能设备。</p>
+<p> 当今汽车越豪华,ECU就越多,智能控制硬件就越多,相对价格就越贵.一般的,一辆车普通的家用  轿车都有25个左右ECU。</p>
+<p>如下图, 车上某个智能硬件上的ECU(智能电子控制单元)</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/ECU%E8%8A%82%E7%82%B9.png" srcset="/img/loading.gif" lazyload class="">
+
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="7-CAN网络基本构成单元CAN总线"><a href="#7-CAN网络基本构成单元CAN总线" class="headerlink" title="7. CAN网络基本构成单元CAN总线"></a>7. CAN网络基本构成单元CAN总线</h2><p>由于车上ECU太多, 每种ECU作用各不相同, 信号传输速率(波特率)也不一致.**</p>
+<p><strong>为了更加方便管理这些ECU, 我们把以上各类ECU按其功能/波特率分别布置在5条CAN总线上.</strong></p>
+<p>也叫CAN BUS, 为了方便测试人员理解, 可以理解成CAN支线(可理解成一个路由器上的5条分口引出来的分支网线).</p>
+<p>一般地, 分成5条CAN总线:</p>
+<h3 id="7-1-PT-CAN-PowerTrain-CAN"><a href="#7-1-PT-CAN-PowerTrain-CAN" class="headerlink" title="7.1 PT CAN (PowerTrain CAN )"></a>7.1 PT CAN (PowerTrain CAN )</h3><p>动力总成CAN总线</p>
+<p>PT CAN总线上一般有以下ECU:</p>
+<h3 id="7-2-CH-CAN-Chassis-CAN"><a href="#7-2-CH-CAN-Chassis-CAN" class="headerlink" title="7.2 CH CAN (Chassis CAN)"></a>7.2 CH CAN (Chassis CAN)</h3><p>底盘控制CAN总线</p>
+<p>CH CAN总线上一般有以下ECU:</p>
+<table>
+<thead>
+<tr>
+<th>ABS ( Antilock Brake System )</th>
+<th>防抱死制动系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ESP(Electronic Stability Program)</td>
+<td>车身电子稳定系统</td>
+</tr>
+<tr>
+<td>EPS(Electric Power Steering)</td>
+<td>电子转向助力</td>
+</tr>
+</tbody></table>
+<p><strong>CH CAN负责汽车底盘及4个轮子的制动/稳定/转向，由于涉及整车制动/助力转向等, 所以其网络信号优先级也是较高的。</strong></p>
+<h3 id="7-3-Body-CAN"><a href="#7-3-Body-CAN" class="headerlink" title="7.3. Body CAN"></a>7.3. Body CAN</h3><p>车身控制总线</p>
+<p>Body CAN总线上一般有以下ECU:</p>
+<table>
+<thead>
+<tr>
+<th align="left">AC ( Air Condition )</th>
+<th>空调</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">AVM(Around View Monitor)</td>
+<td>360环视</td>
+</tr>
+<tr>
+<td align="left">BCM(Body Control Module)</td>
+<td>天窗, 车窗, 雾灯, 转向灯, 雨刮…</td>
+</tr>
+<tr>
+<td align="left">IMMO(Immobilizer)</td>
+<td>发动机防盗系统</td>
+</tr>
+<tr>
+<td align="left">TPMS(Tire Pressure Monitoring System)</td>
+<td>胎压监控系统</td>
+</tr>
+</tbody></table>
+<p><strong>ody CAN负责车身上的一些提高舒适性/安全性的智能硬件的管理与控制，其网络信号优先级较低, 因为以上设备都是辅助设备。</strong></p>
+<h3 id="7-4-Info-CAN-InfomercialCAN"><a href="#7-4-Info-CAN-InfomercialCAN" class="headerlink" title="7.4 Info CAN(InfomercialCAN)"></a>7.4 Info CAN(InfomercialCAN)</h3><p>娱乐系统总线</p>
+<p>Info CAN 总线上一般有以下ECU:</p>
+<table>
+<thead>
+<tr>
+<th>VAES( Video Audio Entertainment System)</th>
+<th>车载娱乐系统(中控)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IPK(Instrument Pack)</td>
+<td>组合仪表, 当今的数字仪表, 基本有音乐, 地图, 通话等娱乐功能.</td>
+</tr>
+</tbody></table>
+<h3 id="7-5DiagCAN-Diagnose-CAN"><a href="#7-5DiagCAN-Diagnose-CAN" class="headerlink" title="7.5DiagCAN ( Diagnose CAN)"></a>7.5DiagCAN ( Diagnose CAN)</h3><p>诊断控制总线</p>
+<table>
+<thead>
+<tr>
+<th>Tbox(Telematics BOX)</th>
+<th>远程控制模块</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="7-6总体拓扑"><a href="#7-6总体拓扑" class="headerlink" title="7.6总体拓扑"></a>7.6总体拓扑</h3> <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E6%80%BB%E4%BD%93%E6%8B%93%E6%89%91.png" srcset="/img/loading.gif" lazyload class="">
+
+<p> 每条CAN总线都是由2根线组成的双绞线构成, 一根can_high, 一根can_low, 分别代表高电平, 低电平。</p>
+<p>以下是某条CAN总线的模型图, 一条CAN总线上连着4个ECU控制单元</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/ECU%E6%8E%A7%E5%88%B6%E5%8D%95%E5%85%83%E6%8B%93%E6%89%91.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h2 id="8-CAN网关"><a href="#8-CAN网关" class="headerlink" title="8. CAN网关"></a>8. CAN网关</h2><p>CAN网关或叫汽车网关，因为网关不仅处理CAN网络，还处理LIN网络.</p>
+<p>CAN网关的外形结构:</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/CAN%E7%BD%91%E5%85%B3.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>实际can网关大概有六七十个接线pin脚，每个接线pin脚都有严格的定义, 要匹配规定好的can总线或者开关设备,<br>除了刚才涉及的10个can线接线口(5条双绞线)，2个电源线接线口，<br>还应包括<br>定速巡航设备的8个接线口，<br>电源管理方面的3个接线口，<br>钥匙开关(或无钥匙启动系统)的5个接口，<br>脚踏板的3个接线口，<br>5个LIN接线pin脚，<br>档位开关的4个接线pin脚<br>等等。</p>
+<p>某些汽车厂商可能有更多新的硬件开关设备，电压电阻开关设备等也都有对应的接线pin脚,<br>且可能预留一些PIN脚以备用.</p>
+<h3 id="8-1-基本功能"><a href="#8-1-基本功能" class="headerlink" title="8.1 基本功能"></a>8.1 基本功能</h3><p>CAN网关是整个CAN网络的核心, 控制着整车5条CAN总线的各类信号转发与处理，基本功能包括:</p>
+<ol>
+<li>连接不同波特率(传输速度)的CAN总线/LIN总线，以实现CAN网络的网关中继功能。</li>
+<li>诊断报文/非诊断报文转发。</li>
+<li>诊断防火墙管理。</li>
+<li>节点在线监控。</li>
+<li>巡航控制器开关检测。</li>
+<li>脚踏板位置检测。</li>
+<li>网关休眠与唤醒管理。</li>
+<li>ECU升级/网关升级。</li>
+<li>电压管理。</li>
+</ol>
+<p>CAN网关可以接收任何CAN总线(还有LIN总线)传来的不同传输速率网络信号，把这些信号按一定的标准处理后，广播到整车网络去，如果有ECU订阅(接收)了这个信号, 则ECU将解析信号并做相应的处理。<br>整车所有ECU基本是以毫秒级或者微妙级的速度在源源不断的发送并接收信号，所以网关需要处理并转发广播的信号是非常多的且必须要很快处理完的。</p>
+<h3 id="8-2-实例一仪表显示发动机转速"><a href="#8-2-实例一仪表显示发动机转速" class="headerlink" title="8.2 实例一仪表显示发动机转速"></a>8.2 实例一仪表显示发动机转速</h3><p>发动机的转速信号, 先从PCAN的ECM(发动机引擎控制模块)节点发出, CAN网关收到后,<br>网关处理后广播以GW_开头的ECM信号到其他4条CAN总线上去.<br>用Vehicle Spy 3 CAN工具查看可以看到以下的信号内容:</p>
+<p>ECAN上的仪表(IPK)节点订阅(接收)了发动机转速信号, 则会将这个转速信号解析, 并显示到仪表盘去.<br>由于以上信号发送频率太快, 则你就会看到仪表盘上的转速指针一直在不停地偏动.</p>
+<p>简略发送图如下:</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E4%BB%AA%E8%A1%A8%E6%98%BE%E7%A4%BA%E5%8F%91%E5%8A%A8%E6%9C%BA%E8%BD%AC%E9%80%9F.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+
+
+<h3 id="8-3-实例二安全带未扣紧-仪表端报警"><a href="#8-3-实例二安全带未扣紧-仪表端报警" class="headerlink" title="8.3 实例二安全带未扣紧, 仪表端报警"></a>8.3 实例二安全带未扣紧, 仪表端报警</h3><p>安全带未扣紧需要两个条件:</p>
+<ol>
+<li>车速大于5</li>
+<li>安全带扣未扣 ( 即无电压信号 )</li>
+</ol>
+<p>车速一般是PCAN上的ECM(发动机引擎控制模块)节点负责信号管理的.<br>安全带扣这个设备是BCAN上的BCM(负责天窗, 车窗, 安全带扣, 雨刮等车身零部件设备…) 节点负责信号管理的.即网关收到PCAN上的ECM节点发出来的车速信号,<br>并收到了BCAN上的BCM发出来的安全带扣电压值为异常值(比如0),<br>CAN网关统一处理后转发并广播以GW_开头的信号帧,</p>
+<p>ECAN上的仪表(IPK)节点订阅(接收)了GW开头的相关安全带未扣信号帧, 则会解析报警并显示到仪表盘去.<br>如果安全带扣一直未扣紧，则CAN网关将一直发送GW_开头的相关安全带信号帧，<br>其信号值是安全带未扣紧，所以车主会听到一直报警.</p>
+<p>直到安全带扣上, CAN网关继续发送安全带相关的信号, 只是这个时候的信号值是安全带已扣紧，报警将立马消失.</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E4%BB%AA%E8%A1%A8%E7%AB%AF%E6%8A%A5%E8%AD%A6.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>以上只是两个简易的案例, 实际上, 整车所有ECU基本是以毫秒级或者微妙级的速度在源源不断的发送并接收信号, 所以网关需要处理并转发广播的信号是非常多的且必须要很快处理完的.</p>
+<h1 id="车机电源介绍"><a href="#车机电源介绍" class="headerlink" title="车机电源介绍"></a>车机电源介绍</h1><p>车辆钥匙孔的4种状态，即LOCK, ACC, ON, START，分别对应4种电源模式，即OFF模式，ACC模式，RUN模式，CRANK模式。</p>
+<ul>
+<li><p>OFF模式，就是上面的LOCK，代表车辆电源未通电，此时整车can网络一般也处于休眠状态。</p>
+</li>
+<li><p>ACC模式，是对应上面的ACC，是Accessory的简称，整车上电状态，整车通电了，can网络也会唤醒并开始传输信号，但是发动机未启动，整车基本通上了12V的电源电压，此时车窗可用，空调可以开启(但是由于发电机未开启, 空调制冷制热压缩机都无效果，只有鼓风机在吹风)。</p>
+</li>
+<li><p>CRANK模式，对应上面START，发动机点火状态，即发动机已经启动，实际操作中，就是将钥匙拧到底，等发动机点火成功后，钥匙孔反弹到上图的ON，也就是下面说的RUN模式。</p>
+</li>
+<li><p>RUN模式，对应上面的ON，发动机处于运行模式，此时发电机也运行，并给蓄电池充电，此时的空调制冷制热都可用。</p>
+</li>
+</ul>
+<h1 id="CAN"><a href="#CAN" class="headerlink" title="CAN"></a>CAN</h1><h2 id="一、-CAN-总线概念"><a href="#一、-CAN-总线概念" class="headerlink" title="一、 CAN 总线概念"></a>一、 CAN 总线概念</h2><h3 id="1-1-什么是CAN总线"><a href="#1-1-什么是CAN总线" class="headerlink" title="1.1 什么是CAN总线"></a>1.1 什么是CAN总线</h3><p>CAN 是 Controller Area Network 的缩写，是 ISO 国际标准化的串行通信协议。<br>通俗来讲，<strong>CAN总线就是一种传输数据的线，用于在不同的ECU之间传输数据。</strong></p>
+<p>CAN总线有两个ISO国际标准：<strong>ISO11898 和 ISO11519</strong>。</p>
+<ul>
+<li><p><strong>ISO11898</strong> 定义了通信速率为 125 kbps～1 Mbps 的<strong>高速 CAN</strong> 通信标准，属于<strong>闭环总线</strong>，传输速率可达1Mbps，总线长度 ≤ 40米。</p>
+</li>
+<li><p><strong>ISO11519</strong> 定义了通信速率为 10～125 kbps 的<strong>低速 CAN</strong> 通信标准，属于<strong>开环总线</strong>，传输速率为40kbps时，总线长度可达1000米。</p>
+</li>
+<li><blockquote>
+<p> Tips: <strong>&lt;总线的传输速率&gt;<strong>：又称为</strong>总线的通信速率</strong>，指的是<strong>位速率</strong>。或称为<strong>比特率</strong>（和波特率不是一回事），表示的是：单位时间内，通信线路上传输的二进制位的数量，其基本单位是 bps 或者 b/s (bit per second)。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="1-2-CAN的拓扑结构"><a href="#1-2-CAN的拓扑结构" class="headerlink" title="1.2 CAN的拓扑结构"></a>1.2 CAN的拓扑结构</h3><p>下图中，左边是高速CAN总线的拓扑结构，右边是低速CAN总线的拓扑结构。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/CAN%E7%9A%84%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>如图中所示，CAN总线包括CAN_H 和 CAN_L 两根线。节点通过CAN控制器和CAN收发器连接到CAN总线上。</p>
+<blockquote>
+<p>Tips ：通常来讲，ECU内部集成了CAN控制器和CAN收发器，但是也有没集成的，需要自己外加。</p>
+</blockquote>
+<h3 id="1-3-CAN信号表示"><a href="#1-3-CAN信号表示" class="headerlink" title="1.3 CAN信号表示"></a>1.3 CAN信号表示</h3><p>在CAN总线上，利用CAN_H和CAN_L两根线上的电位差来表示CAN信号。CAN总线上的电位差分为显性电平和隐性电平。其中显性电平为逻辑0，隐性电平为逻辑1。<br>ISO11898标准（125kbps ~ 1Mbps）和ISO11519标准（10kbps ~ 125kbps）中CAN信号的表示分别如下所示：</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/CAN%E4%BF%A1%E5%8F%B7%E8%A1%A8%E7%A4%BA.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h3 id="1-4-CAN信号传输"><a href="#1-4-CAN信号传输" class="headerlink" title="1.4 CAN信号传输"></a>1.4 CAN信号传输</h3><p>发送过程：<br>CAN控制器将CPU传来的信号转换为逻辑电平（即逻辑0-显性电平或者逻辑1-隐性电平）。CAN发射器接收逻辑电平之后，再将其转换为差分电平输出到CAN总线上。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/CAN%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>接收过程：<br>CAN接收器将CAN_H 和 CAN_L 线上传来的差分电平转换为逻辑电平输出到CAN控制器，CAN控制器再把该逻辑电平转化为相应的信号发送到CPU上。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/CAN%E4%BF%A1%E5%8F%B7%E6%8E%A5%E6%94%B6.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>概括的讲：<br>发送方通过使总线电平发生变化，将其信息传递到CAN总线上。<br>接收方通过监听总线电平，将总线上的消息读入自己的接收器。</p>
+<h2 id="二、CAN通信的特点"><a href="#二、CAN通信的特点" class="headerlink" title="二、CAN通信的特点"></a>二、CAN通信的特点</h2><h3 id="2-1-多主工作方式"><a href="#2-1-多主工作方式" class="headerlink" title="2.1 多主工作方式"></a>2.1 多主工作方式</h3><p>所谓多主工作方式，指的是：总线上的所有节点没有主从之分，大家都处于平等的地位。<br>反应在数据传输上，即是：在总线空闲状态，任意节点都可以向总线上发送消息。</p>
+<p>Tips: &lt;总线空闲状态&gt;：当总线上的上出现连续的11位隐性电平，那么总线就处于空闲状态。也就是说对于任意一个节点而言，只要它监听到总线上连续出现了11位隐性电平，那么该节点就会认为总线当前处于空闲状态，它就会立即向总线上发送自己的报文。<br>至于为什么连续出现11位隐性电平，就可以判定+总线处于空闲状态，这个问题可以结合CAN协议的帧结构来进行理解。</p>
+<p>在多主工作方式下：</p>
+<ol>
+<li>最先向总线发送消息的节点获得总线的发送权；</li>
+<li>当多个节点同时向总线发送消息时，所发送消息的优先权高的那个节点获得总线的发送权。</li>
+</ol>
+<h3 id="2-2-非破坏性位仲裁机制"><a href="#2-2-非破坏性位仲裁机制" class="headerlink" title="2.2 非破坏性位仲裁机制"></a>2.2 非破坏性位仲裁机制</h3><p>在CAN协议中，所有的消息都以固定的帧格式发送。<br>当多个节点同时向总线发送消息时，对各个消息的标识符（即ID号）进行逐位仲裁，<br>如果某个节点发送的消息仲裁获胜，那么这个节点将获取总线的发送权，仲裁失败的节点则立即停止发送并转变为监听（接收）状态。</p>
+<p>例如：Node_A和Node_B同时向总线发送各自的消息Msg_1和Msg_2，<br>那么对Msg_1的ID号ID_1和Msg_2的ID号ID_2进行逐位仲裁，<br>如果仲裁结果是：ID_1的优先级比ID_2高，那么Msg_1在仲裁中获胜，<br>于是发出Msg_1这条报文的节点Node_A就获得了总线的发送权。<br>同时，Msg_2在仲裁中失败，于是Node_B就转换到监听总线电平的状态。</p>
+<p>这种仲裁机制既不会造成已发送数据的延迟，也不会破坏已经发送的数据，所以称为非破坏性仲裁机制。</p>
+<h3 id="2-3-系统的柔性"><a href="#2-3-系统的柔性" class="headerlink" title="2.3 系统的柔性"></a>2.3 系统的柔性</h3><p>CAN总线上的节点没有“地址”的概念，因此在总线上增加节点时，不会对总线上已有节点的软硬件及应用层造成影响。</p>
+<h3 id="2-4-通信速度"><a href="#2-4-通信速度" class="headerlink" title="2.4 通信速度"></a>2.4 通信速度</h3><p>在同一条CAN线上，所有节点的通信速度（位速率）必须相同，如果两条不同通信速度总线上的节点想要实现信息交互，必须通过网关。</p>
+<p>例如：汽车上一般有两条CAN总线：500kbps的驱动系统CAN总线和125kbps的舒适系统CAN总线，如果驱动系统CAN总线上的发动机节点要把自己的转速信息发送给舒适系统CAN总线上的转速表节点，那么这两条总线必须通过网关相连。</p>
+<h3 id="2-5-数据传输方式"><a href="#2-5-数据传输方式" class="headerlink" title="2.5 数据传输方式"></a>2.5 数据传输方式</h3><p>CAN总线可以实现一对一，一对多以及广播的数据传输方式，这依赖于验收滤波技术。验收滤波技术的实现机制参见本系列笔记的第二篇CAN协议帧结构中的介绍。</p>
+<h3 id="2-6-远程数据请求"><a href="#2-6-远程数据请求" class="headerlink" title="2.6 远程数据请求"></a>2.6 远程数据请求</h3><p>某个节点Node_A可以通过发送“遥控帧”到总线上的方式，请求某个节点Node_B来发送由该遥控帧所指定的报文。</p>
+<h3 id="2-7-错误检测、错误通知、错误恢复功能"><a href="#2-7-错误检测、错误通知、错误恢复功能" class="headerlink" title="2.7 错误检测、错误通知、错误恢复功能"></a>2.7 错误检测、错误通知、错误恢复功能</h3><p>所有的节点都可以检测出错误（错误检测功能）；<br>检测出错误的节点会立即通知总线上其它所有的节点（错误通知功能）；<br>正在发送消息的节点，如果检测到错误，会立即停止当前的发送，并在同时不断地重复发送此消息，直到该消息发送成功为止（错误恢复功能）。</p>
+<h3 id="2-8-故障封闭"><a href="#2-8-故障封闭" class="headerlink" title="2.8 故障封闭"></a>2.8 故障封闭</h3><p>节点能够判断错误的类型，判断是暂时性的数据错误（如噪声干扰）还是持续性的数据错误（如节点内部故障），如果判断是严重的持续性错误，那么节点就会切断自己与总线的联系，从而避免影响总线上其他节点的正常工作。</p>
+<h2 id="三、CAN通信网络结构"><a href="#三、CAN通信网络结构" class="headerlink" title="三、CAN通信网络结构"></a>三、CAN通信网络结构</h2><h3 id="3-1-OSI基本参照模型"><a href="#3-1-OSI基本参照模型" class="headerlink" title="3.1 OSI基本参照模型"></a>3.1 OSI基本参照模型</h3><p>实际上，CAN总线网络底层只采用了OSI基本参照模型中的数据链路层、传输层。而在CAN网络高层仅采用了OSI基本参照</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/OSI%E5%9F%BA%E6%9C%AC%E5%8F%82%E7%85%A7%E6%A8%A1%E5%9E%8B.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h3 id="3-2-CAN协议网络层次"><a href="#3-2-CAN协议网络层次" class="headerlink" title="3.2 CAN协议网络层次"></a>3.2 CAN协议网络层次</h3><p>在CAN协议中，ISO标准只对数据链路层和物理层做了规定。对于数据链路层和物理层的一部分，ISO11898和ISO11519-2的规定是相同，但是在物理层的PMD子层和MDI子层是不同的。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/CAN%E5%8D%8F%E8%AE%AE%E7%BD%91%E7%BB%9C%E5%B1%82%E6%AC%A1.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<p>在CAN总线，每一层网络中定义的事项如下：</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E6%AF%8F%E4%B8%80%E5%B1%82%E7%BD%91%E7%BB%9C%E4%B8%AD%E5%AE%9A%E4%B9%89.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h2 id="四、CAN通信网络结构"><a href="#四、CAN通信网络结构" class="headerlink" title="四、CAN通信网络结构"></a>四、CAN通信网络结构</h2><h3 id="4-1-总线"><a href="#4-1-总线" class="headerlink" title="4.1 总线"></a>4.1 总线</h3><p>CAN总线是<strong>广播</strong>类型的总线，意味着</p>
+<ol>
+<li>所有节点都可以<strong>侦听</strong>到所有传输，无法向一个特定的节点发送报文。</li>
+<li>所有节点都将始终接受所有通信。</li>
+</ol>
+<p>注： CAN硬件能够提供本地过滤功能，从而每个节点只可以对感兴趣的报文作出响应。</p>
+<h3 id="4-2-CAN报文"><a href="#4-2-CAN报文" class="headerlink" title="4.2 CAN报文"></a>4.2 CAN报文</h3><p>CAN使用短报文—最大效用负载是94位，报文中没有明确地址；</p>
+<p>相反，可以认为报文是通过内容寻址，也就是报文的内容隐式地确定地址。</p>
+<h3 id="4-3-报文类型"><a href="#4-3-报文类型" class="headerlink" title="4.3 报文类型"></a>4.3 报文类型</h3><p>CAN总线上有四种不同报文类型(或帧)</p>
+<h4 id="4-3-1-数据帧"><a href="#4-3-1-数据帧" class="headerlink" title="4.3.1 数据帧"></a>4.3.1 数据帧</h4><p>所谓数据帧，就是包含了我们所要传输的数据，其作用当然也就是承载发送节点要传递给接受节点的数据</p>
+<p>数据帧 的帧结构如下图所示，包含七个段：<strong>帧起始、仲裁段、控制段、数据段、CRC段、ACK段、帧结束</strong>。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E6%95%B0%E6%8D%AE%E5%B8%A7.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h4 id="4-3-2-远程帧-遥控帧"><a href="#4-3-2-远程帧-遥控帧" class="headerlink" title="4.3.2 远程帧/遥控帧"></a>4.3.2 远程帧/遥控帧</h4><p>遥控帧的作用可以描述为：请求其他节点发出与本遥控帧具有相同ID号的数据帧。</p>
+<p>例：</p>
+<p>在某一时刻，节点Node_A向总线发送了一个ID号为ID_2的遥控帧，那么意味着Node_A请求总线上的其他节点发送ID号为ID_2的数据帧。</p>
+<p>节点Node_B能够发出ID号为ID_2的数据帧，那么Node_B就会在收到Node_A发出的遥控帧之后，立刻向总线上发送ID号为ID_2的数据帧。</p>
+<p>遥控帧 相比于数据帧，从帧结构上来看，只是少了数据段，包含六个段：帧起始、仲裁段、控制段、CRC段、ACK段、帧结束。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E8%BF%9C%E7%A8%8B%E5%B8%A7.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>数据帧和遥控帧都分为标准帧（CAN2.0A）和扩展帧（CAN2.0B）两种结构。<br>遥控帧相比于数据帧除了缺少数据段之外，遥控帧的RTR位恒为隐性1，数据帧的RTR位恒为显性0。</p>
+<p>CAN 2.0A，一个11位的标识符 和 一个支配数据帧 的RTR位。<br>CAN 2.0B，一个29位的标识符（其中还包括两个隐性位：SRR 和 IDE） 和 RTR 字段 —– 见扩展帧。</p>
+<h3 id="4-4-帧结构"><a href="#4-4-帧结构" class="headerlink" title="4.4 帧结构"></a>4.4 帧结构</h3><h4 id="4-4-1-帧起始"><a href="#4-4-1-帧起始" class="headerlink" title="4.4.1 帧起始"></a>4.4.1 帧起始</h4><p>帧的最开始的一位是帧起始，也叫SOF（Start Of Frame），SOF恒为显性位，即逻辑 0 。<br>帧起始表示CAN_H 和 CAN_L上有了电位差，也就是说，一旦总线上有了SOF就表示总线上开始有报文了。</p>
+<h4 id="4-4-2-仲裁段"><a href="#4-4-2-仲裁段" class="headerlink" title="4.4.2 仲裁段"></a>4.4.2 仲裁段</h4><p>仲裁段是用来判定一帧报文优先级的依据，仲裁段中的ID号也是实现报文过滤机制的基础。</p>
+<p>仲裁段由以下几个部分组成，</p>
+<p>数据帧仲裁段：</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E4%BB%B2%E8%A3%81%E6%AE%B5.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>遥控帧仲裁段：</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E9%81%A5%E6%8E%A7%E5%B8%A7%E4%BB%B2%E8%A3%81%E6%AE%B5.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>可以看到相比于数据帧仲裁段RTR位恒为显性0，遥控帧仲裁段的RTR位恒为隐性1。</p>
+<h5 id="4-4-2-1-仲裁过程"><a href="#4-4-2-1-仲裁过程" class="headerlink" title="4.4.2.1 仲裁过程"></a>4.4.2.1 仲裁过程</h5><p>在CAN总线通信中，有一种<strong>回读机制</strong>：<br>指的是节点在向总线上发送报文的过程中，同时也对总线上的二进制位进行“回读”。通过这种机制，节点就可以判断出本节点发出的二进制位与总线上当前的二进制位是否一致。</p>
+<p>还有一种叫做<strong>线与机制</strong>：指的是在总线上，显性位能够覆盖隐性位。</p>
+<p>举个例子：在某一个时刻，节点Node_A向总线发送了一个显性位0，Node_B向总线发送了一个隐性位1，那么在该时刻，总线上的电平为显性0。</p>
+<p>下面将以标准数据帧的一个例子来分析CAN总线的非破坏性逐位仲裁机制。<br>一条CAN总线上有Node_A 和 Node_B两个节点，在总线空闲时，总线上为隐性电平，就在这个时候Node_A 和 Node_B 这两个节点同时向总线上发送数据，如下图：</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E4%BB%B2%E8%A3%81%E8%BF%87%E7%A8%8B.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+
+
+<p>从图中可以看出，在Node_A 和 Node_B 传输数据前，总线处于空闲状态，为隐性电平1，<br>这也就意味着，此时总线上的任意节点都可以向总线发送数据。</p>
+<p>在某一时刻，Node_A 和Node_B两个节点同时向总线上发送数据。按照线与机制，总线上的电位为：</p>
+<table>
+<thead>
+<tr>
+<th>节点/ID号</th>
+<th>ID10</th>
+<th>ID9</th>
+<th>ID8</th>
+<th>ID7</th>
+<th>ID6</th>
+<th>…</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Node_A</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>…</td>
+</tr>
+<tr>
+<td>Node_B</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr>
+<td>总线</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>…</td>
+</tr>
+</tbody></table>
+<p>在Node_A和Node_B两个节点向总线发送数据时，他们同时回读总线上的电平。<br>从图中我们可以看到，Node_A 和Node_B的ID10 、ID9、ID8电位相同，因此这两个节点从总线上听到的电位与他们自己发出的电位也相同，这个时候还没有分出胜负。</p>
+<p>当Node_B回读总线上的 ID7 这一位时，发现总线上的电平跟它自己发送到总线上的不一样，此时，Node_B知道自己在争夺总线的仲裁中失败了，那么它主动地转换为接收状态，不再发出信息。</p>
+<p>于是在此之后，总线上的电平和Node_A发出的电平一致，也就是说，Node_A占据了总线的发送权。<br>通过上面的分析我们可以看到，在整个仲裁过程中：</p>
+<ol>
+<li>在Node_A获取总线的发送权之后，Node_A接着发送自己的Msg_A，因此在竞争总线的过程中不会对Msg_A的传输造成延时；</li>
+<li>在两个节点竞争总线的过程中，不会破坏Msg_A;</li>
+</ol>
+<p>正是由于上面的两点，才称之为<strong>非破坏性仲裁机制</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c">Tips: 通过上面仲裁过程的分析，我们可以解释CAN总线通信的三个特点：<br><br><span class="hljs-number">1</span>）多主控制方式：只要总线空闲，总线上的任意节点都可以向总线上发送数据，<br>直到节点在仲裁中一个个失败，最后只留下一个节点获得总线的发送权。<br><br><span class="hljs-number">2</span>）非破坏性仲裁机制：仲裁段逐位总裁，依靠回读机制、线与机制得以实现。<br><br><span class="hljs-number">3</span>）半双工通信：所谓半双工通信，指的是节点不能在自己发送报文的时候，同时接收其他节点发送来的报文。<br>这是显然的，一个节点正在发送报文时，已经占据了总线的发送权，其他节点肯定不能向总线上发送报文。<br></code></pre></td></tr></table></figure>
+
+<p>看一个CAN报文发送的实例，<br>CAN总线上有四个节点：Node_A、Node_B、Node_C、Node_D。<br>发送的报文的ID号分别为5、7、3、6.</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/CAN%E6%8A%A5%E6%96%87%E5%8F%91%E9%80%81%E7%9A%84%E5%AE%9E%E4%BE%8B.png" srcset="/img/loading.gif" lazyload class="">
+
+<h5 id="4-4-2-2-RTR，SRR-和-IDE位"><a href="#4-4-2-2-RTR，SRR-和-IDE位" class="headerlink" title="4.4.2.2 RTR，SRR 和 IDE位"></a>4.4.2.2 RTR，SRR 和 IDE位</h5><p>通过上面标准数据帧的仲裁过程分析，我们已经理解了CAN总线的仲裁机制。<br>但同时也注意到仲裁段除了ID号之外，还有其他的位。</p>
+<h6 id="1）RTR位："><a href="#1）RTR位：" class="headerlink" title="1）RTR位："></a>1）RTR位：</h6><p>Tranmission Request Bit （远程发送请求位）。<strong>在数据帧中，RTR位恒为显性位0，在遥控帧中，恒为隐性1</strong>。</p>
+<p>RTR位的作用：<strong>在ID号相同的情况下，保证数据帧的优先级高于遥控帧</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c">Tips: 这么做的原因是保证数据帧优先级高于遥控帧。<br><br>比如：<br>在某一时刻t，节点Node_A发出了ID号为ID_2遥控帧报文来请求总线上的其它节点发出ID号为ID_2的数据帧报文。<br>但是就在同一时刻t，节点Node_B发出了ID号为ID_2的数据帧报文。<br><br>这个时候怎么办呢，显然依靠ID号不能仲裁出这两帧报文（一个遥控帧，一个数据帧，ID号相同）谁能占据总线的发送权，<br><br>这种情况下，RTR位就起作用了，由于RTR在数据帧中恒为显性<span class="hljs-number">0</span>，在遥控帧中恒为隐性<span class="hljs-number">1</span>，<br>所以在ID号相同的情况下，一定是数据帧仲裁获胜。<br><br>这就解释了 RTR位的作用：在ID号相同的情况下，保证数据帧的优先级高于遥控帧。<br></code></pre></td></tr></table></figure>
+
+
+
+<h6 id="2）SRR位"><a href="#2）SRR位" class="headerlink" title="2）SRR位"></a>2）SRR位</h6><p>Substitutes for Remote Requests Bit（替代远程请求位），<br>在扩展帧（数据帧或遥控帧）中，SRR恒为隐性位1，并且可以发现，扩展帧的隐性SRR位正好对应标准帧的显性RTR位，<br>这就解释了 SRR位的作用：<strong>在前11位ID号相同的情况下，标准数据帧的优先级高于扩展数据帧；</strong></p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/SRR%E4%BD%8D.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h6 id="3）IDE位"><a href="#3）IDE位" class="headerlink" title="3）IDE位"></a>3）IDE位</h6><p>全称：Identifier Extension Bit（标识符扩展位）。<br>在扩展帧中恒为隐性1，在标准帧中，IDE位于控制段，且恒为显性0。<br>且扩展帧IDE位和标准帧IDE位位置对应，<br>这就保证了： <strong>在前11位ID号相同的情况下，标准遥控帧的优先级一定高于扩展遥控帧。</strong></p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/IDE%E4%BD%8D.png" srcset="/img/loading.gif" lazyload class="">
+
+<h6 id="4-总结："><a href="#4-总结：" class="headerlink" title="4) 总结："></a>4) 总结：</h6><p>在ID号前11位相同的情况下：</p>
+<p>RTR：保证数据帧优先级高于遥控帧；<br>SRR ：保证标准数据帧的优先级高于扩展数据帧。<br>IDE ：保证标准遥控帧的优先级高于扩展遥控帧。</p>
+<h5 id="4-4-2-3-报文过滤"><a href="#4-4-2-3-报文过滤" class="headerlink" title="4.4.2.3 报文过滤"></a>4.4.2.3 报文过滤</h5><p>在CAN总线中没有地址的概念，CAN总线是通过报文ID来实现收发数据的。<br>CAN节点上都会有一个验收滤波ID表，其位于CAN节点的验收滤波器中，<br>如果总线上的报文的ID号在某个节点的验收滤波ID表中，那么这一帧报文就能通过该节点验收滤波器的验收，该节点就会接收这一帧报文。</p>
+<p>比如：Node_A发送了一帧ID号为ID_1的报文Msg_1，Node_B的验收滤波ID表中恰好有ID_1，于是乎Msg_1就会被Node_B接收。</p>
+<p>Tips: 报文过滤机制体现了CAN通信的两条特点：<br>1）一对一、组播和广播<br>2）系统的柔性：正是因为CAN总线上收发报文是基于报文ID实现的，所以总线上添加节点时不会对总线上已有的节点造成影响。</p>
+<h4 id="4-4-3-控制段"><a href="#4-4-3-控制段" class="headerlink" title="4.4.3 控制段"></a>4.4.3 控制段</h4><p>数据帧和遥控帧的控制段结构相同：</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E6%8E%A7%E5%88%B6%E6%AE%B5.png" srcset="/img/loading.gif" lazyload class="">
+
+<ol>
+<li>标准帧中IDE位对应扩展帧中的IDE位，保证在前11位ID号相同的情况下，标准帧的优先级一定高于扩展帧；</li>
+<li>然后是保留位r0和r1（扩展帧），保留位r0和r1必须以显性电平发送，但是接受方可以接受显性、隐性及其任意组合的电平；</li>
+<li>最后是4个字节的DLC（DLC3、DLC2、DLC1、DLC0）代表数据长度，指示了数据段中的字节数。对于没有数据段的遥控帧，DLC表示该遥控帧对应的数据帧的数据段的字节数。</li>
+</ol>
+<h4 id="4-4-4-数据段"><a href="#4-4-4-数据段" class="headerlink" title="4.4.4 数据段"></a>4.4.4 数据段</h4><p>数据段可以包含 0~8 个字节的数据，从MSB（最高位）开始输出。</p>
+<h4 id="4-4-5-CRC段"><a href="#4-4-5-CRC段" class="headerlink" title="4.4.5 CRC段"></a>4.4.5 CRC段</h4><p>CRC段包含CRC校验序列和CRC界定符。<br>CRC校验序列是根据多项式生成的CRC值，其计算范围包括：帧起始、仲裁段、控制段和数据段。<br>CRC界定符恒为隐性1。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/CRC%E6%AE%B5.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h4 id="4-4-6-ACK段"><a href="#4-4-6-ACK段" class="headerlink" title="4.4.6 ACK段"></a>4.4.6 ACK段</h4><p>ACK段包含ACK槽和ACK界定符两个位。</p>
+<p>发送节点在ACK段发送两个隐性位，即发送方发出的报文中ACK槽为隐性1；<br>接收节点在接收到正确的报文之后会在ACK槽发送显性位0，通知发送节点正常接收结束。所谓接收到正确的报文指的是接收到的报文没有填充错误、格式错误、CRC错误。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/ACK%E6%AE%B5.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<p><strong>Tips:</strong><br>我们以标准数据帧为例来分析ACK段的工作方式：<br>如图所示，Node_A为发送节点，Node_B为接收节点。<br>Node_A在ACK段发送两个隐性位1。<br>Node_B正确接收到这一报文后，在ACK段的ACK槽中填充了一个显性位0。<br>注意，这个时候Node_A回读到的总线上的额电平为显性0，于是这个时候，Node_A就知道自己发出去的报文至少有一个节点正确接收了。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/ACK%E6%AE%B51.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h4 id="4-4-7帧结束"><a href="#4-4-7帧结束" class="headerlink" title="4.4.7帧结束"></a>4.4.7帧结束</h4><p>帧结束段表示该帧报文的结束，由7个隐性位1 构成。</p>
+<h4 id="4-4-8错误帧"><a href="#4-4-8错误帧" class="headerlink" title="4.4.8错误帧"></a>4.4.8错误帧</h4><h5 id="4-4-8-1错误帧的帧结构"><a href="#4-4-8-1错误帧的帧结构" class="headerlink" title="4.4.8.1错误帧的帧结构"></a>4.4.8.1错误帧的帧结构</h5><p>在发送和接收报文时，总线上的节点如果检测出了错误，那么该节点就会发送错误帧，通知总线上的节点，自己出错了。<br>错误帧由错误标志和错误界定符两个部分组成。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E9%94%99%E8%AF%AF%E5%B8%A7%E7%9A%84%E5%B8%A7%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>主动错误标志：6个连续的显性位 （0）；<br>被动错误标志：6个连续的隐性位 （1）；<br>错误界定符：8个连续的隐性位 （1）。</p>
+<p>可以看到在错误标志之后还有0~6位的错误标志重叠，这一段最低有0个位，最多有6个位，关于这一段是怎么形成的，将在下文中解释。</p>
+<h5 id="4-4-8-2-错误检测"><a href="#4-4-8-2-错误检测" class="headerlink" title="4.4.8.2 错误检测"></a>4.4.8.2 错误检测</h5><h6 id="4-4-8-2-1-位填充原则"><a href="#4-4-8-2-1-位填充原则" class="headerlink" title="4.4.8.2.1 位填充原则"></a>4.4.8.2.1 位填充原则</h6><p>在了解CAN总线中的错误检测之前，首先需要了解什么是位填充。<br>CAN协议中规定，<strong>当相同极性的电平持续五位时，则添加一个极性相反的位</strong>。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E4%BD%8D%E5%A1%AB%E5%85%85%E5%8E%9F%E5%88%99.png" srcset="/img/loading.gif" lazyload class="">
+
+<p><strong>对于发送节点而言：</strong><br>在发送数据帧和遥控帧时，对于 SOF~CRC(除去CRC界定符) 之间的位流，相同极性的电平如果持续5位，那么在下一个位插入一个与之前5位反型的电平；</p>
+<p><strong>对于接收节点而言：</strong><br>在接收数据帧和遥控帧时，对于 SOF~CRC(除去CRC界定符) 之间的位流，相同极性的电平如果持续5位，那么需要删除下一位再接收。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E6%8E%A5%E6%94%B6%E8%8A%82%E7%82%B9.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>Tips: 注意：填充位的添加和删除是由发送节点和接收节点完成的，CAN-BUS只负责传输，不会操纵信号。</p>
+<h5 id="4-4-8-3-错误的种类"><a href="#4-4-8-3-错误的种类" class="headerlink" title="4.4.8.3 错误的种类"></a>4.4.8.3 错误的种类</h5><p>在CAN总线通信中，一共有五种错误：<br>（1）位错误<br>（2）ACK错误<br>（3）填充错误<br>（4）CRC错误<br>（5）格式错误</p>
+<h6 id="4-4-8-3-1-位错误"><a href="#4-4-8-3-1-位错误" class="headerlink" title="4.4.8.3.1 位错误"></a>4.4.8.3.1 位错误</h6><p>（Bit Check Error）</p>
+<p>节点将自己发送到总线上的电平与同时从总线上回读到的电平进行比较，如果发现二者不一致，那么这个节点就会检测出一个位错误。</p>
+<p>实际上所谓“发出的电平与从总线上回读的电平不一致”，指的就是节点向总线发出隐性位，却从总线上回读到显性位或者节点向总线发出显性位，却从总线上回读到隐性位这两种情况。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c">Tips: 有三种例外情况不属于位错误：<br><br>在仲裁区，节点向总线发送隐性位却回读到显性位，不认为是位错误，这种情况表示该节点仲裁失败；<br><br>在ACK槽，节点向总线发送隐性位却回读到显性位，不认为是位错误，这种情况表示，该节点当前发送的这一帧报文至少被一个其它节点正确接收；<br><br>该节点发送被动错误标志，节点Node_A向总线发送连续六个隐性位（被动错误标志）却回读到显性位，不认为是位错误。因为被动错误标志是六个连续的隐性位，所以在总线上按照线与机制，有可能这六个连续隐性位被其它节点发送的显性电平“吃掉”<br></code></pre></td></tr></table></figure>
+
+
+
+<h6 id="4-4-8-3-2-ACK错误"><a href="#4-4-8-3-2-ACK错误" class="headerlink" title="4.4.8.3.2 ACK错误"></a>4.4.8.3.2 ACK错误</h6><p>（Acknowledgment Error）</p>
+<p>按照CAN协议的规定，在一帧报文（数据帧或者遥控帧）发出之后，如果接收节点Node_B成功接收了该帧报文，那么接收节点Node_B就要在该帧报文ACK槽对应的时间段内向总线上发送一个显性位来应答发送节点Node_A。这样发送节点Node_A就会在ACK槽时间段内从总线上回读到一个显性位。</p>
+<p>因此：<br>当发送节点Node_A在ACK槽时间段内没有回读到显性位，那么发送节点Node_A就会检测到一个ACK应答错误。这表示没有一个节点成功接收该帧报文。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/ACK%E9%94%99%E8%AF%AF.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h6 id="4-4-8-3-3-填充错误"><a href="#4-4-8-3-3-填充错误" class="headerlink" title="4.4.8.3.3 填充错误"></a>4.4.8.3.3 填充错误</h6><p>（Fill Error）</p>
+<p>在需要执行位填充原则的帧段（数据帧遥控帧的SOF~CRC序列），检测到连续六个同性位，则检测到一个填充错误。</p>
+<h6 id="4-4-8-3-4-CRC错误"><a href="#4-4-8-3-4-CRC错误" class="headerlink" title="4.4.8.3.4 CRC错误"></a>4.4.8.3.4 CRC错误</h6><p>发送节点Node_A在发送数据帧或者遥控帧时，会计算出该帧报文的CRC序列。<br>接收节点Node_B在接收报文时也会执行相同的CRC算法，如果接收节点Node_B计算出的CRC序列值与发送节点Node_A发来的CRC序列值不一致，那么接收节点就检测到一个CRC错误。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/CRC%E9%94%99%E8%AF%AF.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+
+
+<h6 id="4-4-8-3-5-格式错误"><a href="#4-4-8-3-5-格式错误" class="headerlink" title="4.4.8.3.5 格式错误"></a>4.4.8.3.5 格式错误</h6><p>在一帧报文发送时，如果在必须发送预定值的区域内检测到了非法值，那么就检测到一个格式错误。<br>CAN报文中，有预定值的区域包括：</p>
+<p>数据帧和遥控帧的CRC界定符、ACK界定符、EOF；<br>错误帧界定符<br>过载帧界定符</p>
+<h6 id="4-4-8-3-6-错误通知"><a href="#4-4-8-3-6-错误通知" class="headerlink" title="4.4.8.3.6 错误通知"></a>4.4.8.3.6 错误通知</h6><p>上一节中，讲到CAN通信中有五种错误，并且介绍了在什么情况下能够检测到这几种错误，在检测到错误之后，检测到错误的节点就要发送错误帧到总线上来通知总线上的其他节点。</p>
+<p>错误帧有的带有主动错误标志，有的带有被动错误标志，而且错误标志重叠部分的字节数也不一样，那么问题就来了：<br>什么情况下发送带有主动错误标志的错误帧；<br>什么情况下发送带有被动错误标志的错误帧；<br>在哪个时间点发送错误帧；<br>错误标志重叠部分是怎样形成的；</p>
+<h6 id="4-4-8-3-7-节点错误状态"><a href="#4-4-8-3-7-节点错误状态" class="headerlink" title="4.4.8.3.7 节点错误状态"></a>4.4.8.3.7 节点错误状态</h6><p>按照CAN协议的规定，CAN总线上的节点始终处于以下三种状态之一。<br>a. 主动错误状态<br>b. 被动错误状态<br>c. 总关闭状态</p>
+<p>当满足一定的条件时，节点可以从一种状态转换为另外一种状态。</p>
+<p>Tips: 需要注意的是：<br>处于主动错误状态，表示该节点具备发出主动错误标志的能力;<br>处于被动错误状态，表示节点具备发出被动错误标志的能力。</p>
+<p><strong>1）主动错误状态</strong></p>
+<p>节点处于主动错误状态可以正常通信；<br>处于主动错误状态的节点（可能是接收节点也可能是发送节点）在检测出错误时，发出主动错误标志。</p>
+<p><strong>2）被动错误状态</strong></p>
+<p>节点处于被动错误状态可以正常通信；<br>处于被动错误状态的节点（可能是接收节点也可能是发送节点）在检测出错误时，发出被动错误标志。</p>
+<p>Tips: 注意：这里说处于主动错误状态或被动错误状态的节点仍然可以正常通信，<br>这里的正常通信指的是：节点仍然能够从总线上接收报文，也能够竞争总线获胜后向总线上发送报文。<br>但是不代表接收的报文一定正确也不代表一定能正确的发送报文。</p>
+<p><strong>3）总线关闭状态</strong><br>节点处于总线关闭状态，那么该节点不能收发报文；<br>处于总线关闭状态的节点，只能一直等待，在满足一定条件的时候，再次进入到主动错误状态</p>
+<h6 id="4-4-8-3-8-错误状态的转换"><a href="#4-4-8-3-8-错误状态的转换" class="headerlink" title="4.4.8.3.8 错误状态的转换"></a>4.4.8.3.8 错误状态的转换</h6><p>现在我们知道：<br>处于主动错误状态的节点在检测到错误时会发送带有主动错误标志的错误帧；<br>处于被动错误状态的节点在检测到错误时会发送带有被动错误标志的错误帧。</p>
+<p>那么一个CAN节点在什么情况下处于主动错误状态，什么情况下处于被动错误状态呢？</p>
+<p>根据CAN协议的规定，在CAN节点内，有两个计数器：<strong>发送错误计数器（TEC）</strong> 和 <strong>接收错误计数器（REC）</strong>。</p>
+<p>Tips: 需要注意的是：<br>这两个计数器计得不是收发报文的数量，也不是收发错误帧的数量。<br>TEC和RCE计数值的变化，是根据下表的规定来进行的</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/TEC%E5%92%8CRCE%E8%AE%A1%E6%95%B0%E5%80%BC.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<p>CAN节点错误状态的转换，就是基于这两个计数器来进行的。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/CAN%E8%8A%82%E7%82%B9%E9%94%99%E8%AF%AF%E7%8A%B6%E6%80%81%E7%9A%84%E8%BD%AC%E6%8D%A2.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<p>可以看出，节点错误状态的转换就是一个 “量变” 到“质变”的过程：</p>
+<p><strong>1) 主动错误状态</strong><br>最开始TCE和REC都小于127时**，就处于主动错误状态。</p>
+<p>在这一状态下，节点检测到一个错误就会发送带有主动错误标志的错误帧，<br>因为主动错误标志是连续六个显性位，所以这个时候主动错误标志将会“覆盖”掉总线上其它节点的发送，<br>而之前在CAN总线上传输的报文就被这“六个连续显性位”破坏掉了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c">如果发出主动错误帧的节点是发送节点，这个情况下就相当于：<br>刚刚发送的那一帧报文我发错了，现在我破坏掉它（发送主动错误帧），你们不管收到什么都不算数；<br><br>如果发出主动错误帧的节点是接收节点，这个情况就相当于：<br>刚刚我收报文的时候发现了错误，不管你们有没有发现这个错误，<br>我现在主动站出来告诉大家这个错误，并把这一帧报文破坏掉（发送主动错误帧），<br>刚才你们收到的东西不管对错都不算数了。<br><br><br>Tips: 处于主动错误状态，说明这个节点目前是比较可靠的，出现错误的原因可能不是它本身的问题，<br>即刚刚检测到的错误可能不仅仅只有它自己遇到，正是因为这一点，<br>整个总线才相信它报告的错误，允许它破坏掉发送中的报文，也就是将这一次的发送作废。<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>2）被动错误状态</strong><br>如果某个节点发送错误帧的次数较多，必将使得TCE＞127 或者 REC＞127，那么该节点就处于被动错误状态。</p>
+<p>在这一状态下，节点Node_A检测到一个错误就会发送带有被动错误标志的错误帧，因为被动错误标志是连续六个隐性位，所以这个时候总线上正在传输的报文位流不会受到该被动错误帧的影响，其它的节点该发送的发送，该接收的接收，没人搭理这个发送被动错误帧的节点Node_A。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c">如果发出被动错误帧的节点Node_A为报文的发送节点，<br>那么在发送被动错误帧之后，刚刚正在发送的报文被破坏，<br>并且Node_A不能在错误帧之后随着连续发送刚刚发送失败的那个报文。<br><br>随之而来的是帧间隔，并且连带着<span class="hljs-number">8</span>位隐性位的 “延迟传送” 段；<br><br>这样总线电平就呈现出连续<span class="hljs-number">11</span>位隐性位，总线上的其它节点就能判定总线处于空闲状态，就能参与总线竞争。<br><br>此时如果Node_A能够竞争成功，那么它就能接着发送，如果竞争不能成功，那么就接着等待下一次竞争。<br>这种机制的目的正是为了让其它正常节点（处于主动错误）优先使用总线。<br><br><br>Tips: 处于被动错误状态，说明这个节点目前是不太可靠的，出现错误的原因可能是它本身的问题，<br>即刚刚检测到的错误可能仅仅只有它自己遇到，正是因为这一点，整个总线才不信任它报告的错误，<br>从而只允许它发送六个连续的隐性位，这样它才不会拖累别人。<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>3）总线关闭状态</strong><br>如果一个处于被动错误状态的节点，仍然多次发送被动错误帧，那么势必导致TEC ＞ 255，这样就处于总线关闭状态。</p>
+<p>在总线关闭状态下的节点Node_A不能向总线上发送报文，也不能从总线上接收报文，整个节点脱离总线。等到检测到128次11个连续的隐性位时，TEC和REC置0，重新回到主动错误状态。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c">按照我的理解 <br>这个所谓“检测到<span class="hljs-number">128</span>次<span class="hljs-number">11</span>个连续隐性位”其实就是让这个节点隔离一段时间冷静下，<br>因为它一旦处于总线关闭状态，就不会和总线有任何的联系，<br>这个时候只要它计算时间等于达到传送<span class="hljs-number">128</span>次<span class="hljs-number">11</span>个连续隐性位所用的时间，就可以重新连到总线上。<br><br><br>Tips: <br>处于总线关闭状态说明，这个节点目前挂掉了，<br>总线先把它踢开，这样它才不会拖累别人，等到它冷静一段时间之后再回到总线上。<br></code></pre></td></tr></table></figure>
+
+
+
+<h6 id="4-4-8-3-9-错误帧的发送"><a href="#4-4-8-3-9-错误帧的发送" class="headerlink" title="4.4.8.3.9 错误帧的发送"></a>4.4.8.3.9 错误帧的发送</h6><p>在检测到错误之后，什么时候发送错误帧呢？<br>按照CAN协议的规定：<br><strong>位错误、填充错误、格式错误、ACK错误</strong>： 在错误产生的那一位的下一位开始发送错误帧。<br><strong>CRC错误</strong>：紧随ACK界定符后的位发送错误帧。</p>
+<p>例子1：</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E4%BE%8B%E5%AD%901.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>（1）发送节点Node_A发送一个显性位，但是却从总线上听到一个隐形位，于是Node_A节点就会检测到一个位错误； （2）Node_A检测到位错误之后，立即在下一位开始发送主动错误帧：6个连续显性位的主动错误标志+8个连续隐性位的错误界定符； （3)对应Node_A发出的主动错误标志，总线上电平为6个连续显性位；</p>
+<p>（4）接收节点Node_B和Node_C从总线上听到连续6个显性位，那么就会检测到一个填充错误，于是这两个节点都会发送主动错误帧；<br>（5）对应Node_B和Node_C发出的主动错误标志，总线电平又有6个连续显性电平，对应Node_B和Node_C发出的错误界定符，总线电平有8个连续的隐性电平。<br>（6）在间歇场之后，Node_A节点重新发送刚刚出错的报文。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E9%94%99%E8%AF%AF%E5%B8%A7.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<p>从上图中可以看出错误帧之中，错误标志重叠部分是怎样形成的，<br>这个例子中，位错误的错误标志与填充错误的错误标志重叠两位，剩下的部分还有四位：</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E4%BD%8D%E9%94%99%E8%AF%AF%E7%9A%84%E9%94%99%E8%AF%AF%E6%A0%87%E5%BF%97.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+
+
+<h4 id="4-4-9-过载帧"><a href="#4-4-9-过载帧" class="headerlink" title="4.4.9 过载帧"></a>4.4.9 过载帧</h4><p>过载帧是接收节点向总线上其它节点报告自身接收能力达到极限的帧。</p>
+<p>上面这句话可以这样理解：接收节点Node_A接收报文的能力达到极限了，于是Node_A就会发出过载帧来告诉总线上的其它节点（包括发送节点），我接收节点Node_A已经没有能力处理你们发来的报文了。</p>
+<p>过载帧包括：过载标志和过载界定符两个部分<br>过载标志：连续6个显性位；<br>过载界定符：连续8个隐性位。</p>
+<p>与错误帧类似，过载帧中有过载帧重叠部分，且形成过载重叠标志的原因与形成错误帧中的错误重叠标志的原因是相同的</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E9%94%99%E8%AF%AF%E9%87%8D%E5%8F%A0%E6%A0%87%E5%BF%97.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<p>对于过载帧的帧结构我们可以这样理解：<br>接收节点Node_A达到接收极限时，就会发出过载帧到总线上，<br>显然，过载标志的6个连续显性位会屏蔽掉总线上其它节点的发送，<br>也就是说这个时候Node_A通过发送过载帧的方式来破坏其它节点的发送，<br>这样在Node_A发送过载帧期间，其它节点就不能成功发送报文，<br>于是就相当于把其它节点的发送推迟了，也就是说Node_A在其发送过载帧的这段时间得以“休息”。</p>
+<p>有三种情况会引起过载帧：</p>
+<ol>
+<li>接收节点自身原因。<br>接收节点由于某种原因需要延迟接收下一个数据帧或者遥控帧。</li>
+<li>在帧间隔的间歇段的第一位和第二位检测到一个显性位（正常的间歇段都是隐性位）<br>帧间隔的间隔段本应是三个连续的隐性位，<br>如果接收节点Node_A在间隔段检测到显性位，<br>那么就意味着此时有报文发向接收节点Node_A，<br>但这个时候是不应该有报文发来的，于是Node_A发送过载帧。</li>
+<li>CAN节点在错误界定符或过载界定符的第八位(最后一位)听到一个显性位0，节点会发送一个过载帧，且错误计数器不会增加。<br>接收节点Node_A在错误界定符和过载界定符的最后一位听到显性位，<br>也意味着有报文发向Node_A，但这个时候是不应该有报文发来的，<br>于是Node_A发送过载帧。</li>
+</ol>
+<h4 id="4-4-10-帧间隔"><a href="#4-4-10-帧间隔" class="headerlink" title="4.4.10 帧间隔"></a>4.4.10 帧间隔</h4><p>帧间隔是用来隔离数据帧（或者遥控帧）的，也就是说，<br>数据帧（或者遥控帧）通过插入帧间隔可以将本帧与先行帧（数据帧、遥控帧、错误帧、过载帧）分隔开来。</p>
+<p>Tips: 过载帧和错误帧的前面不能插入帧间隔。</p>
+<p>帧间隔有两种不同的形式：<br>主动错误状态的帧间隔：</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E4%B8%BB%E5%8A%A8%E9%94%99%E8%AF%AF%E7%8A%B6%E6%80%81%E7%9A%84%E5%B8%A7%E9%97%B4%E9%9A%94.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<p>被动错误状态的帧间隔：</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E8%A2%AB%E5%8A%A8%E9%94%99%E8%AF%AF%E7%8A%B6%E6%80%81%E7%9A%84%E5%B8%A7%E9%97%B4%E9%9A%94.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<p><strong>间隔段</strong>：<br>连续三个隐性位；间隔段期间，所有节点不允许发送数据这或遥控帧，只要在这期间监听到显性位，接收节点就会发送过载帧。</p>
+<p><strong>空闲段</strong>：<br>连续隐性位，个数不一定，0个或者多个都可以。总线空闲的时间是任意长的，只要总线空闲，节点就可以竞争总线。</p>
+<p><strong>暂停段</strong>:<br>只有处于被动错误状态的节点在发送帧间隔的时候，才会在帧间隔中插入8个连续隐性位的暂停段。</p>
+<p><strong>暂停段，又叫做延迟传送段，为什么节点处于被动状态时会有这样一段呢。</strong><br>=====&gt;<br>原因如下:<br>首先，考虑主动错误状态的节点Node_A，发送主动错误标志之后，随之就要重新发送刚刚发送失败的报文，<br>但是为了间隔开与前面刚刚发送的错误帧，总线在错误帧之后就会插入３个隐形位的帧间隔，<br>在这３个隐形位期间，其它的节点不足以判定总线空闲（需要连续11个隐性位才能判定），<br>所以Node_A仍然占据着总线的控制权，<br>于是在帧间隔之后，Node_A能够接着发送报文。</p>
+<p>现在Node_A转入到被动错误状态了，说明它已经不是很可靠了，<br>这个时候如果没有延迟传送段，在Node_A发出被动错误标志之后，它仍然能够在3位的帧间隔之后立即重新发送报文，<br>这是不符合我们对被动错误状态的处理要求的当然也是不符合CAN协议的，<br>于是乎对于发送出被动错误标志的节点，总线在帧间隔中加入了８个连续隐性位的延迟传送段，这样的3+8=11个连续隐性位。<br>就能让Node_A在这个帧间隔期间失去对总线的控制权，从而优先保证其它正常(处于主动错误状态)节点能够使用总线，<br>而不必等着一个已经不可靠的Node_A占据总线。</p>
+<h3 id="4-5-CAN通信的位定时与同步"><a href="#4-5-CAN通信的位定时与同步" class="headerlink" title="4.5 CAN通信的位定时与同步"></a>4.5 CAN通信的位定时与同步</h3><h4 id="4-5-1-位定时"><a href="#4-5-1-位定时" class="headerlink" title="4.5.1 位定时"></a>4.5.1 位定时</h4><h5 id="4-5-1-1-比特率和波特率"><a href="#4-5-1-1-比特率和波特率" class="headerlink" title="4.5.1.1 比特率和波特率"></a>4.5.1.1 比特率和波特率</h5><ol>
+<li><strong>位速率</strong><br>又叫做比特率（bit rata）、信息传输率，<br>表示的是单位时间内，总线上传输的信息量，即每秒能够传输的二进制位的数量，<br>单位是bit per second。</li>
+<li><strong>波特率</strong><br>又叫做传码率、信号传输率，表示的是单位时间内传输的码元的数量，<br>当两相调制时，一个码元用一个二进制位表示，此时波特率在数值上和比特率是一样的，CAN总线正是两项调制这种情况。</li>
+</ol>
+<p>Tips: 比特率和波特率并不是一回事儿，这一定一定要牢记</p>
+<h5 id="4-5-1-2-位时间"><a href="#4-5-1-2-位时间" class="headerlink" title="4.5.1.2 位时间"></a>4.5.1.2 位时间</h5><h6 id="4-5-1-2-1-位时间的概念"><a href="#4-5-1-2-1-位时间的概念" class="headerlink" title="4.5.1.2.1 位时间的概念"></a>4.5.1.2.1 位时间的概念</h6><p>位时间：表示的是一个二进制位在总线上传输时所需要的时间。<br>所以：<br>位速率 = 1 / 位时间</p>
+<p>首先了解以下CAN总线系统中的两个时钟：晶振时钟周期 和 CAN时钟周期</p>
+<ol>
+<li><strong>晶振时钟周期</strong><br>是由单片机振荡器的晶振频率决定的，指的是振荡器每震荡一次所消耗的时间长度，也是整个系统中最小的时间单位。</li>
+<li><strong>CAN时钟周期</strong><br>CAN时钟是由系统时钟分频而来的一个时间长度值，实际上就是一个时间份额Tq。</li>
+</ol>
+<p>可以按照下面的公式计算： CAN时钟周期 = 2 × 晶振时钟周期 × BRP<br>其中BRP叫做波特率预分频值（baudrate prescaler）。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E4%BD%8D%E6%97%B6%E9%97%B4%E7%9A%84%E6%A6%82%E5%BF%B5.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h6 id="4-5-1-2-2-位时间的分段"><a href="#4-5-1-2-2-位时间的分段" class="headerlink" title="4.5.1.2.2 位时间的分段"></a>4.5.1.2.2 位时间的分段</h6><p>如上文所述，在CAN的位定时中，一个CAN时钟周期称为一个时间量子 — Tq。<br>如下图所示：<br>位时间分为四个段：同步段、传播段、相位缓冲段1、相位缓冲段2，总共8~25个时间量子（Tq）</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E4%BD%8D%E6%97%B6%E9%97%B4%E7%9A%84%E5%88%86%E6%AE%B5.png" srcset="/img/loading.gif" lazyload class="">
+
+<p><strong>1）同步段（Synchronization Segment）</strong><br>长度固定，1个时间量子Tq；<br>一个位的传输从同步段开始；<br>同步段用于同步总线上的各个节点，一个位的跳边沿在此时间段内。</p>
+<p><strong>2）传播段（Propagation Segment）</strong><br>传播段用于补偿报文在总线和节点上传输时所产生的时间延迟；<br>传播段时长 ≥ 2 × 报文在总线和节点上传输时产生的时间延迟 ；<br>传播段时长可编程（1~8个时间量子Tq）。</p>
+<p><strong>3）相位缓冲段1（Phase Buffer Segment1）</strong><br>用于补偿节点间的晶振误差；<br>允许通过重同步对该段加长；<br>在这个时间段的末端进行总线状态的采样；<br>长度可编程（1~8个时间量子Tq）</p>
+<p><strong>4）相位缓冲段2（Phase Buffer Segment2）</strong><br>用于补偿节点间的晶振误差；<br>允许通过重同步对该段缩短；<br>长度可编程（1~8个时间量子Tq）</p>
+<p>于是 tBit = tSS + tPS +tPBS1 + tPBS2<br>tBit:位时间<br>tSS:同步段时间<br>tPS:传播段时间<br>tPBS1:时间段1<br>tPBS2:时间段2</p>
+<h4 id="4-5-2-CAN的同步机制"><a href="#4-5-2-CAN的同步机制" class="headerlink" title="4.5.2 CAN的同步机制"></a>4.5.2 CAN的同步机制</h4><p>在CAN通信中，有两种同步机制：硬同步 与 重同步。</p>
+<h5 id="4-5-2-1-同步的规则"><a href="#4-5-2-1-同步的规则" class="headerlink" title="4.5.2.1  同步的规则"></a>4.5.2.1  同步的规则</h5><p>☆ 一个位时间内只允许一种同步方式，要么硬同步要么重同步；<br>☆ 任何一个从“隐性”到“显性”的下降沿 都可以用于同步；<br>☆ 硬同步发生在报文的SOF位，所有接收节点调整各自当前位的同步段，使其位于发送的SOF位内；<br>☆ 重同步发生在一个报文SOF位之外的其它段，当下降沿落在了同步段之外时发生重同步；<br>☆ 在SOF到仲裁场发送的时间段内，如果有多个节点同时发送报文，那么这些发送节点对跳变沿不进行重同步</p>
+<h5 id="4-5-2-2-硬同步"><a href="#4-5-2-2-硬同步" class="headerlink" title="4.5.2.2 硬同步"></a>4.5.2.2 硬同步</h5><p>硬同步发生在SOF位，所有接收节点调整各自当前位的同步段，调整宽度不限</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E7%A1%AC%E5%90%8C%E6%AD%A5.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>（1）发送节点Node_A在发送SOF位时，SOF位的下降沿在SS段；<br>（2）这个时候接收节点Node_B发现自己当前位的SS段和发送节点SOF位的SS段不同步。也就是说当Node_A产生SOF位SS段时，Node_B的当前位的SS段已经在5个Tq之前产生了；<br>（3）于是接收节点Node_B强行将自己当前位的SS段拉到与SOF位的SS段同步。</p>
+<h5 id="4-5-2-3-重同步"><a href="#4-5-2-3-重同步" class="headerlink" title="4.5.2.3 重同步"></a>4.5.2.3 重同步</h5><p>重同步发生在一个报文SOF位之外的其它位场内，<br>当接收节点Node_B当前位的下降沿落在了发送节点Node_A当前位的同步段之外时发生重同步。<br>重同步会导致相位缓冲段1的延长或者相位缓冲段2的缩短，从而保证采样点的准确。</p>
+<h6 id="4-5-2-3-1-PBS1延长"><a href="#4-5-2-3-1-PBS1延长" class="headerlink" title="4.5.2.3.1 PBS1延长"></a>4.5.2.3.1 PBS1延长</h6><p>发的晚（慢），收的早（块），导致PBS1延长。</p>
+ 
+
+<p>如上图所示：<br>（1）发送节点Node_A比接收节点Node_B的时间慢了，也就是说Node_A当前位的ss段产生的时候，Node_B 当前位的ss段已经在2个Tq之前产生了；<br>（2）所以这个时候接收节点Node_B就将PBS1延长2个Tq的时间；<br>（3）于是这个时候Node_A当前位的采样点就和Node_B的采样点同步了。</p>
+<h6 id="4-5-2-3-2-PBS2缩短"><a href="#4-5-2-3-2-PBS2缩短" class="headerlink" title="4.5.2.3.2 PBS2缩短"></a>4.5.2.3.2 PBS2缩短</h6><p>发的早（快），收的晚（慢），导致PBS2缩短。</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/PBS2%E7%BC%A9%E7%9F%AD.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>如上图所示：<br>（1）发送节点Node_A当前位的SS段诞生2Tq时长之后，接收节点Node_B的当前位才产生SS段；<br>（2）于是，接收节点Node_B当前位的PBS2段缩短，<br>（3）这样就会导致接收节点Node_B的下一位能够提前2个Tq，从而Node_B的下一位采样点和Node_A下一位的采样点能够同步。</p>
+<h6 id="4-5-2-3-3-同步跳转宽度"><a href="#4-5-2-3-3-同步跳转宽度" class="headerlink" title="4.5.2.3.3 同步跳转宽度"></a>4.5.2.3.3 同步跳转宽度</h6><p>在重同步时，有个同步跳转宽度（SJW，Synchro Jump Width）的概念，表示的是PBS1和PBS2重同步时允许跳转的最大宽度。<br>同步跳转宽度必须满足以下几个条件：</p>
+<p>SJW必须小于PBS1和PBS2的最小值<br>SJW最大值不能超过4</p>
+<h4 id="4-5-3-位定时参数的确定"><a href="#4-5-3-位定时参数的确定" class="headerlink" title="4.5.3 位定时参数的确定"></a>4.5.3 位定时参数的确定</h4><p>位定时的参数主要涉及以下几个：<br>（1）位速率：单位为bps、Kbps、Mbps<br>1Mbps = 1000Kbps = 1000000bps</p>
+<p>（2）位时间：tBit，单位一般为纳秒(ns)<br>tBit =1 / 位速率</p>
+<p>（3）时间量子Tq：<br>Tq =1 / NBT<br>NBT 表示的是一个位时间tBit内包含Tq的个数。</p>
+<p>（4）传输延迟时间tPTS<br>CAN报文在CAN总线上的传输时，物理延迟包含两个部分：<br>在CAN-BUS上传输造成的延迟<br>在节点上传输造成延迟</p>
+ <img src="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/images/%E4%BD%8D%E5%AE%9A%E6%97%B6%E5%8F%82%E6%95%B0%E7%9A%84%E7%A1%AE%E5%AE%9A.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>按照CAN通信协议的规定，补偿给传播延迟的时间长度要至少等于实际实际传播延迟时长的2倍，即：<br>tPTS ≥ 2 × tdel = 2 × ( tdel + tBus )</p>
+<p>需要注意的是：<br>Tips: 在CAN总线通信系统中是以时间量子Tq来度量时间的，所以如果延迟补偿时间 tPTS = 3.1Tq，那么这个时候要取：tPTS = 4Tq。</p>
+<p>（5）相位缓冲段<br>相位缓冲段的时间长度分为两种情况：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (NBT<span class="hljs-number">-1</span>-tPTS_Tq)/<span class="hljs-number">2</span>==偶数<br>    PBS1_Tq = PBS2_Tq = (NBT<span class="hljs-number">-1</span>-tPTS_Tq)/<span class="hljs-number">2</span><br><span class="hljs-keyword">else</span><br>    PBS1_Tq = (NBT<span class="hljs-number">-1</span>-tPTS_Tq)/<span class="hljs-number">2</span><br>    PBS2_Tq = PBS1_Tq + <span class="hljs-number">1</span><br><span class="hljs-number">12345</span><br></code></pre></td></tr></table></figure>
+
+<p>(6) 同步跳转宽度<br>SJW = min ( PBS1_Tq , 4 )</p>
+<p>(7) 验证晶振误差Df<br>CAN总线的晶振误差必须同时满足下面三个条件：</p>
+<p>Df &lt;= SJW / (2×10×NBT)<br>Df &lt;= min(PBS1_Tq,PBS2_Tq) / ( 2×(13×NBT−PBS2_Tq) )<br>Df ≤ 1.58%</p>
+<h4 id="4-5-4-例子"><a href="#4-5-4-例子" class="headerlink" title="4.5.4 例子"></a>4.5.4 例子</h4><p>以下面的例子来讲述位定时参数的确定方法：<br>MCU晶振16MHz，位速率1Mbps，总线长度20m，单位总线延迟5ns/m，物理接口的发送接收延迟150ns</p>
+<p>（1）晶振时钟周期：T=1s/16MHz = 62.5ns</p>
+<p>（2）位时间 ：tBit = 1/1Mbps = 1000ns</p>
+<p>（3）BPR和NBT：考虑到 T = 125ns，tBit = 1000ns，所以BPR只能取值为1，才能满足NBT∈[8,25],于是预分频数BPR=1；</p>
+<p>（4）CAN时钟周期Tq = 2 × 62.5 × 1 = 125ns</p>
+<p>（5）NBT = 8</p>
+<p>（6）传输延迟时间tPTS ———— tPTS = 2 ×（ 20 × 5 + 150 ）= 500ns<br>所以<br>tPTS_Tq = tPTS / Tq = 500 / 125=4</p>
+<p>于是NBT=8个Tq的长度中需要有4个Tq用于补偿传播延迟，于是还剩下4个Tq，<br>SS同步段长度固定占据1个Tq，还剩3个Tq，于是PBS1分配一个Tq，PBS2分配2个Tq。</p>
+<p>（7）同步跳转宽度 SJW=min{PBS1,4}=1</p>
+<p>（8）晶振误差<br>Df &lt;= SJW / (2×10×NBT) = 1 / (2×10×8)=0.00625</p>
+<p>Df &lt;= min(PBS1_Tq,PBS2_Tq) / ( 2×(13×NBT−PBS2_Tq) ) = 12 × ( 13×8 − 2) = 0.00490</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>blog.csdn.net<span class="hljs-regexp">/weixin_40528417/</span>article<span class="hljs-regexp">/details/</span><span class="hljs-number">79534483</span><br>公众号-嘴哥有料<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/IOT/">IOT</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/IOT/">IOT</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%BD%A6%E8%81%94%E7%BD%91/">车联网</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/22/IOT%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%80%BB%E7%BB%93/">
+                        <span class="hidden-mobile">IOT渗透测试总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

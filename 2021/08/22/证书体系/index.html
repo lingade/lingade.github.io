@@ -1,0 +1,667 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>证书体系 - Cola&#39;S Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Cola'S Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="证书体系">
+              
+                证书体系
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-22 22:29" pubdate>
+        2021年8月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      69
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">证书体系</h1>
+            
+            <div class="markdown-body">
+              <h2 id="X509标准"><a href="#X509标准" class="headerlink" title="X509标准"></a>X509标准</h2><p>X.509 - 这是一种证书标准,主要定义了证书中应该包含哪些内容，证书主要包括颁发者和被办法者的信息,以及被颁发者的公钥，和CA机构对这些信息的认证，</p>
+<ol>
+<li>两种编码方式：</li>
+</ol>
+<ul>
+<li><p>PEM - Privacy Enhanced Mail,打开看文本格式,以”—–BEGIN…”开头, “—–END…”结尾,内容是BASE64编码.</p>
+<pre><code>  Apache和*NIX服务器偏向于使用这种编码格式.
+</code></pre>
+</li>
+<li><p>DER - Distinguished Encoding Rules,打开看是二进制格式,不可读.</p>
+<p>Java和Windows服务器偏向于使用这种编码格式.</p>
+</li>
+</ul>
+<ol>
+<li>各种文件拓展名：</li>
+</ol>
+<ul>
+<li>CRT - CRT应该是certificate的三个字母,其实还是证书的意思,常见于*NIX系统,有可能是PEM编码,也有可能是DER编码,大多数应该是PEM编码</li>
+<li>CER - 还是certificate,还是证书,常见于Windows系统,同样的,可能是PEM编码,也可能是DER编码,大多数应该是DER编码.</li>
+<li>KEY - 通常用来存放一个公钥或者私钥,<strong>并非X.509证书</strong>,编码同样的,可能是PEM,也可能是DER.</li>
+<li>CSR - Certificate Signing Request,即证书签名请求,这个并不是证书,而是向权威证书颁发机构获得签名证书的申请,其核心内容是一个公钥(当然还附带了一些别的信息),在生成这个申请的时候,同时也会生成一个私钥</li>
+<li>PFX/P12 - predecessor of PKCS#12,对*nix服务器来说,一般CRT和KEY是分开存放在不同文件中的,但Windows的IIS则将它们存在一个PFX文件中,(因此这个文件包含了证书及私钥)这样会不会不安全？应该不会,PFX通常会有一个”提取密码”</li>
+</ul>
+<blockquote>
+<p>总结起来：crt cer约等于x509证书，key保存公钥或私钥，csr是证书签名请求，pfx包含证书和私钥</p>
+</blockquote>
+<h2 id="PKCS标准"><a href="#PKCS标准" class="headerlink" title="PKCS标准"></a>PKCS标准</h2><p>PKCS系列是 Public-Key Cryptography Standards ，是RSA制定的一系列的标准，注意前面的文件后缀，都不算是<strong>标准</strong>，只有X509和PKCS可以称为标准，<br>PKCS中经常使用的就是：PKCS1 PKCS8 PKCS12</p>
+<ul>
+<li>PEM - Privacy Enhanced Mail,打开看文本格式,以”—–BEGIN…”开头, “—–END…”结尾,内容是BASE64编码.</li>
+</ul>
+<p>查看PEM格式证书的信息:openssl x509 -in certificate.pem -text -noout<br>Apache和*NIX服务器偏向于使用这种编码格式.</p>
+<ul>
+<li><p>DER - Distinguished Encoding Rules,打开看是二进制格式,不可读.</p>
+</li>
+<li><p>PKCS#1：定义<strong>RSA</strong>公开密钥算法加密和签名机制，主要用于组织PKCS#7中所描述的数字签名和数字信封。</p>
+</li>
+<li><p>PKCS#2：涉及了RSA的消息摘要加密，这已被并入PKCS#1中。</p>
+</li>
+<li><p>PKCS#3：Diffie-Hellman密钥协议标准。PKCS#3描述了一种实现Diffie- Hellman密钥协议的方法。</p>
+</li>
+<li><p>PKCS#4：最初是规定RSA密钥语法的，现已经被包含进PKCS#1中。</p>
+</li>
+<li><p>PKCS#5：基于口令的加密标准。PKCS#5描述了使用由口令生成的密钥来加密8位位组串并产生一个加密的8位位组串的方法。PKCS#5可以用于加密私钥，以便于密钥的安全传输（这在PKCS#8中描述）。</p>
+</li>
+<li><p>PKCS#6：扩展证书语法标准。PKCS#6定义了提供附加实体信息的X.509证书属性扩展的语法（当PKCS#6第一次发布时，X.509还不支持扩展。这些扩展因此被包括在X.509中）。</p>
+</li>
+<li><p>PKCS#7：密码消息语法标准。PKCS#7为使用密码算法的数据规定了通用语法，比如数字签名和数字信封。PKCS#7提供了许多格式选项，包括未加密或签名的格式化消息、已封装（加密）消息、已签名消息和既经过签名又经过加密的消息。</p>
+</li>
+<li><p>PKCS#8：描述私有密钥信息格式，该信息包括公开密钥算法的私有密钥以及可选的属性集等。注意pkcs8不只是能表示RSA，所以比PKCS1更具有通用性</p>
+</li>
+<li><p>PKCS#9：可选属性类型。PKCS#9定义了PKCS#6扩展证书、PKCS#7数字签名消息、PKCS#8私钥信息和PKCS#10证书签名请求中要用到的可选属性类型。已定义的证书属性包括E-mail地址、无格式姓名、内容类型、消息摘要、签名时间、签名副本（counter signature）、质询口令字和扩展证书属性。</p>
+</li>
+<li><p>PKCS#10：证书请求语法标准。PKCS#10定义了证书请求的语法。证书请求包含了一个唯一识别名、公钥和可选的一组属性，它们一起被请求证书的实体签名（证书管理协议中的PKIX证书请求消息就是一个PKCS#10）。</p>
+</li>
+<li><p>PKCS#11：密码令牌接口标准。PKCS#11或“Cryptoki”为拥有密码信息（如加密密钥和证书）和执行密码学函数的单用户设备定义了一个应用程序接口（API）。智能卡就是实现Cryptoki的典型设备。注意：Cryptoki定义了密码函数接口，但并未指明设备具体如何实现这些函数。而且Cryptoki只说明了密码接口，并未定义对设备来说可能有用的其他接口，如访问设备的文件系统接口。</p>
+</li>
+<li><p>PKCS#12：描述个人信息交换语法标准。描述了将用户公钥、私钥、证书和其他相关信息打包的语法。</p>
+</li>
+<li><p>PDCS#13：椭圆曲线密码标准。PKCS#13标准当前正在完善之中。它包括椭圆曲线参数的生成和验证、密钥生成和验证、数字签名和公钥加密，还有密钥协定，以及参数、密钥和方案标识的ASN.1语法。</p>
+</li>
+<li><p>PKCS#14：伪随机数产生标准。PKCS#14标准当前正在完善之中。为什么随机数生成也需要建立自己的标准呢？PKI中用到的许多基本的密码学函数，如密钥生成和Diffie-Hellman共享密钥协商，都需要使用随机数。然而，如果“随机数”不是随机的，而是取自一个可预测的取值集合，那么密码学函数就不再是绝对安全了，因为它的取值被限于一个缩小了的值域中。因此，安全伪随机数的生成对于PKI的安全极为关键。</p>
+</li>
+<li><p>PKCS#15：密码令牌信息语法标准。PKCS#15通过定义令牌上存储的密码对象的通用格式来增进密码令牌的互操作性。在实现PKCS#15的设备上存储的数据对于使用该设备的所有应用程序来说都是一样的，尽管实际上在内部实现时可能所用的格式不同。PKCS#15的实现扮演了翻译家的角色，它在卡的内部格式与应用程序支持的数据格式间进行转换.</p>
+</li>
+</ul>
+<blockquote>
+<p>总结：PKCS1,8,12都可以在某些情况下当作文件格式，PKCS1描述基础的密钥格式，PKCS8也描述密钥，但格式和1不同，PKCS12等价于PFX文件，包含证书和私钥</p>
+</blockquote>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-meta"># 生成PKCS#1的公私钥</span><br>openssl genrsa -<span class="hljs-keyword">out</span> pkcs1_private.pem <span class="hljs-number">1024</span><br>openssl rsa -<span class="hljs-keyword">in</span> pkcs1_private.pem -RSAPublicKey_out -<span class="hljs-keyword">out</span> pkcs1_public.pem<br><br>查看私钥<br> openssl rsa -<span class="hljs-keyword">in</span> rsa_private_key.pem -text -noout<br>查看公钥<br>openssl rsa -pubin -<span class="hljs-keyword">in</span>  rsa_public_key.pem  -text<br><br><span class="hljs-meta"># 由PKCS#1的私钥，生成PKCS#8的公私钥</span><br>openssl pkcs8 -topk8 -inform PEM -<span class="hljs-keyword">in</span> pkcs1_private.pem -outform PEM -nocrypt -<span class="hljs-keyword">out</span> from_pkcs1_private_to_pkcs8_private.pem<br><br>openssl rsa -<span class="hljs-keyword">in</span> pkcs1_private.pem -pubout -<span class="hljs-keyword">out</span> from_pkcs1_private_to_pkcs8_public.pem<br><br><span class="hljs-meta"># 由PKCS#8的私钥，生成PKCS#1的公私钥</span><br>openssl rsa -<span class="hljs-keyword">in</span> from_pkcs1_private_to_pkcs8_private.pem -<span class="hljs-keyword">out</span> from_pkcs8_private_to_pkcs1_private.pem<br><br>openssl rsa -<span class="hljs-keyword">in</span> from_pkcs1_private_to_pkcs8_private.pem -RSAPublicKey_out -<span class="hljs-keyword">out</span> from_pkcs8_private_to_pkcs1_public.pem<br><br><span class="hljs-meta"># 由PKCS1公钥生成PKCS#8公钥:</span><br>openssl rsa -RSAPublicKey_in -<span class="hljs-keyword">in</span> pkcs1_public.pem -pubout -<span class="hljs-keyword">out</span> from_pkcs1_public_to_pkcs8_public.pem<br><br><span class="hljs-meta"># 由PKCS8公钥生成PKCS#1公钥:</span><br>openssl rsa -pubin -<span class="hljs-keyword">in</span> from_pkcs1_private_to_pkcs8_public.pem -RSAPublicKey_out -<span class="hljs-keyword">out</span> from_pkcs8_public_to_pkcs1_public.pem<br><br>产生证书请求 注意PKCS1 <span class="hljs-number">8</span>都可以<br>openssl req -<span class="hljs-keyword">new</span> -key private_key.pem -<span class="hljs-keyword">out</span> rsaCerReq.csr<br><br>产生证书 注意PKCS1 <span class="hljs-number">8</span>都可以<br>openssl x509 -req -days <span class="hljs-number">3650</span> -<span class="hljs-keyword">in</span> rsaCerReq.csr -signkey private_key.pem -<span class="hljs-keyword">out</span> rsaCert.crt<br><br>从证书获得公钥：<br>openssl x509 -<span class="hljs-keyword">in</span> rsaCert.crt  -noout  -pubkey  &gt; public_key.pem<br><br>生成PKCS12<br>openssl pkcs12 -export -inkey serverprikey.pem -<span class="hljs-keyword">in</span> server.pem -password pass:<span class="hljs-string">&quot;123456&quot;</span> -<span class="hljs-keyword">out</span> server_nocret.pfx<br><br><br>从PKCS12获得证书和私钥<br>openssl pkcs12 -<span class="hljs-keyword">in</span> server_nocret.pfx -nocerts -nodes  -<span class="hljs-keyword">out</span> alicekey.pem<br><br>openssl pkcs12 -<span class="hljs-keyword">in</span> server_nocret.pfx  -nokeys  -<span class="hljs-keyword">out</span> cert.pem<br><br>查看pkcs12内容 -nodes:因为私钥在在输出前会输出加密结果，所以需要nodes来保证不用打密码和不加密<br>openssl pkcs12 -<span class="hljs-keyword">in</span> server_nocret.pfx -nocerts -nodes  -<span class="hljs-keyword">out</span> alicekey.pem<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="SSL常见证书"><a href="#SSL常见证书" class="headerlink" title="SSL常见证书"></a>SSL常见证书</h2><p>根据不同的服务器以及服务器的版本，我们需要用到不同的证书格式，就市面上主流的服务器来说，大概有以下格式：</p>
+<ul>
+<li>.DER .CER，文件是二进制格式，只保存证书，不保存私钥。</li>
+<li>.PEM，一般是文本格式，可保存证书，可保存私钥。</li>
+<li>.CRT，可以是二进制格式，可以是文本格式，与 .DER 格式相同，不保存私钥。</li>
+<li>.PFX .P12，二进制格式，同时包含证书和私钥，一般有密码保护。</li>
+<li>.JKS，二进制格式，同时包含证书和私钥，一般有密码保护。</li>
+</ul>
+<h3 id="DER"><a href="#DER" class="headerlink" title="DER"></a>DER</h3><p>该格式是二进制文件内容，Java 和 Windows 服务器偏向于使用这种编码格式。</p>
+<p>OpenSSL 查看:</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">openssl</span> x<span class="hljs-number">509</span> -in certificate.der -inform der -text -noout<br></code></pre></td></tr></table></figure>
+
+<p>转换为 PEM：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">openssl x509 -<span class="hljs-keyword">in</span> cert.crt -inform der -outform pem -<span class="hljs-keyword">out</span> cert.pem<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="PEM"><a href="#PEM" class="headerlink" title="PEM"></a>PEM</h3><p>Privacy Enhanced Mail，一般为文本格式，以 <code>-----BEGIN...</code> 开头，以 <code>-----END...</code> 结尾。中间的内容是 BASE64 编码。这种格式可以保存证书和私钥，有时我们也把PEM 格式的私钥的后缀改为 .key 以区别证书与私钥。具体你可以看文件的内容。</p>
+<p>这种格式常用于 Apache 和 Nginx 服务器。</p>
+<p>OpenSSL 查看：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">openssl</span> x<span class="hljs-number">509</span> -in certificate.pem -text -noout<br></code></pre></td></tr></table></figure>
+
+<p>转换为 DER：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">openssl x509 -<span class="hljs-keyword">in</span> cert.crt -outform der -<span class="hljs-keyword">out</span> cert.der<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="CRT"><a href="#CRT" class="headerlink" title="CRT"></a>CRT</h3><p>Certificate 的简称，有可能是 PEM 编码格式，也有可能是 DER 编码格式。如何查看请参考前两种格式。</p>
+<h3 id="PFX"><a href="#PFX" class="headerlink" title="PFX"></a>PFX</h3><p>Predecessor of PKCS#12，这种格式是二进制格式，且证书和私钥存在一个 PFX 文件中。一般用于 Windows 上的 IIS 服务器。改格式的文件一般会有一个密码用于保证私钥的安全。</p>
+<p>OpenSSL 查看：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">openssl</span> pkcs<span class="hljs-number">12</span> -in key.pfx<br></code></pre></td></tr></table></figure>
+
+<p>转换为 PEM：</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sas">openssl pkcs12 -<span class="hljs-meta">in</span> <span class="hljs-meta">key</span>.pfx -<span class="hljs-meta">out</span> <span class="hljs-meta">key</span>.pem -nodes<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="JKS"><a href="#JKS" class="headerlink" title="JKS"></a>JKS</h3><p>Java Key Storage，很容易知道这是 JAVA 的专属格式，利用 JAVA 的一个叫 <code>keytool</code>的工具可以进行格式转换。一般用于 Tomcat 服务器。</p>
+<p><a target="_blank" rel="noopener" href="https://myssl.com/cert_convert.html">在线格式转换</a></p>
+<h2 id="TOMCAT双向认证"><a href="#TOMCAT双向认证" class="headerlink" title="TOMCAT双向认证"></a>TOMCAT双向认证</h2><ol>
+<li>使用keytool生成证书，成文keystore文件，ailas(别名)每个keystore都关联这一个独一无二的alias，这个alias通常不区分大小写</li>
+</ol>
+<p>在keystore里，包含两种数据： </p>
+<ul>
+<li> 密钥实体（Key entity）——密钥（secret key）又或者是私钥和配对公钥（采用非对称加密）</li>
+<li>可信任的证书实体（trusted certificate entries）——只包含公钥</li>
+</ul>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">keytool</span> -genkey -v -alias tomcat -keyalg RSA -keystore tomcat.keystore -validity <span class="hljs-number">36500</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>为客户端生成证书</li>
+</ol>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elm"><span class="hljs-title">keytool</span> -genkey -v -<span class="hljs-keyword">alias</span> mykey -keyalg <span class="hljs-type">RSA</span> -store<span class="hljs-keyword">type</span> <span class="hljs-type">PKCS12</span> -keystore mykey.p12 <br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>让服务器信任客户端证书</li>
+</ol>
+<p>由于是双向SSL认证，服务器必须要信任客户端证书，因此，必须把客户端证书添加为服务器的信任认证。由于不能直接将PKCS12格式的证书库导入，必须先把客户端证书导出为一个单独的CER文件，使用如下命令：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">keytool</span> -export -alias mykey -keystore mykey.p<span class="hljs-number">12</span> -storetype PKCS<span class="hljs-number">12</span> -storepass <span class="hljs-number">123456</span> -rfc -file mykey.cer   //PKCS#<span class="hljs-number">12</span>转cer<br></code></pre></td></tr></table></figure>
+
+<p>将该cer文件导入到服务器的证书库，添加为一个信任证书。</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elm"><span class="hljs-title">keytool</span> -<span class="hljs-keyword">import</span> -v -file mykey.cer -keystore tomcat.keystore<br></code></pre></td></tr></table></figure>
+
+<p>通过list命令查看服务器的证书库，可以看到两个证书，一个是服务器证书，一个是受信任的客户端证书：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lsl">keytool -<span class="hljs-type">list</span> -keystore tomcat.keystore<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>让客户端信任服务器证书</li>
+</ol>
+<p>由于是双向SSL认证，客户端也要验证服务器证书，因此，必须把服务器证书添加到浏览的“受信任的根证书颁发机构”。由于不能直接将keystore格式的证书库导入，必须先把服务器证书导出为一个单独的CER文件，使用如下命令。</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs delphi">keytool -keystore tomcat.keystore -<span class="hljs-keyword">export</span> -<span class="hljs-keyword">alias</span> tomcat -<span class="hljs-keyword">file</span>  tomcat.cer -validity <span class="hljs-number">36500</span><br></code></pre></td></tr></table></figure>
+
+<p>5.配置Tomcat服务器</p>
+<p>打开Tomcat根目录下的/conf/server.xml，找到Connector port=”8443″配置段，修改为如下：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;Connector <span class="hljs-attribute">port</span>=”8443″ <span class="hljs-attribute">protocol</span>=”org.apache.coyote.http11.Http11NioProtocol”<br><br><span class="hljs-attribute">SSLEnabled</span>=”true” <span class="hljs-attribute">maxThreads</span>=”150″ <span class="hljs-attribute">scheme</span>=”https”<br><br><span class="hljs-attribute">secure</span>=”true” <span class="hljs-attribute">clientAuth</span>=”true” <span class="hljs-attribute">sslProtocol</span>=”TLS”<br><br><span class="hljs-attribute">keystoreFile</span>=”D:\\home\\tomcat.keystore” <span class="hljs-attribute">keystorePass</span>=”123456″<br><br><span class="hljs-attribute">truststoreFile</span>=”D:\\home\\tomcat.keystore” <span class="hljs-attribute">truststorePass</span>=”123456″ /&gt;<br></code></pre></td></tr></table></figure>
+
+<p>属性说明：</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs vbnet"><span class="hljs-symbol">clientAuth:</span>设置是否双向验证，默认为<span class="hljs-literal">false</span>，设置为<span class="hljs-literal">true</span>代表双向验证<br><br><span class="hljs-symbol">keystoreFile:</span>服务器证书文件路径<br><br><span class="hljs-symbol">keystorePass:</span>服务器证书密码<br><br><span class="hljs-symbol">truststoreFile:</span>用来验证客户端证书的根证书，此例中就是服务器证书<br><br><span class="hljs-symbol">truststorePass:</span>根证书密码<br></code></pre></td></tr></table></figure>
+
+<p>应用程序HTTP自动跳转到HTTPS(未测试)</p>
+<p>在应用程序中web.xml中加入：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">security-constraint</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">web-resource-collection</span> &gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">web-resource-name</span> &gt;</span>SSL<span class="hljs-tag">&lt;/<span class="hljs-name">web-resource-name</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">url-pattern</span>&gt;</span>/*<span class="hljs-tag">&lt;/<span class="hljs-name">url-pattern</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">web-resource-collection</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">user-data-constraint</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">transport-guarantee</span>&gt;</span>CONFIDENTIAL<span class="hljs-tag">&lt;/<span class="hljs-name">transport-guarantee</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">user-data-constraint</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">security-constraint</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="安卓签名"><a href="#安卓签名" class="headerlink" title="安卓签名"></a>安卓签名</h2><p>生成keystore文件</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">keytool</span> -genkey -alias android.keystore -keyalg RSA -validity <span class="hljs-number">36500</span> -keystore android.keystore<br></code></pre></td></tr></table></figure>
+
+<p>签名：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">jarsigner </span>-verbose -keystore xx.keystore  -storepass XXXXXX -signedjar <span class="hljs-keyword">android_sign.apk </span>-<span class="hljs-keyword">digestalg </span><span class="hljs-keyword">SHA1 </span>-sigalg MD5withRSA <span class="hljs-keyword">android.apk </span>别名<br><br><span class="hljs-keyword">android_sign.apk为签名后生成的apk文件</span><br><span class="hljs-keyword"></span><span class="hljs-keyword">android.apk为源apk文件</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="V1和V2签名"><a href="#V1和V2签名" class="headerlink" title="V1和V2签名"></a>V1和V2签名</h3><h4 id="签名工具"><a href="#签名工具" class="headerlink" title="签名工具"></a>签名工具</h4><pre><code>    Android 应用的签名工具有两种：jarsigner 和 signAPK。它们的签名算法没什么区别，主要是签名使用的文件不同。
+</code></pre>
+<ul>
+<li>jarsigner：jdk 自带的签名工具，可以对 jar 进行签名。使用 keystore 文件进行签名。生成的签名文件默认使用 keystore 的别名命名。</li>
+<li>signAPK：Android sdk 提供的专门用于 Android 应用的签名工具。使用 pk8、x509.pem 文件进行签名。其中 pk8 是私钥文件，x509.pem 是含有公钥的文件。生成的签名文件统一使用“CERT”命名。</li>
+</ul>
+<h4 id="v1签名"><a href="#v1签名" class="headerlink" title="v1签名"></a>v1签名</h4><ol>
+<li><p>MANIFEST.MF</p>
+<p>该文件中保存的内容其实就是逐一遍历 APK 中的所有条目，如果是目录就跳过，如果是一个文件，就用 SHA1（或者 SHA256）消息摘要算法提取出该文件的摘要然后进行 BASE64 编码后，作为“SHA1-Digest”属性的值写入到 MANIFEST.MF 文件中的一个块中。该块有一个“Name”属性， 其值就是该文件在 APK 包中的路径。</p>
+</li>
+<li><p>CERT.SF</p>
+</li>
+</ol>
+<ul>
+<li><p>SHA1-Digest-Manifest-Main-Attributes：对 MANIFEST.MF 头部的块做 SHA1（或者SHA256）后再用 Base64 编码</p>
+</li>
+<li><p>SHA1-Digest-Manifest：对整个 MANIFEST.MF 文件做 SHA1（或者 SHA256）后再用 Base64 编码</p>
+</li>
+<li><p>SHA1-Digest：对 MANIFEST.MF 的各个条目做 SHA1（或者 SHA256）后再用 Base64 编码</p>
+</li>
+</ul>
+<ol start="3">
+<li><p>CERT.RSA</p>
+<p>这里会把之前生成的 CERT.SF 文件，用私钥计算出签名, 然后将签名以及包含公钥信息的数字证书一同写入 CERT.RSA 中保存。这里要注意的是，Android APK 中的 CERT.RSA 证书是自签名的，并不需要这个证书是第三方权威机构发布或者认证的，用户可以在本地机器自行生成这个自签名证书。Android 目前不对应用证书进行 CA 认证。</p>
+<p>CERT.RSA文件：</p>
+</li>
+</ol>
+ <img src="/2021/08/22/%E8%AF%81%E4%B9%A6%E4%BD%93%E7%B3%BB/images/CERTRSA%E6%96%87%E4%BB%B6.png" srcset="/img/loading.gif" lazyload class="">
+
+<h5 id="签名过程"><a href="#签名过程" class="headerlink" title="签名过程"></a>签名过程</h5> <img src="/2021/08/22/%E8%AF%81%E4%B9%A6%E4%BD%93%E7%B3%BB/images/%E7%AD%BE%E5%90%8D%E8%BF%87%E7%A8%8B.png" srcset="/img/loading.gif" lazyload class="">
+
+<h5 id="签名校验过程"><a href="#签名校验过程" class="headerlink" title="签名校验过程"></a>签名校验过程</h5><p>签名验证是发生在APK的安装过程中，一共分为三步：</p>
+<ol>
+<li><p>检查 APK 中包含的所有文件，对应的摘要值与 MANIFEST.MF 文件中记录的值一致。</p>
+</li>
+<li><p>使用证书文件（RSA 文件）检验签名文件（SF 文件）没有被修改过。</p>
+</li>
+<li><p>使用签名文件（SF 文件）检验 MF 文件没有被修改过</p>
+</li>
+</ol>
+ <img src="/2021/08/22/%E8%AF%81%E4%B9%A6%E4%BD%93%E7%B3%BB/images/%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C%E8%BF%87%E7%A8%8B.png" srcset="/img/loading.gif" lazyload class="">
+
+<h4 id="V2签名"><a href="#V2签名" class="headerlink" title="V2签名"></a>V2签名</h4><h5 id="v1签名的劣势"><a href="#v1签名的劣势" class="headerlink" title="v1签名的劣势"></a>v1签名的劣势</h5><p>从 Android 7.0 开始，Android 支持了一套全新的 V2 签名机制，通过前面的分析，可以发现 v1 签名有两个地方可以改进：</p>
+<p>签名校验速度慢<br>校验过程中需要对apk中所有文件进行摘要计算，在 APK 资源很多、性能较差的机器上签名校验会花费较长时间，导致安装速度慢。</p>
+<p>完整性保障不够<br>META-INF 目录用来存放签名，自然此目录本身是不计入签名校验过程的，可以随意在这个目录中添加文件，比如一些快速批量打包方案就选择在这个目录中添加渠道文件。</p>
+<p>为了解决这两个问题，在 Android 7.0 Nougat 中引入了全新的 APK Signature Scheme v2。</p>
+<h5 id="v2与v1不同"><a href="#v2与v1不同" class="headerlink" title="v2与v1不同"></a>v2与v1不同</h5><p>由于在 v1 仅针对单个 ZIP 条目进行验证，因此，在 APK 签署后可进行许多修改 — 可以移动甚至重新压缩文件。事实上，编译过程中要用到的 ZIPalign 工具就是这么做的，它用于根据正确的字节限制调整 ZIP 条目，以改进运行时性能。而且我们也可以利用这个东西，在打包之后修改 META-INF 目录下面的内容，或者修改 ZIP 的注释来实现多渠道的打包，在 v1 签名中都可以校验通过。</p>
+<p>v2 签名将验证归档中的所有字节，而不是单个 ZIP 条目，因此，在签署后无法再运行 ZIPalign（必须在签名之前执行）。正因如此，现在，在编译过程中，Google 将压缩、调整和签署合并成一步完成。</p>
+<h5 id="v2-签名模式"><a href="#v2-签名模式" class="headerlink" title="v2 签名模式"></a>v2 签名模式</h5><p>简单来说，v2 签名模式在原先 APK 块中增加了一个新的块（签名块），新的块存储了签名，摘要，签名算法，证书链，额外属性等信息，这个块有特定的格式。</p>
+ <img src="/2021/08/22/%E8%AF%81%E4%B9%A6%E4%BD%93%E7%B3%BB/images/%E7%AD%BE%E5%90%8D%E5%AF%B9%E6%AF%94.png" srcset="/img/loading.gif" lazyload class="">
+
+<h5 id="v2签名过程"><a href="#v2签名过程" class="headerlink" title="v2签名过程"></a>v2签名过程</h5><p>首先，说一下 APK 摘要计算规则，对于每个摘要算法，计算结果如下:</p>
+<p>将 APK 中文件 ZIP 条目的内容、ZIP 中央目录、ZIP 中央目录结尾按照 1MB 大小分割成一些小块。<br>计算每个小块的数据摘要，数据内容是 0xa5 + 块字节长度 + 块内容。<br>计算整体的数据摘要，数据内容是 0x5a + 数据块的数量 + 每个数据块的摘要内容<br>总之，就是把 APK 按照 1M 大小分割，分别计算这些分段的摘要，最后把这些分段的摘要在进行计算得到最终的摘要也就是 APK 的摘要。然后将 APK 的摘要 + 数字证书 + 其他属性生成签名数据写入到 APK Signing Block 区块。</p>
+<h5 id="签名校验过程-1"><a href="#签名校验过程-1" class="headerlink" title="签名校验过程"></a>签名校验过程</h5><p>其中 v2 签名机制是在 Android 7.0 以及以上版本才支持。因此对于 Android 7.0 以及以上版本，在安装过程中，如果发现有 v2 签名块，则必须走 v2 签名机制，不能绕过。否则降级走 v1 签名机制。<br>v1 和 v2 签名机制是可以同时存在的，其中对于 v1 和 v2 版本同时存在的时候，v1 版本的 META_INF 的 .SF 文件属性当中有一个 X-Android-APK-Signed 属性：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">X</span>-Android-APK-Signed: <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+
+<p>因此如果想绕过 v2 走 v1 校验是不行的。</p>
+<p>找到<code>APK 签名分块</code>并验证以下内容：<br>a. <code>APK 签名分块</code>的两个大小字段包含相同的值。<br>b. <code>ZIP 中央目录结尾</code>紧跟在<code>ZIP 中央目录</code>记录后面。<br>c. <code>ZIP 中央目录结尾</code>之后没有任何数据。</p>
+<p>找到<code>APK 签名分块</code>中的第一个<code>APK 签名方案 v2 分块</code>。如果 v2 分块存在，则继续执行第 3 步。否则，回退至使用 v1 方案验证 APK。</p>
+<p>对<code>APK 签名方案 v2 分块</code>中的每个 signer 执行以下操作：<br>a. 从 signatures 中选择安全系数最高的受支持 signature algorithm ID。安全系数排序取决于各个实现/平台版本。<br>b. 使用 public key 并对照<code>signed data</code> 验证 signatures 中对应的 signature。（现在可以安全地解析 <code>signed data</code>了。）<br>c. 验证 digests 和 signatures 中的签名算法 ID 列表（有序列表）是否相同。（这是为了防止删除/添加签名。）<br>d. 使用签名算法所用的同一种摘要算法计算 APK 内容的摘要。<br>e. 验证计算出的摘要是否与 digests 中对应的 digest 相同。<br>f. 验证 certificates 中第一个 certificate 的 SubjectPublicKeyInfo 是否与 public key 相同。</p>
+<p>如果找到了至少一个 signer，并且对于每个找到的 signer，第 3 步都取得了成功，APK 验证将会成功。</p>
+ <img src="/2021/08/22/%E8%AF%81%E4%B9%A6%E4%BD%93%E7%B3%BB/images/v2%E7%AD%BE%E5%90%8D.png" srcset="/img/loading.gif" lazyload class="">
+
+<h5 id="兼容机制"><a href="#兼容机制" class="headerlink" title="兼容机制"></a>兼容机制</h5><p>因为V2签名机制是在Android 7.0中引入的，为了使APK可在Android 7.0以下版本中安装，应先用JAR签名对APK进行签名，再用V2方案进行签名。要注意顺序一定是先JAR签名再V2签名，因为JAR签名需要修改zip<code>数据区</code>和<code>中央目录</code>的内容，先使用V2签名再JAR签名会破坏V2签名的完整性。</p>
+<p>实际上我们在编译APK时并不需要关心这个过程，在Android Plugin for Gradle 2.2中，gradle默认会同时使用JAR签名和V2方案对APK进行签名，如果想要关闭JAR签名或V2签名，可以在build.gradle中进行配置：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">android &#123;<br>    <span class="hljs-string">...</span><br>    defaultConfig &#123; <span class="hljs-string">...</span> &#125;<br>    signingConfigs &#123;<br>        release &#123;<br>            <span class="hljs-string">...</span><br>            <span class="hljs-string">//</span> v1SigningEnabled <span class="hljs-literal">false</span><br>            v2SigningEnabled <span class="hljs-literal">false</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在 Android 7.0 中，会优先以 v2方案验证 APK，在Android 7.0以下版本中，系统会忽略 v2 签名，仅验证 v1 签名。Android 7.0+的校验过程如下</p>
+<h5 id="防回滚机制"><a href="#防回滚机制" class="headerlink" title="防回滚机制"></a>防回滚机制</h5><p>因为在经过V2签名的APK中同时带有JAR签名，攻击者可能将APK的V2签名删除，使得Android系统只校验JAR签名。为防范此类攻击，V2方案规定：</p>
+<p>V2签名的APK如果还带JAR签名，其 META-INF/<em>.SF 文件的首部中必须包含 X-Android-APK-Signed 属性。该属性的值是一组以英文逗号分隔的 APK 签名方案 ID（v2 方案的 ID 为 2）。在验证 v1 签名时，对于此组中验证程序首选的 APK 签名方案（例如，v2 方案），如果 APK 没有相应的签名，APK 验证程序必须要拒绝这些 APK。此项保护依赖于内容 META-INF/</em>.SF 文件受 v1 签名保护这一事实。</p>
+<h5 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h5><blockquote>
+<p>申请第三方SDK（如微信支付）时填入的SAH1值是什么？</p>
+</blockquote>
+<p>签名证书的指纹，在申请第三方SDK时，需填入APK包名和证书指纹，SDK开发者后台会根据这两个值生成一个key。第三方SDK在初始化时，会从系统中获取当前APK的包名、签名证书指纹以及key，然后将此指纹上传到其服务器，然后校验包名、签名证书指纹是否与此key绑定，校验通过后才进行授权。</p>
+<blockquote>
+<p>目前众多的快速批量打包方案又是如何绕过签名检验的？</p>
+</blockquote>
+<p>在V2方案出现之前，快速批量打包方案有3类：</p>
+<ol>
+<li><p>反编译APK后修改渠道值，再重新打包</p>
+<p>这种方案实际上是重新签名，因有反编译、重新打包、签名的过程，速度相对后两种方案较慢；</p>
+</li>
+<li><p>将渠道信息以文件形式写入META-INF目录中</p>
+<p>因为META-INF目录是用来存放签名的，其本身无法加入签名校验中，在META-INF目录中添加文件不会破坏原有签名。此方案需同时修改zip<code>数据区</code>、<code>中央目录</code>和<code>中央目录结尾记录</code>；</p>
+</li>
+<li><p>将渠道信息写到zip<code>中央目录结尾记录</code>的comment字段中</p>
+<p>通过前面分析zip文件结构，可以发现<code>中央目录结尾记录</code>最后<code>注释</code>字段，这部分内容在JAR签名方案中同样不在签名校验范围中，故添加注释也不会破坏原有签名。此方案只需修改<code>中央目录结尾记录</code>；</p>
+</li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>www.jianshu.com<span class="hljs-regexp">/p/</span><span class="hljs-number">308515</span>c94dc6<br>https:<span class="hljs-regexp">//</span>blog.csdn.net<span class="hljs-regexp">/freekiteyu/</span>article<span class="hljs-regexp">/details/</span><span class="hljs-number">84849651</span><br>https:<span class="hljs-regexp">//</span>www.jianshu.com<span class="hljs-regexp">/p/</span>d05e702e0507 -v1源码分析<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%81%E4%B9%A6/">证书</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/x509/">x509</a>
+                    
+                      <a class="hover-with-bg" href="/tags/pkcs/">pkcs</a>
+                    
+                      <a class="hover-with-bg" href="/tags/android%E7%AD%BE%E5%90%8D/">android签名</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/22/Linux%E6%90%AD%E5%BB%BAMQTT/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux搭建mqtt环境</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/22/xposed%E6%A1%86%E6%9E%B6/">
+                        <span class="hidden-mobile">xposed框架</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

