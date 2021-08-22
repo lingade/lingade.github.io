@@ -1,0 +1,825 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>docker命令 - Cola&#39;S Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Cola'S Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="docker命令">
+              
+                docker命令
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-22 19:54" pubdate>
+        2021年8月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      79
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">docker命令</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1-源设置"><a href="#1-源设置" class="headerlink" title="1. 源设置"></a>1. 源设置</h2><p>/etc/docker/daemon.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br><br>	<span class="hljs-attr">&quot;registry-mirrors&quot;</span>: [<span class="hljs-string">&quot;https://alzgoonw.mirror.aliyuncs.com&quot;</span>]<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-镜像仓库"><a href="#2-镜像仓库" class="headerlink" title="2. 镜像仓库"></a>2. 镜像仓库</h2><ol>
+<li><p>docker login [OPTIONS] [SERVER]</p>
+<p>登录镜像仓库</p>
+<p>-u:用户名</p>
+<p>-p:密码</p>
+<p>example：    </p>
+</li>
+</ol>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">docler <span class="hljs-keyword">login</span> -u username -p <span class="hljs-keyword">password</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>docker logout</p>
+<p>登出镜像仓库</p>
+</li>
+<li><p>docker search [OPTIONS] images</p>
+<p>–automated :只列出automated build类型的镜像</p>
+<p>–no-trunc：显示完整的镜像描述</p>
+<p>-s：列出收藏数不小于指定值的镜像</p>
+<p>example：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> search -s <span class="hljs-number">20</span> unbuntu  //列出收藏数不小于<span class="hljs-number">20</span>的ubuntu镜像<br></code></pre></td></tr></table></figure></li>
+<li><p>docker pull [OPTIONS] name[:TAG@DIGEST]</p>
+<p>-a：拉起所有tagged镜像</p>
+<p>–disable-content-trust：忽略镜像校验，默认开启</p>
+<p>example：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker pull unbuntu  <span class="hljs-regexp">//</span>拉去ubuntu最新版镜像<br></code></pre></td></tr></table></figure></li>
+<li><p>docker push [OPTIONS] NAME[:TAG]</p>
+<p>将本地镜像上传到镜像仓库，首先要登录到镜像仓库，还要登录到Docker Hub创建对应名称的仓库，然后用tag命令给镜像打标签，只有打完标签后才能上传。</p>
+</li>
+<li><p>docker tag [OPTIONS] IMAGE[:TAG] [REGISTRYHOST/] [USERNAME/] NAME[:TAG]</p>
+<p>标记本地镜像，归入某一仓库。</p>
+<p>完整版push：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> tag ubuntu:latest eara<span class="hljs-number">0</span>/ubuntu:v<span class="hljs-number">1</span><br><span class="hljs-attribute">docker</span> Hub创建对应仓库<br><span class="hljs-attribute">docker</span> push area<span class="hljs-number">0</span>/ubuntu:v<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="3-生命周期"><a href="#3-生命周期" class="headerlink" title="3. 生命周期"></a>3. 生命周期</h2><ol>
+<li><p>docker run</p>
+<p>创建一个新的容器并运行</p>
+<p>常用指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sell">-i选项表示使用交互模式，始终保持输入流开放<br>-t选项表示分配一个伪终端，一般两个参数结合时使用-it，即可在容器中利用打开的伪终端进行交互操作<br>-d选项: 后台运行容器，并返回容器ID--name选项可以指定docker run命令启动的容器名字，若无此选项，Docker	将为容器随机分配一个名字<br>-c选项：用于给运行在容器中的所有进程分配CPU的shares值，这是一个相对权重，实际的处理速度还与宿主机的CPU相       	关<br>-m选项：用于限制为容器中所有进程分配的内存总量，以B、K、M、G为单位-v选项：用于挂载一个volume，可以用多个<br>-v参数同时挂载多个volume。volume的格式为[host-dir]:[container-dir]:[rw|ro]<br>-p选项：用于将容器内部端口映射给宿主机的端口，其常见格式为：主机(宿主)端口:容器内部端口<br>-P选项：随机端口映射，容器内部端口随机映射到宿主机的端口<br></code></pre></td></tr></table></figure>
+
+
+
+<p>example:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -it ubuntu /bin/bash    		//启动并返回终端<br>docker run -itd --name ubuntu-test ubuntu /bin/bash  //后台启动并返回终端<br></code></pre></td></tr></table></figure></li>
+</ol>
+<ol start="2">
+<li><p>docker start</p>
+<p>启动一个或多个已经停止的容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker start b750bbbcfd88 <br></code></pre></td></tr></table></figure></li>
+<li><p>docker stop</p>
+<p>停止一个运行的容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker stop b750bbbcfd88<br></code></pre></td></tr></table></figure></li>
+<li><p>docker restart</p>
+<p>重启容器</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> restart b<span class="hljs-number">750</span>bbbcfd<span class="hljs-number">88</span><br></code></pre></td></tr></table></figure></li>
+<li><p>docker rm</p>
+<p>删除容器</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs haml">-<span class="ruby">f <span class="hljs-symbol">:</span>通过SIGKILL信号强制删除一个运行中的容器</span><br><span class="ruby"></span>-<span class="ruby">l <span class="hljs-symbol">:</span>移除容器间的网络连接，而非容器本身</span><br><span class="ruby"></span>-<span class="ruby">v <span class="hljs-symbol">:-v</span> 删除与容器关联的卷</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> rm -f b<span class="hljs-number">750</span>bbbcfd<span class="hljs-number">88</span><br></code></pre></td></tr></table></figure></li>
+<li><p>docker kill</p>
+<p>杀掉运行中的容器</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> kill -s kill b<span class="hljs-number">750</span>bbbcfd<span class="hljs-number">88</span><br></code></pre></td></tr></table></figure>
+
+<p>PS.常见rm和kill组合命令</p>
+<p>杀掉所有正在运行的容器</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">docker kill <span class="hljs-constructor">$(<span class="hljs-params">docker</span> <span class="hljs-params">ps</span> -<span class="hljs-params">a</span> -<span class="hljs-params">q</span>)</span><br></code></pre></td></tr></table></figure>
+
+<p>删除所有正在运行的容器</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">docker rm <span class="hljs-constructor">$(<span class="hljs-params">docker</span> <span class="hljs-params">ps</span> -<span class="hljs-params">a</span> -<span class="hljs-params">q</span>)</span><br></code></pre></td></tr></table></figure></li>
+<li><p>docker exec和docker attach</p>
+<p>在运行中的容器执行命令</p>
+<p>attach：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> attach <span class="hljs-number">1</span>e<span class="hljs-number">560</span>fca<span class="hljs-number">3906</span>   // 如果从这个容器退出，会导致容器的停止。<br></code></pre></td></tr></table></figure>
+
+<p>exec:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs diff"><span class="hljs-deletion">-d :分离模式: 在后台运行</span><br><span class="hljs-deletion">-i :即使没有附加也保持STDIN 打开</span><br><span class="hljs-deletion">-t :分配一个伪终端</span><br></code></pre></td></tr></table></figure>
+
+<p>example：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker exec -it <span class="hljs-number">243</span>c32535da7 <span class="hljs-regexp">/bin/</span>bash    <span class="hljs-regexp">//</span>返回shell<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="4-导出和导入"><a href="#4-导出和导入" class="headerlink" title="4. 导出和导入"></a>4. 导出和导入</h2><ul>
+<li>export和import</li>
+</ul>
+<ol>
+<li><p>docker export</p>
+<p>导出镜像</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> export <span class="hljs-number">1</span>e<span class="hljs-number">560</span>fca<span class="hljs-number">3906</span> &gt; ubuntu.tar<br></code></pre></td></tr></table></figure></li>
+<li><p>docker import</p>
+<p>导入镜像</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat docker<span class="hljs-regexp">/ubuntu.tar | docker import - demo/u</span>buntu:v1<br>docker import http:<span class="hljs-regexp">//</span>demo.com     <span class="hljs-regexp">//</span>支持从url导入<br></code></pre></td></tr></table></figure></li>
+<li><p>save和load</p>
+<ol>
+<li>docker save</li>
+</ol>
+<p>将指定镜像保存为tar文件</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">docker <span class="hljs-built_in">save</span> -o nginx.tar nginx:<span class="hljs-built_in">last</span><br></code></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li>docker load</li>
+</ol>
+<p>导入使用docker save命令导出的镜像</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">docker load -<span class="hljs-selector-tag">i</span> nginx<span class="hljs-selector-class">.tar</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="docker-save和docker-export的区别"><a href="#docker-save和docker-export的区别" class="headerlink" title="docker save和docker export的区别"></a>docker save和docker export的区别</h3><ol>
+<li>docker save保存的是镜像（image），docker export保存的是容器（container）；</li>
+<li>docker load用来载入镜像包，docker import用来载入容器包，但两者都会恢复为镜像；</li>
+<li>docker load不能对载入的镜像重命名，而docker import可以为镜像指定新名称。</li>
+</ol>
+<h2 id="5-端口"><a href="#5-端口" class="headerlink" title="5.端口"></a>5.端口</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus">-<span class="hljs-selector-tag">p</span> <span class="hljs-number">1234</span>-<span class="hljs-number">1236</span>:<span class="hljs-number">1222</span>-<span class="hljs-number">1224</span>     <span class="hljs-comment">//指定范围添加端口</span><br>docker run -d -<span class="hljs-selector-tag">p</span> <span class="hljs-number">5001</span>:<span class="hljs-number">5000</span> training/webapp python app<span class="hljs-selector-class">.py</span> <span class="hljs-comment">//容器5000端口映射到主机5001</span><br>docker port bf08b7f2cd89	<span class="hljs-comment">//查看映射端口</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="6-镜像管理"><a href="#6-镜像管理" class="headerlink" title="6. 镜像管理"></a>6. 镜像管理</h2><ol>
+<li><p>docker images</p>
+<p>通过docker images命令可以列出主机上的镜像，默认只列出最顶层的镜像，可以使用-a选项显示出所有镜像</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">docker images -<span class="hljs-selector-tag">a</span><br></code></pre></td></tr></table></figure></li>
+<li><p>docker rmi</p>
+<p>docker rmi命令用于删除镜像，删除镜像时，如果已有基于该镜像启动的容器存在，则无法直接删除，需要先用rm命令删除容器。这两个子命令都提供 -f 选项，可强制删除存在容器的镜像或启动中的容器。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> rmi kali:<span class="hljs-number">10</span>.<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure></li>
+<li><p>docker commit</p>
+<p>docker commit命令可以将一个容器固化为一个新的镜像。当需要制定特定的镜像时，会进行修改容器的配置，比如在容器中安装一些特定的工具等，通过commit命令可以将这些修改保存起来，使其不会因为容器的停止而丢失。</p>
+<ul>
+<li>-a:提交的镜像作者</li>
+<li>-c :使用Dockerfile指令来创建镜像</li>
+<li>-m :提交时的说明文字</li>
+<li>-p :在commit时，将容器暂停</li>
+</ul>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> commit -a <span class="hljs-string">&quot;demo&quot;</span> <span class="hljs-number">66</span>d<span class="hljs-number">682605023</span> kali:<span class="hljs-number">10</span>.<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="7-运维相关"><a href="#7-运维相关" class="headerlink" title="7. 运维相关"></a>7. 运维相关</h2><ol>
+<li><p>docker ps</p>
+<p>常用的选项有-a和-l，-a选项可以查看所有的容器，包括停止的容器；-l选项只查看最新创建的容器，包括不在运行的容器</p>
+</li>
+<li><p>docker rename</p>
+<p>重命名容器</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> rename <span class="hljs-number">12312391</span> newname<br></code></pre></td></tr></table></figure></li>
+<li><p>docer stats</p>
+<p>显示容器资源的使用情况统计信息</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> stats <span class="hljs-number">12312391</span><br></code></pre></td></tr></table></figure></li>
+<li><p>docker top</p>
+<p>查看运行的进程信息</p>
+</li>
+<li><p>docker cp</p>
+<p>主机与容器之间数据拷贝</p>
+<p>example：</p>
+<ul>
+<li><p>将本目录下的test.php文件复制到容器的’/var/www/html/‘目录下</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker cp test.php <span class="hljs-number">5198</span>ec963e43:<span class="hljs-regexp">/var/</span>www<span class="hljs-regexp">/html/</span><br></code></pre></td></tr></table></figure></li>
+<li><p>将容器内’/var/www/html/index.php’复制到本机/root目录下：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker cp <span class="hljs-number">5198</span>ec963e43:<span class="hljs-regexp">/var/</span>www<span class="hljs-regexp">/html/i</span>ndex.php <span class="hljs-regexp">/root/</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>docker diff</p>
+<p>查看容器文件结构</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> diff <span class="hljs-number">5198</span>ec<span class="hljs-number">963</span>e<span class="hljs-number">43</span><br></code></pre></td></tr></table></figure></li>
+<li><p>docker events</p>
+<p>从服务器获取实时时间</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs diff"><span class="hljs-deletion">-f:根据条件过滤事件</span><br><span class="hljs-deletion">--since:从指定的时间戳后显示所有事件</span><br><span class="hljs-deletion">--until:流水时间显示到指定的时间为止</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> events --since=<span class="hljs-string">&quot;&quot;</span><span class="hljs-number">2020</span>-<span class="hljs-number">01</span>-<span class="hljs-number">21</span><span class="hljs-string">&quot; </span><br></code></pre></td></tr></table></figure></li>
+<li><p>docker history</p>
+<p>查看指定镜像的创建历史</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">history</span> TAG<br></code></pre></td></tr></table></figure></li>
+<li><p>docker inspect</p>
+<p>来查看 Docker 的底层信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker inspect 243c32535da7<br></code></pre></td></tr></table></figure></li>
+<li><p>docker logs</p>
+<p>查看容器打印日志</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> logs -f bf<span class="hljs-number">08</span>b<span class="hljs-number">7</span>f<span class="hljs-number">2</span>cd<span class="hljs-number">89</span>  //查看日志<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="8-文件映射"><a href="#8-文件映射" class="headerlink" title="8. 文件映射"></a>8. 文件映射</h2><ol>
+<li>主机卷的映射</li>
+</ol>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">docker run -it -v <span class="hljs-regexp">/root/</span>software:<span class="hljs-regexp">/software --privileged=true  docker.io/</span>centos <span class="hljs-regexp">/bin/</span>bash<br><br>-v 挂载目录<span class="hljs-regexp">/root/</span>software 本地目录 /software容器目录，在创建前容器是没有software目录的容器会自己创建<br>--privileged=<span class="hljs-keyword">true</span> 关闭安全权限，否则你容器操作文件夹没有权限<br></code></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li><p>通过docker创建卷</p>
+<p>此种方式不必考虑权限问题，docker会为我们处理好权限。 </p>
+<ul>
+<li>创建 docker volume create –name v1</li>
+<li>查看 docker inspect v1</li>
+<li>删除数据卷 docker volume rm v1</li>
+</ul>
+<p>创建容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -d -v v1:/usr/local/nginx --name nginx  //v1为创建的卷<br></code></pre></td></tr></table></figure></li>
+<li><p>使用共享存储的映射</p>
+</li>
+</ol>
+<p>将一台主机做为nfs主机， 创建相应的文件夹，并将其共享给docker的两台主机，两台docker主机将分享的文件夹映射到容器中，使得对应的容器可以共享到nfs主机的内容。可以将http等服务器的相应的页面文件夹使用这种形式，从而实现多个容器跑一个业务</p>
+<p>nfs主机配置【192.168.6.77】</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs shell">[root@nfs ~]# yum -y install nfs-utils<br>[root@nfs ~]# vim /etc/exports<br>/public  *(rw)<br>[root@nfs ~]# systemctl restart nfs-server<br>Failed to restart nfs-serve.service: Unit not found<br>[root@nfs ~]# mkdir /public<br>[root@nfs ~]# cd /public/<br>[root@nfs public]# touch nfs.txt<br>[root@nfs public]# ls<br>nfs.txt<br><br>docker1主机配置<br>[root@docker1 ~]# vim /etc/fstab <br>192.168.6.77:/public /mnt/nfs nfs defaults,_netdev 0 0<br>[root@docker1 ~]# mkdir  /mnt/nfs <br>[root@docker1 ~]# systemctl restart nfs-server<br>[root@docker1 ~]# mount -a<br>[root@docker1 ~]# df -h<br>192.168.6.77:/public   17G  3.2G   14G   19% /mnt/nfs<br>[root@docker1 ~]# docker run -it -v /mnt/nfs/:/zhuhaiyan 192.168.6.153:5000/myos<br>[root@c7c376e3755a /]# cd /zhuhaiyan <br>[root@c7c376e3755a zhuhaiyan]# ls<br>nfs.txt<br><br>docker2主机配置<br>[root@docker2 ~]# vim /etc/fstab <br>192.168.6.77:/public /mnt/nfs nfs defaults,_netdev 0 0<br>[root@docker2 ~]# mkdir  /mnt/nfs <br>[root@docker2 ~]# systemctl restart nfs-server<br>[root@docker2 ~]# mount -a<br>[root@docker2 ~]# df -h<br>192.168.6.77:/public   17G  3.2G   14G   19% /mnt/nfs<br>[root@docker2 ~]# docker run -it -v /mnt/nfs/:/zhuhaiyan 192.168.6.153:5000/myos<br>[root@cdd805771d07 /]# cd /zhuhaiyan/<br>[root@cdd805771d07 zhuhaiyan]# ls<br>nfs.txt<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="9-网络设置"><a href="#9-网络设置" class="headerlink" title="9. 网络设置"></a>9. 网络设置</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker network create -d bridge test  <span class="hljs-regexp">//</span>新建网络<br><br>-d：参数指定 Docker 网络类型，有 bridge、overlay。<br><br>docker network ls。 <span class="hljs-regexp">//</span>查看创建的网络<br><br>docker run -itd --name test1 --network test ubuntu <span class="hljs-regexp">/bin/</span>bash   <span class="hljs-regexp">//</span>--network指定使用的网络<br><br></code></pre></td></tr></table></figure>
+
+<p>配置 DNS</p>
+<p>可以在宿主机的 /etc/docker/daemon.json 文件中增加以下内容来设置全部容器的 DNS：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;dns&quot;</span> : [<br>    <span class="hljs-string">&quot;114.114.114.114&quot;</span>,<br>    <span class="hljs-string">&quot;8.8.8.8&quot;</span><br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>设置后，启动容器的 DNS 会自动配置为 114.114.114.114 和 8.8.8.8。</p>
+<p>配置完，需要重启 docker 才能生效。</p>
+<p>启动时设置DNS</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -it --rm host_ubuntu  --dns=114.114.114.114 --dns-search=test.com ubuntu<br><br>-h HOSTNAME或者--hostname=HOSTNAME:设定容器的主机名，它会被写到容器内的 /etc/hostname 和    			  /etc/hosts。<br>--dns=IP_ADDRESS： 添加 DNS 服务器到容器的 /etc/resolv.conf 中，让容器用这个服务器来解析所有不在 /etc/hosts 中的主机名。<br>--dns-search=DOMAIN： 设定容器的搜索域，当设定搜索域为 .example.com 时，在搜索一个名为 host 的主机时，DNS 不仅搜索 host，还会搜索 host.example.com。<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="10-Dockerfile"><a href="#10-Dockerfile" class="headerlink" title="10 .Dockerfile"></a>10 .Dockerfile</h2><h3 id="什么是-Dockerfile？"><a href="#什么是-Dockerfile？" class="headerlink" title="什么是 Dockerfile？"></a>什么是 Dockerfile？</h3><p>Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明。</p>
+<ol>
+<li>案例：</li>
+</ol>
+<p>创建Dockerfile文件</p>
+<p><strong>vi Dockerfile</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">FROM docker.io/kalilinux/kali-linux-docker<br>RUN echo &#x27;test&#x27; &gt; /root/test<br></code></pre></td></tr></table></figure>
+
+<p>创建镜像</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">docker build -t kali:test .   // kali:test（镜像名称:镜像标签）,最后的 . 代表本次执行的上下文路径<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>FROM 和 RUN 指令的作用</p>
+<p><strong>FROM</strong>：定制的镜像都是基于 FROM 的镜像，这里的 nginx 就是定制需要的基础镜像。后续的操作都是基于 nginx。</p>
+<p><strong>RUN</strong>：用于执行后面跟着的命令行命令。有以下俩种格式：</p>
+</li>
+</ol>
+<p>shell 格式：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">RUN</span><span class="bash"> &lt;命令行命令&gt;</span><br><span class="hljs-comment"># &lt;命令行命令&gt; 等同于，在终端操作的 shell 命令。</span><br></code></pre></td></tr></table></figure>
+
+<p>exec 格式：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">RUN</span><span class="bash"> [<span class="hljs-string">&quot;可执行文件&quot;</span>, <span class="hljs-string">&quot;参数1&quot;</span>, <span class="hljs-string">&quot;参数2&quot;</span>]</span><br><span class="hljs-comment"># 例如：</span><br><span class="hljs-comment"># RUN [&quot;./test.php&quot;, &quot;dev&quot;, &quot;offline&quot;] 等价于 RUN ./test.php dev offline</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：Dockerfile 的指令每执行一次都会在 docker 上新建一层。所以过多无意义的层，会造成镜像膨胀过大。例如：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> centos<br><span class="hljs-keyword">RUN</span><span class="bash"> yum install wget</span><br><span class="hljs-keyword">RUN</span><span class="bash"> wget -O redis.tar.gz <span class="hljs-string">&quot;http://download.redis.io/releases/redis-5.0.3.tar.gz&quot;</span></span><br><span class="hljs-keyword">RUN</span><span class="bash"> tar -xvf redis.tar.gz</span><br><br>以上执行会创建 <span class="hljs-number">3</span> 层镜像。可简化为以下格式：<br><br><span class="hljs-keyword">FROM</span> centos<br><span class="hljs-keyword">RUN</span><span class="bash"> yum install wget \</span><br><span class="bash">  &amp;&amp; wget -O redis.tar.gz <span class="hljs-string">&quot;http://download.redis.io/releases/redis-5.0.3.tar.gz&quot;</span> \</span><br><span class="bash">  &amp;&amp; tar -xvf redis.tar.gz</span><br><br>如上，以 &amp;&amp; 符号连接命令，这样执行后，只会创建 <span class="hljs-number">1</span> 层镜像。<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="上下文路径"><a href="#上下文路径" class="headerlink" title="上下文路径"></a>上下文路径</h3><p>上面中，有提到指令最后一个 <strong>.</strong> 是上下文路径，那么什么是上下文路径呢？</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker build -t kali:test .<br></code></pre></td></tr></table></figure>
+
+<p>上下文路径，是指 docker 在构建镜像，有时候想要使用到本机的文件（比如复制），docker build 命令得知这个路径后，会将路径下的所有内容打包。</p>
+<p><strong>解析</strong>：由于 docker 的运行模式是 C/S。我们本机是 C，docker 引擎是 S。实际的构建过程是在 docker 引擎下完成的，所以这个时候无法用到我们本机的文件。这就需要把我们本机的指定目录下的文件一起打包提供给 docker 引擎使用。</p>
+<p>如果未说明最后一个参数，那么默认上下文路径就是 Dockerfile 所在的位置。</p>
+<p><strong>注意</strong>：上下文路径下不要放无用的文件，因为会一起打包发送给 docker 引擎，如果文件过多会造成过程缓慢。</p>
+<h3 id="指令详解"><a href="#指令详解" class="headerlink" title="指令详解"></a>指令详解</h3><h4 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h4><p>复制指令，从上下文目录中复制文件或者目录到容器里指定路径。</p>
+<p>格式：</p>
+<figure class="highlight bnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bnf">COPY [--chown=<span class="hljs-attribute">&lt;user&gt;</span>:<span class="hljs-attribute">&lt;group&gt;</span>] <span class="hljs-attribute">&lt;源路径1&gt;</span>...  <span class="hljs-attribute">&lt;目标路径&gt;</span><br>COPY [--chown=<span class="hljs-attribute">&lt;user&gt;</span>:<span class="hljs-attribute">&lt;group&gt;</span>] [&quot;<span class="hljs-attribute">&lt;源路径1&gt;</span>&quot;,...  &quot;<span class="hljs-attribute">&lt;目标路径&gt;</span>&quot;]<br></code></pre></td></tr></table></figure>
+
+<p>**[–chown=:]**：可选参数，用户改变复制到容器内文件的拥有者和属组。</p>
+<p>**&lt;源路径&gt;**：源文件或者源目录，这里可以是通配符表达式，其通配符规则要满足 Go 的 filepath.Match 规则。例如：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">COPY</span> hom* <span class="hljs-regexp">/mydir/</span><br><span class="hljs-keyword">COPY</span> hom?.txt <span class="hljs-regexp">/mydir/</span><br></code></pre></td></tr></table></figure>
+
+<p>**&lt;目标路径&gt;**：容器内的指定路径，该路径不用事先建好，路径不存在的话，会自动创建。</p>
+<h4 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h4><p>ADD 指令和 COPY 的使用格式一致（同样需求下，官方推荐使用 COPY）。功能也类似，不同之处如下：</p>
+<ul>
+<li>ADD 的优点：在执行 &lt;源文件&gt; 为 tar 压缩文件的话，压缩格式为 gzip, bzip2 以及 xz 的情况下，会自动复制并解压到 &lt;目标路径&gt;。</li>
+<li>ADD 的缺点：在不解压的前提下，无法复制 tar 压缩文件。会令镜像构建缓存失效，从而可能会令镜像构建变得比较缓慢。具体是否使用，可以根据是否需要自动解压来决定。</li>
+</ul>
+<pre><code>    因此在 COPY 和 ADD 指令中选择的时候，可以遵循这样的原则，**所有的文件复制均使用 COPY 指令，仅在需要自动解压缩的场合使用 ADD 。**
+</code></pre>
+<h4 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h4><p>类似于 RUN 指令，用于运行程序，但二者运行的时间点不同:</p>
+<ul>
+<li>CMD 在docker run 时运行。</li>
+<li>RUN 是在 docker build。</li>
+</ul>
+<p><strong>作用</strong>：为启动的容器指定默认要运行的程序，程序运行结束，容器也就结束。CMD 指令指定的程序可被 docker run 命令行参数中指定要运行的程序所覆盖。</p>
+<p><strong>注意</strong>：如果 Dockerfile 中如果存在多个 CMD 指令，仅最后一个生效。</p>
+<p>格式：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">CMD</span><span class="bash"> &lt;shell 命令&gt; </span><br><span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;&lt;可执行文件或命令&gt;&quot;</span>,<span class="hljs-string">&quot;&lt;param1&gt;&quot;</span>,<span class="hljs-string">&quot;&lt;param2&gt;&quot;</span>,...] </span><br><span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;&lt;param1&gt;&quot;</span>,<span class="hljs-string">&quot;&lt;param2&gt;&quot;</span>,...]  <span class="hljs-comment"># 该写法是为 ENTRYPOINT 指令指定的程序提供默认参数</span></span><br></code></pre></td></tr></table></figure>
+
+<p>推荐使用第二种格式，执行过程比较明确。第一种格式实际上在运行的过程中也会自动转换成第二种格式运行，并且默认可执行文件是 sh。</p>
+<h4 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h4><p>类似于 CMD 指令，但其不会被 docker run 的命令行参数指定的指令所覆盖，而且这些命令行参数会被当作参数送给 ENTRYPOINT 指令指定的程序。</p>
+<p>但是, 如果运行 docker run 时使用了 –entrypoint 选项，此选项的参数可当作要运行的程序覆盖 ENTRYPOINT 指令指定的程序。</p>
+<p><strong>优点</strong>：在执行 docker run 的时候可以指定 ENTRYPOINT 运行所需的参数。</p>
+<p><strong>注意</strong>：如果 Dockerfile 中如果存在多个 ENTRYPOINT 指令，仅最后一个生效。</p>
+<p>格式：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">ENTRYPOINT <span class="hljs-selector-attr">[<span class="hljs-string">&quot;&lt;executeable&gt;&quot;</span>,<span class="hljs-string">&quot;&lt;param1&gt;&quot;</span>,<span class="hljs-string">&quot;&lt;param2&gt;&quot;</span>,...]</span><br></code></pre></td></tr></table></figure>
+
+<p>当指定了 ENTRYPOINT 后， CMD 的含义就发生了改变，不再是直接的运行其命令，而是将CMD 的内容作为参数传给 ENTRYPOINT 指令，换句话说实际执行时，将变为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">ENTRYPOINT</span>&gt;</span> &quot;<span class="hljs-tag">&lt;<span class="hljs-name">CMD</span>&gt;</span>&quot;<br></code></pre></td></tr></table></figure>
+
+<p>可以搭配 CMD 命令使用：一般是变参才会使用 CMD ，这里的 CMD 等于是在给 ENTRYPOINT 传参，以下示例会提到。</p>
+<p>示例：</p>
+<p>假设已通过 Dockerfile 构建了 nginx:test 镜像：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> nginx<br><br><span class="hljs-keyword">ENTRYPOINT</span><span class="bash"> [<span class="hljs-string">&quot;nginx&quot;</span>, <span class="hljs-string">&quot;-c&quot;</span>] <span class="hljs-comment"># 定参</span></span><br><span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;/etc/nginx/nginx.conf&quot;</span>] <span class="hljs-comment"># 变参 </span></span><br></code></pre></td></tr></table></figure>
+
+<p>1、不传参运行</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">$ docker <span class="hljs-keyword">run</span><span class="bash">  nginx:<span class="hljs-built_in">test</span></span><br></code></pre></td></tr></table></figure>
+
+<p>容器内会默认运行以下命令，启动主进程。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">nginx -c <span class="hljs-regexp">/etc/</span>nginx/nginx.conf<br></code></pre></td></tr></table></figure>
+
+<p>2、传参运行</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle">$ docker run  nginx:test -c <span class="hljs-regexp">/etc/</span>nginx/<span class="hljs-keyword">new</span>.conf<br></code></pre></td></tr></table></figure>
+
+<p>容器内会默认运行以下命令，启动主进程(/etc/nginx/new.conf:假设容器内已有此文件)</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle">nginx -c <span class="hljs-regexp">/etc/</span>nginx/<span class="hljs-keyword">new</span>.conf<br></code></pre></td></tr></table></figure>
+
+<p>那么有了 CMD 后，为什么还要有 ENTRYPOINT 呢？这种 <code> &quot;&quot;</code> 有什么好处么？让我们来看几个场景。</p>
+<p>场景一：让镜像变成像命令一样使用</p>
+<p>  假设我们需要一个得知自己当前公网 IP 的镜像，那么可以先用 CMD 来实现：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">FROM ubuntu:<span class="hljs-number">16.04</span><br>RUN apt-get update \<br>&amp;&amp; apt-get install -y curl \<br>&amp;&amp; rm -rf <span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/apt/</span>lists/*<br>CMD [ <span class="hljs-string">&quot;curl&quot;</span>, <span class="hljs-string">&quot;-s&quot;</span>, <span class="hljs-string">&quot;http://ip.cn&quot;</span> ]<br></code></pre></td></tr></table></figure>
+
+<p>假如我们使用 <code>docker build -t myip .</code> 来构建镜像的话，如果我们需要查询当前公网 IP，只需要执行：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">$ docker <span class="hljs-builtin-name">run</span> myip<br>当前 IP：61.148.226.66 来自：北京市 联通<br></code></pre></td></tr></table></figure>
+
+<p>嗯，这么看起来好像可以直接把镜像当做命令使用了，不过命令总有参数，如果我们希望加参数呢？比如从上面的 CMD 中可以看到实质的命令是 curl ，那么如果我们希望显示 HTTP头信息，就需要加上 -i 参数。那么我们可以直接加 <code>-i 参数</code>给 <code>docker run myip</code> 么？</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs swift">$ docker run myip <span class="hljs-operator">-</span>i<br>docker: <span class="hljs-type">Error</span> response from daemon: invalid header field value <span class="hljs-string">&quot;oci runtime error: con</span><br><span class="hljs-string">tainer_linux.go:247: starting container process caused <span class="hljs-subst">\&quot;</span>exec: <span class="hljs-subst">\\</span><span class="hljs-subst">\&quot;</span>-i<span class="hljs-subst">\\</span><span class="hljs-subst">\&quot;</span>: executable</span><br><span class="hljs-string">file not found in $PATH<span class="hljs-subst">\&quot;</span><span class="hljs-subst">\n</span>&quot;</span>.<br></code></pre></td></tr></table></figure>
+
+<p>我们可以看到可执行文件找不到的报错， <code>executable file not found</code> 。之前我们说过，跟在镜像名后面的是 command ，运行时会替换 CMD 的默认值。因此这里的 -i 替换了原来的 CMD ，而不是添加在原来的 <code>curl -s http://ip.cn</code> 后面。而 -i 根本不是命令，所以自然找不到。</p>
+<p>那么如果我们希望加入 -i 这参数，我们就必须重新完整的输入这个命令：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">$ docker run myip curl -s http:<span class="hljs-comment">//ip.cn -i</span><br></code></pre></td></tr></table></figure>
+
+<p>这显然不是很好的解决方案，而使用 ENTRYPOINT 就可以解决这个问题。现在我们重新用 ENTRYPOINT 来实现这个镜像：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">FROM ubuntu:<span class="hljs-number">16.04</span><br>RUN apt-get update \<br>&amp;&amp; apt-get install -y curl \<br>&amp;&amp; rm -rf <span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/apt/</span>lists/*<br>ENTRYPOINT [ <span class="hljs-string">&quot;curl&quot;</span>, <span class="hljs-string">&quot;-s&quot;</span>, <span class="hljs-string">&quot;http://ip.cn&quot;</span> ]<br></code></pre></td></tr></table></figure>
+
+<p>这次我们再来尝试直接使用 docker run myip -i ：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">$ docker run myip<br>当前 IP：<span class="hljs-number">61.148</span><span class="hljs-number">.226</span><span class="hljs-number">.66</span> 来自：北京市 联通<br>$ docker run myip -i<br>HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK<br><span class="hljs-keyword">Server</span>: nginx/<span class="hljs-number">1.8</span><span class="hljs-number">.0</span><br><span class="hljs-type">Date</span>: Tue, <span class="hljs-number">22</span> Nov <span class="hljs-number">2016</span> <span class="hljs-number">05</span>:<span class="hljs-number">12</span>:<span class="hljs-number">40</span> GMT<br>Content-<span class="hljs-keyword">Type</span>: <span class="hljs-type">text</span>/html; charset=UTF<span class="hljs-number">-8</span><br>Vary: Accept-<span class="hljs-keyword">Encoding</span><br>X-Powered-<span class="hljs-keyword">By</span>: PHP/<span class="hljs-number">5.6</span><span class="hljs-number">.24</span><span class="hljs-number">-1</span>~dotdeb+<span class="hljs-number">7.1</span><br>X-<span class="hljs-keyword">Cache</span>: MISS from <span class="hljs-keyword">cache</span><span class="hljs-number">-2</span><br>X-<span class="hljs-keyword">Cache</span>-Lookup: MISS from <span class="hljs-keyword">cache</span><span class="hljs-number">-2</span>:<span class="hljs-number">80</span><br>X-<span class="hljs-keyword">Cache</span>: MISS from proxy<span class="hljs-number">-2</span>_6<br>Transfer-<span class="hljs-keyword">Encoding</span>: chunked<br>Via: <span class="hljs-number">1.1</span> <span class="hljs-keyword">cache</span><span class="hljs-number">-2</span>:<span class="hljs-number">80</span>, <span class="hljs-number">1.1</span> proxy<span class="hljs-number">-2</span>_6:<span class="hljs-number">8006</span><br><span class="hljs-keyword">Connection</span>: keep-alive<br><br>当前 IP：<span class="hljs-number">61.148</span><span class="hljs-number">.226</span><span class="hljs-number">.66</span> 来自：北京市 联通<br></code></pre></td></tr></table></figure>
+
+<p>  可以看到，这次成功了。这是因为当存在 ENTRYPOINT 后， CMD 的内容将会作为参数传给 ENTRYPOINT ，而这里 -i 就是新的 CMD ，因此会作为参数传给 curl ，从而达到了我们预期的效果。</p>
+<p>场景二：应用运行前的准备工作</p>
+<p>  启动容器就是启动主进程，但有些时候，启动主进程前，需要一些准备工作。比如 mysql 类的数据库，可能需要一些数据库配置、初始化的工作，这些工作要在最终的 mysql 服务器运行之前解决。</p>
+<p>  此外，可能希望避免使用 root 用户去启动服务，从而提高安全性，而在启动服务前还需要以 root 身份执行一些必要的准备工作，最后切换到服务用户身份启动服务。或者除了服务外，其它命令依旧可以使用 root 身份执行，方便调试等。</p>
+<p>  这些准备工作是和容器 CMD 无关的，无论 CMD 为什么，都需要事先进行一个预处理的工作。这种情况下，可以写一个脚本，然后放入 ENTRYPOINT 中去执行，而这个脚本会将接到的参数（也就是 ）作为命令，在脚本最后执行。比如官方镜像 redis 中就是这么做的：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> alpine:<span class="hljs-number">3.4</span><br><br>...<br><br><span class="hljs-keyword">RUN</span><span class="bash"> addgroup -S redis &amp;&amp; adduser -S -G redis redis</span><br><br>...<br><br><span class="hljs-keyword">ENTRYPOINT</span><span class="bash"> [<span class="hljs-string">&quot;docker-entrypoint.sh&quot;</span>]</span><br><br><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">6379</span><br><br><span class="hljs-keyword">CMD</span><span class="bash"> [ <span class="hljs-string">&quot;redis-server&quot;</span> ]</span><br></code></pre></td></tr></table></figure>
+
+<p>  可以看到其中为了 redis 服务创建了 redis 用户，并在最后指定了 ENTRYPOINT 为 dockerentrypoint.sh 脚本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/sh</span><br>...<br><span class="hljs-comment"># allow the container to be started with `--user`</span><br><span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> = <span class="hljs-string">&#x27;redis-server&#x27;</span> -a <span class="hljs-string">&quot;<span class="hljs-subst">$(id -u)</span>&quot;</span> = <span class="hljs-string">&#x27;0&#x27;</span> ]; <span class="hljs-keyword">then</span><br><br>    chown -R redis .<br>    <span class="hljs-built_in">exec</span> su-exec redis <span class="hljs-string">&quot;<span class="hljs-variable">$0</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span><br><span class="hljs-keyword">fi</span><br><span class="hljs-built_in">exec</span> <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>  该脚本的内容就是根据 CMD 的内容来判断，如果是 redis-server 的话，则切换到 redis 用户身份启动服务器，否则依旧使用 root 身份执行。比如：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">$ docker <span class="hljs-builtin-name">run</span> -it redis id<br><span class="hljs-attribute">uid</span>=0(root) <span class="hljs-attribute">gid</span>=0(root) <span class="hljs-attribute">groups</span>=0(root)<br></code></pre></td></tr></table></figure>
+
+<p>  而使用 <code>service nginx start</code> 命令，则是希望 <code>systemd</code> 来以后台守护进程形式启动 nginx 服务。而刚才说了 <code>CMD service nginx start</code> 会被理解为 CMD [ “sh”, “-c”, “service nginxstart”] ，<strong>因此主进程实际上是 sh 。那么当 service nginx start 命令结束后， sh 也就结束了， sh 作为主进程退出了，自然就会令容器退出。</strong></p>
+<p>  正确的做法是<strong>直接执行 nginx 可执行文件</strong>，并且要求以前台形式运行。比如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">CMD <span class="hljs-selector-attr">[<span class="hljs-string">&quot;nginx&quot;</span>, <span class="hljs-string">&quot;-g&quot;</span>, <span class="hljs-string">&quot;daemon off;&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h3><p>仅仅只是声明端口。</p>
+<p><strong>EXPOSE 指令是声明运行时容器提供服务端口，这只是一个声明，在运行时并不会因为这个声明应用就会开启这个端口的服务。</strong></p>
+<p>作用：</p>
+<ul>
+<li>帮助镜像使用者理解这个镜像服务的守护端口，以方便配置映射。</li>
+<li>在运行时使用随机端口映射时，也就是 docker run -P 时，会自动随机映射 EXPOSE 的端口。</li>
+</ul>
+<p>格式：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">EXPOSE</span> &lt;端口<span class="hljs-number">1</span>&gt;<span class="hljs-meta"> [&lt;端口2&gt;...]</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h3><p>指定工作目录。用 WORKDIR 指定的工作目录，会在构建镜像的每一层中都存在。（WORKDIR 指定的工作目录，必须是提前创建好的）。</p>
+<p>docker build 构建镜像过程中的，每一个 RUN 命令都是新建的一层。只有通过 WORKDIR 创建的目录才会一直存在。</p>
+<p>格式：</p>
+<figure class="highlight bnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bnf">WORKDIR <span class="hljs-attribute">&lt;工作目录路径&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h3><p>用于指定执行后续命令的用户和用户组，这边只是切换后续命令执行的用户（用户和用户组必须提前已经存在）。</p>
+<p>格式：</p>
+<figure class="highlight bnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bnf">USER <span class="hljs-attribute">&lt;用户名&gt;</span>[:<span class="hljs-attribute">&lt;用户组&gt;</span>]<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="VOLUME-定义匿名卷"><a href="#VOLUME-定义匿名卷" class="headerlink" title="VOLUME 定义匿名卷"></a>VOLUME 定义匿名卷</h3><p>格式为：</p>
+ <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">VOLUME</span><span class="bash"> [<span class="hljs-string">&quot;&lt;路径1&gt;&quot;</span>, <span class="hljs-string">&quot;&lt;路径2&gt;&quot;</span>...]</span><br><span class="hljs-keyword">VOLUME</span><span class="bash"> &lt;路径&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>  容器运行时应该尽量保持容器存储层不发生写操作，对于数据库类需要保存动态数据的应用，其数据库文件应该保存于卷(volume)中。为了防止运行时用户忘记将动态文件所保存目录挂载为卷，在 Dockerfile 中，我们可以事先指定某些目录挂载为匿名卷，这样在运行时如果用户不指定挂载，其应用也可以正常运行，不会向容器存储层写入大量数据。</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-type">VOLUME</span> /<span class="hljs-class"><span class="hljs-keyword">data</span></span><br></code></pre></td></tr></table></figure>
+
+<p>  这里的 <code>/data</code> 目录就会在运行时自动挂载为匿名卷，任何向 /data 中写入的信息都不会记录进容器存储层，从而保证了容器存储层的无状态化。当然，运行时可以覆盖这个挂载设置。比如：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">docker</span> run -d -v mydata:/<span class="hljs-class"><span class="hljs-keyword">data</span> xxxx</span><br></code></pre></td></tr></table></figure>
+
+<p>  在这行命令中，就使用了 mydata 这个命名卷挂载到了 <code>/data</code> 这个位置，替代了 Dockerfile 中定义的匿名卷的挂载配置。</p>
+<p> </p>
+<h3 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h3><p>设置环境变量，定义了环境变量，那么在后续的指令中，就可以使用这个环境变量。</p>
+<p>格式：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml">ENV <span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span><br>ENV <span class="hljs-tag">&lt;<span class="hljs-name">key1</span>&gt;</span>=<span class="hljs-tag">&lt;<span class="hljs-name">value1</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">key2</span>&gt;</span>=<span class="hljs-tag">&lt;<span class="hljs-name">value2</span>&gt;</span>...<br></code></pre></td></tr></table></figure>
+
+<p>以下示例设置 NODE_VERSION = 7.2.0 ， 在后续的指令中可以通过 $NODE_VERSION 引用：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">ENV</span> NODE_VERSION <span class="hljs-number">7.2</span>.<span class="hljs-number">0</span><br><br><span class="hljs-keyword">RUN</span><span class="bash"> curl -SLO <span class="hljs-string">&quot;https://nodejs.org/dist/v<span class="hljs-variable">$NODE_VERSION</span>/node-v<span class="hljs-variable">$NODE_VERSION</span>-linux-x64.tar.xz&quot;</span> \</span><br><span class="bash">  &amp;&amp; curl -SLO <span class="hljs-string">&quot;https://nodejs.org/dist/v<span class="hljs-variable">$NODE_VERSION</span>/SHASUMS256.txt.asc&quot;</span></span><br></code></pre></td></tr></table></figure>
+
+<h3 id="ARG"><a href="#ARG" class="headerlink" title="ARG"></a>ARG</h3><p>构建参数，与 ENV 作用一至。不过作用域不一样。ARG 设置的环境变量仅对 Dockerfile 内有效，也就是说只有 docker build 的过程中有效，构建好的镜像内不存在此环境变量。</p>
+<p>构建命令 docker build 中可以用 –build-arg &lt;参数名&gt;=&lt;值&gt; 来覆盖。</p>
+<p>格式：</p>
+<figure class="highlight bnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bnf">ARG <span class="hljs-attribute">&lt;参数名&gt;</span>[=<span class="hljs-attribute">&lt;默认值&gt;</span>]<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="HEALTHCHECK"><a href="#HEALTHCHECK" class="headerlink" title="HEALTHCHECK"></a>HEALTHCHECK</h3><p>用于指定某个程序或者指令来监控 docker 容器服务的运行状态。</p>
+<p>格式：</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dos">HEALTHCHECK [选项] <span class="hljs-built_in">CMD</span> &lt;命令&gt;：设置检查容器健康状况的命令<br>HEALTHCHECK NONE：如果基础镜像有健康检查指令，使用这行可以屏蔽掉其健康检查指令<br><br>HEALTHCHECK [选项] <span class="hljs-built_in">CMD</span> &lt;命令&gt; : 这边 <span class="hljs-built_in">CMD</span> 后面跟随的命令使用，可以参考 <span class="hljs-built_in">CMD</span> 的用法。<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="ONBUILD"><a href="#ONBUILD" class="headerlink" title="ONBUILD"></a>ONBUILD</h3><p>用于延迟构建命令的执行。简单的说，就是 Dockerfile 里用 ONBUILD 指定的命令，在本次构建镜像的过程中不会执行（假设镜像为 test-build）。当有新的 Dockerfile 使用了之前构建的镜像 FROM test-build ，这是执行新镜像的 Dockerfile 构建时候，会执行 test-build 的 Dockerfile 里的 ONBUILD 指定的命令。</p>
+<p>格式：</p>
+<figure class="highlight bnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bnf">ONBUILD <span class="hljs-attribute">&lt;其它指令&gt;</span><br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/docker/">docker</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/docker/">docker</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/22/flutter%E7%BC%96%E8%AF%91release%E7%89%88%E6%9C%AC/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">flutter编译release版本</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/22/so%E5%87%BD%E6%95%B0%E8%BF%90%E8%A1%8C%E9%A1%BA%E5%BA%8F/">
+                        <span class="hidden-mobile">SO函数运行顺序</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

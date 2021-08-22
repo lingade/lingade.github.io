@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>ReactNative分析 - Cola&#39;S Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Cola'S Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="ReactNative分析">
+              
+                ReactNative分析
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-22 20:22" pubdate>
+        2021年8月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      709 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      9
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ReactNative分析</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>React Native (简称RN)是Facebook于2015年4月开源的跨平台移动应用开发框架，是Facebook早先开源的JS框架 React 在原生移动应用平台的衍生产物，支持iOS和安卓两大平台</p>
+<h2 id="2-分析"><a href="#2-分析" class="headerlink" title="2. 分析"></a>2. 分析</h2><p>核心代码为js编写，在安装包assest目录下存放index.android.bundle（有可能重命名，因为rn本身仅仅做了混淆，使用编辑器打开即可分析js代码。</p>
+<p>注：部分APP可能会将index.android.bundle加密，运行时解密加载</p>
+<h3 id="2-1-数据解密"><a href="#2-1-数据解密" class="headerlink" title="2.1 数据解密"></a>2.1 数据解密</h3><h4 id="2-1-1-通过请求包关键字定位到加密点"><a href="#2-1-1-通过请求包关键字定位到加密点" class="headerlink" title="2.1.1 通过请求包关键字定位到加密点"></a>2.1.1 通过请求包关键字定位到加密点</h4> <img src="/2021/08/22/ReactNative%E5%88%86%E6%9E%90/images/%E5%AE%9A%E4%BD%8D%E5%88%B0%E5%8A%A0%E5%AF%86%E7%82%B9.png" srcset="/img/loading.gif" lazyload class="">
+
+<h4 id="2-1-2-新建js文件，复制strEnc、strDec方法和相关依赖方法，并使用node运行解密"><a href="#2-1-2-新建js文件，复制strEnc、strDec方法和相关依赖方法，并使用node运行解密" class="headerlink" title="2.1.2 新建js文件，复制strEnc、strDec方法和相关依赖方法，并使用node运行解密"></a>2.1.2 新建js文件，复制strEnc、strDec方法和相关依赖方法，并使用node运行解密</h4> <img src="/2021/08/22/ReactNative%E5%88%86%E6%9E%90/images/node%E5%AE%9E%E7%8E%B0%E5%8A%A0%E8%A7%A3%E5%AF%86.png" srcset="/img/loading.gif" lazyload class="">
+
+<h4 id="2-1-3编写burp插件，java调用js加解密方法"><a href="#2-1-3编写burp插件，java调用js加解密方法" class="headerlink" title="2.1.3编写burp插件，java调用js加解密方法"></a>2.1.3编写burp插件，java调用js加解密方法</h4><p>xxxxx</p>
+<h3 id="2-2-bundle代码篡改"><a href="#2-2-bundle代码篡改" class="headerlink" title="2.2 bundle代码篡改"></a>2.2 bundle代码篡改</h3><p>对于非对称加密需要将bundle中的公钥进行替换，所以需要对bundle进行篡改。<br>index.android.bundle中的js最终是需要被load到内存中，所以在某一时刻是可以获取，将load前的index.android.bundle进行篡改。</p>
+<h4 id="2-2-1-分析rn加载流程"><a href="#2-2-1-分析rn加载流程" class="headerlink" title="2.2.1 分析rn加载流程"></a>2.2.1 分析rn加载流程</h4><p><strong>com.facebook.react.ReactNativeHost.createReactInstanceManager</strong>方法</p>
+<img src="/2021/08/22/ReactNative%E5%88%86%E6%9E%90/images/createReactInstanceManager.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>如上图 <strong>小1</strong> 由用户指定bundle路径，一般来说如果bundle加密了，解密后会将jSBundleFile设置为bundle解密后文件路径，由RN负责加载，此时可以HOOK该方法，进行解密后的bundle dump。</p>
+<p>进入<strong>jSBundleFile</strong>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> ReactInstanceManagerBuilder <span class="hljs-title">setJSBundleFile</span><span class="hljs-params">(String str)</span> </span>&#123;<br><br>    <span class="hljs-keyword">if</span> (!str.startsWith(<span class="hljs-string">&quot;assets://&quot;</span>)) &#123;<br>        <span class="hljs-keyword">return</span> setJSBundleLoader(JSBundleLoader.createFileLoader(str));<br>    &#125;<br>    <span class="hljs-keyword">this</span>.mJSBundleAssetUrl = str;<br>    <span class="hljs-keyword">this</span>.mJSBundleLoader = <span class="hljs-keyword">null</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>  解密后的文件路径固然不能是assets开头的，所以会走setJSBundleLoader流程</p>
+<p>  dump bundle脚本，获取到bundle文件后即可进行篡改</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> ReactInstanceManagerBuilder = Java.use(<span class="hljs-string">&quot;com.facebook.react.ReactInstanceManagerBuilder&quot;</span>);<br>ReactInstanceManagerBuilder.setJSBundleFile.overload(<span class="hljs-string">&#x27;java.lang.String&#x27;</span>).implementation = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">path</span>) </span>&#123;<br>   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;bundle path is :&quot;</span>,path);<br>    <span class="hljs-keyword">return</span>  <span class="hljs-built_in">this</span>.setJSBundleFile(path);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>如上图 <strong>小2</strong> 如果用户未指定jSBundleFile，则默认调用setBundleAssetName方法，如下图会加载assets路径下的<strong>index.android.bundle</strong>(这也是为什么app资源路径下bundle默认名为index.android.bundle的原因)</p>
+<img src="/2021/08/22/ReactNative%E5%88%86%E6%9E%90/images/setBundleAssetName.png" srcset="/img/loading.gif" lazyload class="">
+
+<h4 id="2-2-2-篡改bundle"><a href="#2-2-2-篡改bundle" class="headerlink" title="2.2.2 篡改bundle"></a>2.2.2 篡改bundle</h4><h5 id="2-2-2-1-将index-android-bundle中的加密方法删除"><a href="#2-2-2-1-将index-android-bundle中的加密方法删除" class="headerlink" title="2.2.2.1 将index.android.bundle中的加密方法删除"></a>2.2.2.1 将index.android.bundle中的加密方法删除</h5><img src="/2021/08/22/ReactNative%E5%88%86%E6%9E%90/images/%E7%AF%A1%E6%94%B9bundle.png" srcset="/img/loading.gif" lazyload class="">
+
+<h5 id="2-2-2-2-push至手机sd卡下"><a href="#2-2-2-2-push至手机sd卡下" class="headerlink" title="2.2.2.2 push至手机sd卡下"></a>2.2.2.2 push至手机sd卡下</h5><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">adb</span> <span class="hljs-keyword">push</span> xxxx /sdcard<br></code></pre></td></tr></table></figure>
+
+<h5 id="2-2-2-3-HOOK-setBundleAssetName，load修改后bundle"><a href="#2-2-2-3-HOOK-setBundleAssetName，load修改后bundle" class="headerlink" title="2.2.2.3 HOOK setBundleAssetName，load修改后bundle"></a>2.2.2.3 HOOK setBundleAssetName，load修改后bundle</h5><p>因为setBundleAssetName方法会对当前入参路径拼接assets://，所以在该方法下不能简单的HOOK修改入参（bundle路径），故HOOK该方法，篡改代码逻辑，强制走上面分析中的<strong>小1</strong>流程</p>
+<p>frida hook脚本如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> ReactInstanceManagerBuilder = Java.use(<span class="hljs-string">&quot;com.facebook.react.ReactInstanceManagerBuilder&quot;</span>);<br><span class="hljs-keyword">var</span> JSBundleLoader = Java.use(<span class="hljs-string">&quot;com.facebook.react.bridge.JSBundleLoader&quot;</span>)<br>ReactInstanceManagerBuilder.setBundleAssetName.overload(<span class="hljs-string">&#x27;java.lang.String&#x27;</span>).implementation = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">path</span>) </span>&#123;<br><br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;bundle path is :&quot;</span>,path);<br>    <span class="hljs-keyword">var</span> newPath = <span class="hljs-string">&quot;/storage/emulated/0/index.android.bundle&quot;</span>;<br>   <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.setJSBundleLoader(JSBundleLoader.$new().createFileLoader(newPath));<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+
+<p>burp抓包未篡改js与篡改js后请求包对比</p>
+<p>未篡改，数据已加密</p>
+<img src="/2021/08/22/ReactNative%E5%88%86%E6%9E%90/images/%E5%8A%A0%E5%AF%86.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>篡改后，明文</p>
+<img src="/2021/08/22/ReactNative%E5%88%86%E6%9E%90/images/%E8%A7%A3%E5%AF%86.png" srcset="/img/loading.gif" lazyload class="">
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/ReactNative/">ReactNative</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/hook/">hook</a>
+                    
+                      <a class="hover-with-bg" href="/tags/ReactNative/">ReactNative</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%80%86%E5%90%91/">逆向</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/22/IOS%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">IOS文件结构</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/22/go%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/">
+                        <span class="hidden-mobile">go交叉编译</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

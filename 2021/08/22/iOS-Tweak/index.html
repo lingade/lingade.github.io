@@ -1,0 +1,563 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>iOS之Tweak - Cola&#39;S Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Cola'S Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="iOS之Tweak">
+              
+                iOS之Tweak
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-22 21:02" pubdate>
+        2021年8月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">iOS之Tweak</h1>
+            
+            <div class="markdown-body">
+              <h2 id="编写HOOK插件"><a href="#编写HOOK插件" class="headerlink" title="编写HOOK插件"></a>编写HOOK插件</h2><h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">1</span>. 终端输入<span class="hljs-selector-tag">nic</span><span class="hljs-selector-class">.pl</span><br><span class="hljs-selector-tag">2</span>. <span class="hljs-selector-tag">Choose</span> <span class="hljs-selector-tag">a</span> <span class="hljs-selector-tag">Template</span> (required): <span class="hljs-selector-tag">10</span><br><span class="hljs-selector-tag">3</span>. <span class="hljs-selector-tag">Project</span> <span class="hljs-selector-tag">Name</span> (required): 工程名<br><span class="hljs-selector-tag">4</span>. <span class="hljs-selector-tag">Package</span> <span class="hljs-selector-tag">Name</span> <span class="hljs-selector-attr">[com.yourcompany.tututest]</span>:  包名:<span class="hljs-selector-tag">com</span><span class="hljs-selector-class">.xxx</span><span class="hljs-selector-class">.xxx</span><br><span class="hljs-selector-tag">5</span>. <span class="hljs-selector-tag">Author</span>/<span class="hljs-selector-tag">Maintainer</span> <span class="hljs-selector-tag">Name</span> <span class="hljs-selector-attr">[lk]</span>: 作者<br><span class="hljs-selector-tag">6</span>. <span class="hljs-selector-attr">[iphone/tweak]</span> <span class="hljs-selector-tag">MobileSubstrate</span> <span class="hljs-selector-tag">Bundle</span> <span class="hljs-selector-tag">filter</span> <span class="hljs-selector-attr">[com.apple.springboard]</span>: 要<span class="hljs-selector-tag">Hook</span>的包名<br><span class="hljs-selector-tag">7</span>. <span class="hljs-selector-attr">[iphone/tweak]</span> <span class="hljs-selector-tag">List</span> <span class="hljs-selector-tag">of</span> <span class="hljs-selector-tag">applications</span> <span class="hljs-selector-tag">to</span> <span class="hljs-selector-tag">terminate</span> <span class="hljs-selector-tag">upon</span> <span class="hljs-selector-tag">installation</span> (space-separated, <span class="hljs-string">&#x27;-&#x27;</span> for none) <span class="hljs-selector-attr">[SpringBoard]</span>: 回车默认<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="工程文件简介"><a href="#工程文件简介" class="headerlink" title="工程文件简介"></a>工程文件简介</h3><p>创建好的工程下共有4个文件</p>
+ <img src="/2021/08/22/iOS-Tweak/images/tweakproject.png" srcset="/img/loading.gif" lazyload class="">
+
+<ul>
+<li><p>Makefile   编译文件</p>
+</li>
+<li><p>Tweak.x    编写HOOK文件</p>
+</li>
+<li><p>control     插件作者、版本信息</p>
+</li>
+<li><p>demo001.plist  设置要HOOK的Bundle ID</p>
+</li>
+</ul>
+<h4 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h4><p>指定工程用到的文件,框架,库等信息,将整个过程自动化</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs makefile">INSTALL_TARGET_PROCESSES = SpringBoard<br><br><span class="hljs-keyword">include</span> <span class="hljs-variable">$(THEOS)</span>/makefiles/common.mk<br><br>TWEAK_NAME = demo001<br><br>demo001_FILES = Tweak.x<br>demo001_CFLAGS = -fobjc-arc<br><br><span class="hljs-keyword">include</span> <span class="hljs-variable">$(THEOS_MAKE_PATH)</span>/tweak.mk<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>INSTALL_TARGET_PROCESSES = SpringBoard 目标安装的项目</li>
+<li>include $(THEOS)/makefiles/common.mk 固定写法 </li>
+<li>TWEAK_NAME = demo001 tweak的名称</li>
+<li>demo001_FILES = Tweak.x tweak源文件,多个文件以空格分隔</li>
+<li>include $(THEOS_MAKE_PATH)/tweak.mk 通过include命令指定不同的.mk文件</li>
+</ol>
+<p>除了上面的信息格式,我们还可以添加以下信息</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs makefile">我们如何通过进行指定SDK?<br>TARGET = iPhone:latest:8.0 <br><br>我们如何导入framework?<br>demo001_FRAMWORKS = UIKit  <br><br>我们如何指定处理器架构<br>ARCHS = armv7 arm64  <br><br>我么如何链接Mach-O对象<br>demo001_LDFLAGS = -lx<br>注意<br>-lx 代表链接libx.a或libx.dylib,即给x加上lib的前缀,以及.a或.dylib的后缀,可以根据自己的项目进行调整<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="Tweak-x"><a href="#Tweak-x" class="headerlink" title="Tweak.x"></a>Tweak.x</h4><p>xm 中的x代表这个文件支持Logos语法</p>
+<p>x 如果后缀名是单独的x,说明源文件支持Logos和C语法;</p>
+<p>xm 如果后缀名是xm,说明源文件支持Logos和C/C++语法.</p>
+<p>.xi 将首先作为objective-c进行预处理，然后Logos将处理结果，然后将进行编译。</p>
+<p>.xmi 将首先作为objective-c ++进行预处理，然后Logos将处理结果，然后将进行编译。</p>
+<h4 id="demo001-plist"><a href="#demo001-plist" class="headerlink" title="demo001.plist"></a>demo001.plist</h4><p>用于指定需要注入的目标文件的Bundle ID</p>
+<h4 id="control"><a href="#control" class="headerlink" title="control"></a>control</h4><p>指定deb包的一些信息,包括名字,描述,版本号等</p>
+<h3 id="编写HOOK代码"><a href="#编写HOOK代码" class="headerlink" title="编写HOOK代码"></a>编写HOOK代码</h3><p>编辑tweak.x</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs haml"><span class="hljs-comment">//hook ViewController的test方法</span><br><span class="hljs-tag"></span><br><span class="hljs-tag">%<span class="hljs-selector-tag">hook</span></span> ViewController<br><br>-<span class="ruby"> (void)test&#123;</span><br><span class="ruby"></span><br>    NSLog(@&quot;🍺🍺🍺HOOK🍺🍺🍺&quot;);<br>&#125;<br><span class="hljs-tag"></span><br><span class="hljs-tag">%<span class="hljs-selector-tag">end</span></span><br></code></pre></td></tr></table></figure>
+
+<p>设置环境变量</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-builtin-name">export</span> THEOS_DEVICE_IP = localhost<br><span class="hljs-builtin-name">export</span> THEOS_DEVICE_PORT = 2222<br></code></pre></td></tr></table></figure>
+
+<h3 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h3><p>使用iproxy转发手机22端口到本地2222</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">iproxy</span> <span class="hljs-number">2222</span> <span class="hljs-number">22</span><br></code></pre></td></tr></table></figure>
+
+<p>终端输入 make；make package install</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-built_in">make</span><br><span class="hljs-built_in">make</span> <span class="hljs-keyword">package</span> install<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="Logos语法"><a href="#Logos语法" class="headerlink" title="Logos语法"></a>Logos语法</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//i</span>phonedevwiki.net<span class="hljs-regexp">/index.php/</span>Logos<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>Logos语法</th>
+<th>功能解释</th>
+<th>事例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%hook</td>
+<td>需要hook哪个类</td>
+<td>%hook Classname</td>
+</tr>
+<tr>
+<td>%end</td>
+<td>代码块结束标记</td>
+<td>%end</td>
+</tr>
+<tr>
+<td>%group</td>
+<td>分组</td>
+<td>%group Groupname</td>
+</tr>
+<tr>
+<td>%new</td>
+<td>添加新方法</td>
+<td>%new(signature)</td>
+</tr>
+<tr>
+<td>%ctor</td>
+<td>构造函数</td>
+<td>%ctor { … }</td>
+</tr>
+<tr>
+<td>%dtor</td>
+<td>析构函数</td>
+<td>%dtor { … }</td>
+</tr>
+<tr>
+<td>%log</td>
+<td>输出打印</td>
+<td>%log; %log([(), …]);</td>
+</tr>
+<tr>
+<td>%orig</td>
+<td>保持原有方法</td>
+<td>%orig；%orig(arg1, …)；</td>
+</tr>
+<tr>
+<td>%c</td>
+<td>动态获取类</td>
+<td>%c([+/-]Class)；</td>
+</tr>
+</tbody></table>
+<h3 id="1-hook-end"><a href="#1-hook-end" class="headerlink" title="1. %hook %end"></a>1. %hook %end</h3><p>指定需要hook的class,必须以％end结尾。</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs haml"><span class="hljs-comment">// hook SpringBoard类里面的_menuButtonDown函数,先打印一句话,再之子那个函数原始的操作</span><br><span class="hljs-tag">%<span class="hljs-selector-tag">hook</span></span> SpringBorad<br>-<span class="ruby"> (void)<span class="hljs-symbol">_menuButtonDown:</span>(id)down</span><br><span class="ruby"></span>&#123;<br>    NSLog(@&quot;111111&quot;);<br><span class="hljs-tag">   %<span class="hljs-selector-tag">orig</span></span>; // 调用原始的_menuButtonDown函数<br>&#125;<br><span class="hljs-tag">%<span class="hljs-selector-tag">end</span></span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-group"><a href="#2-group" class="headerlink" title="2.%group"></a>2.%group</h3><p>该指令用于将%hook分组，便于代码管理及按条件初始化分组，必须以%end结尾。 </p>
+<p>一个％group可以包含多个%hook,所有不属于某个自定义group的％hook会被隐式归类到％group_ungrouped中。</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs haml"><span class="hljs-tag">%<span class="hljs-selector-tag">group</span></span> iOS8<br><span class="hljs-tag">%<span class="hljs-selector-tag">hook</span></span> IOS8_SPECIFIC_CLASS<br><span class="hljs-comment">    // your code here</span><br><span class="hljs-tag">%<span class="hljs-selector-tag">end</span></span> // end hook<br><span class="hljs-tag">%<span class="hljs-selector-tag">end</span></span> // end group ios8<br><span class="hljs-tag"></span><br><span class="hljs-tag">%<span class="hljs-selector-tag">group</span></span> iOS9<br><span class="hljs-tag">%<span class="hljs-selector-tag">hook</span></span> IOS9_SPECIFIC_CLASS<br><span class="hljs-comment">    // your code here</span><br><span class="hljs-tag">%<span class="hljs-selector-tag">end</span></span> // end hook<br><span class="hljs-tag">%<span class="hljs-selector-tag">end</span></span> // end group ios9<br><span class="hljs-tag"></span><br><span class="hljs-tag">%<span class="hljs-selector-tag">ctor</span></span> &#123;<br>    if (kCFCoreFoundationVersionNumber &gt; 1200) &#123;<br><span class="hljs-tag">        %<span class="hljs-selector-tag">init</span>(iOS9)</span>;<br>    &#125; else &#123;<br><span class="hljs-tag">        %<span class="hljs-selector-tag">init</span>(iOS8)</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-new"><a href="#3-new" class="headerlink" title="3.%new"></a>3.%new</h3><p>在%hook内部使用，给一个现有class添加新函数，功能与class_addMethod相同. </p>
+<p>注：<br>Objective-C的category与class_addMethod的区别： </p>
+<p>前者是静态的而后者是动态的。使用%new添加,而不需要向.h文件中添加函数声明,如果使用category,可能与遇到这样那样的错误.</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs haml"><span class="hljs-tag">%<span class="hljs-selector-tag">hook</span></span> SpringBoard<br><span class="hljs-tag">%<span class="hljs-selector-tag">new</span></span><br>-<span class="ruby"> (void)addNewMethod</span><br><span class="ruby"></span>&#123;<br>    NSLog(@&quot;动态添加一个方法到SpringBoard&quot;);<br>&#125;<br><span class="hljs-tag">%<span class="hljs-selector-tag">end</span></span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-ctor"><a href="#4-ctor" class="headerlink" title="4.%ctor"></a>4.%ctor</h3><p>tweak的constructor,完成初始化工作；如果不显示定义，Theos会自动生成一个%ctor,并在其中调用%init(_ungrouped)。</p>
+<p>%ctor一般可以用来初始化%group,以及进行MSHookFunction等操作,如下:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-meta">#ifndef KCFCoreFoundationVersionNumber_iOS_8_0</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> KCFCoreFoundationVersionNumber_iOS_8_0      1140.10</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br><br>%ctor<br>&#123;<br>    %<span class="hljs-keyword">init</span>;<br><br>    <span class="hljs-keyword">if</span> (KCFCoreFoundationVersionNumber &gt;= KCFCoreFoundationVersionNumber_iOS_7_0 &amp;&amp; KCFCoreFoundationVersionNumber &gt; KCFCoreFoundationVersionNumber_iOS_8_0)<br>    %<span class="hljs-keyword">init</span>(iOS7Hook);<br> <span class="hljs-keyword">if</span> (KCFCoreFoundationVersionNumber &gt;= KCFCoreFoundationVersionNumber_iOS_8_0)<br>    %<span class="hljs-keyword">init</span>(iOS8Hook);<br>MSHookFunction((<span class="hljs-keyword">void</span> *)&amp;AudioServicesPlaySystemSound,(<span class="hljs-keyword">void</span> *)&amp;replaced_AudioServerPlaySystemSound,(<span class="hljs-keyword">void</span> **)&amp;orginal_AudioServicesPlaySystemSound);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="5-dtor"><a href="#5-dtor" class="headerlink" title="5.%dtor"></a>5.%dtor</h3><p>Generate an anonymous deconstructor (of default priority).</p>
+<h3 id="6-log"><a href="#6-log" class="headerlink" title="6.%log"></a>6.%log</h3><p>该指令在%hook内部使用，将函数的类名、参数等信息写入syslog,可以％log([(),…..])的格式追加其他打印信息。</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs haml"><span class="hljs-tag">%<span class="hljs-selector-tag">hook</span></span> SpringBorad<br>-<span class="ruby"> (void)<span class="hljs-symbol">_menuButtonDown:</span>(id)down</span><br><span class="ruby"></span>&#123;<br><span class="hljs-tag">    %<span class="hljs-selector-tag">log</span>((NSString *)</span>@&quot;iosre&quot;,(NSString *)@&quot;Debug&quot;);<br><span class="hljs-tag">    %<span class="hljs-selector-tag">orig</span></span>; // 调用原始的_menuButtonDown方法<br>&#125;<br><span class="hljs-tag">%<span class="hljs-selector-tag">end</span></span><br></code></pre></td></tr></table></figure>
+
+<h3 id="7-orig"><a href="#7-orig" class="headerlink" title="7.%orig"></a>7.%orig</h3><p>该指令在%hook内部使用，执行被hook的函数的原始代码；也可以用％orig更改原始函数的参数。</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs haml"><span class="hljs-tag">%<span class="hljs-selector-tag">hook</span></span> SpringBorad<br>-<span class="ruby"> (void)<span class="hljs-symbol">setCustomSubtitleText:</span>(id)arg1 <span class="hljs-symbol">withColor:</span>   (id)arg2</span><br><span class="ruby"></span>&#123;<br><span class="hljs-tag">    %<span class="hljs-selector-tag">orig</span>(@&quot;change arg2&quot;,arg2)</span>;// 将arg2的参数修 改为&quot;change arg2&quot;<br>&#125;<br><span class="hljs-tag">%<span class="hljs-selector-tag">end</span></span><br></code></pre></td></tr></table></figure>
+
+<h3 id="8-init"><a href="#8-init" class="headerlink" title="8.%init"></a>8.%init</h3><p>该指令用于初始化某个％group，必须在%hook或％ctor内调用；如果带参数，则初始化指定的group，如果不带参数，则初始化_ungrouped. </p>
+<p>注： 切记，只有调用了％init,对应的%group才能起作用！</p>
+<h3 id="9-c"><a href="#9-c" class="headerlink" title="9.%c"></a>9.%c</h3><p>该指令的作用等同于objc_getClass或NSClassFromString,即动态获取一个类的定义，在%hook或％ctor内使用 。</p>
+<p>调用ViewController中的Method方法</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs oxygene">[[[%c(ViewController) alloc ] init]<span class="hljs-function"><span class="hljs-keyword">Method</span>];</span> <br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="日志打印"><a href="#日志打印" class="headerlink" title="日志打印"></a>日志打印</h2><p>hook demo方法并添加打印入参</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"> <br><span class="hljs-meta">#import <span class="hljs-meta-string">&quot;ViewController.h&quot;</span></span><br><br><span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">ViewController</span> ()</span><br> <span class="hljs-comment">//点击事件</span><br>- (<span class="hljs-keyword">IBAction</span>)compute;<br><br><span class="hljs-keyword">@end</span><br><br><span class="hljs-class"><span class="hljs-keyword">@implementation</span> <span class="hljs-title">ViewController</span></span><br><br>- (<span class="hljs-keyword">void</span>)viewDidLoad &#123;<br>    [<span class="hljs-keyword">super</span> viewDidLoad];<br>    <span class="hljs-comment">// Do any additional setup after loading the view.</span><br>    <br>&#125;<br> <br>- (<span class="hljs-keyword">IBAction</span>)compute &#123;<br>    <br>    [<span class="hljs-keyword">self</span> demo:<span class="hljs-string">@&quot;66&quot;</span>];<br>    <br>&#125;<br> <br>- (<span class="hljs-keyword">void</span>)demo:(<span class="hljs-built_in">NSString</span> *)str&#123;<br>   <span class="hljs-built_in">NSString</span> *res = [str stringByAppendingString:<span class="hljs-string">@&quot;🐂🐂🐂&quot;</span>];<br>    <span class="hljs-built_in">NSLog</span>(res);<br>  <br>    <br>&#125;<br><span class="hljs-keyword">@end</span><br><br></code></pre></td></tr></table></figure>
+
+<p>logify.pl生成.xm文件</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">//根据class-dump后的ViewController.h生成.x文件</span><br>logify.pl <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ViewController</span>.</span></span>h &gt;<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Tweak</span>.</span></span>x<br></code></pre></td></tr></table></figure>
+
+<p>我们之关系程序中自己写的方法</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs haml"><span class="hljs-comment">//经过删减过后的Tweak.x文件</span><br><span class="hljs-tag"></span><br><span class="hljs-tag">%<span class="hljs-selector-tag">hook</span></span> ViewController<br> <br>-<span class="ruby"> (void)<span class="hljs-symbol">demo:</span>(id)arg1 &#123; %log; %orig; &#125;</span><br><span class="ruby"></span><span class="hljs-tag"> </span><br><span class="hljs-tag">%<span class="hljs-selector-tag">end</span></span><br><br></code></pre></td></tr></table></figure>
+
+<p>将生成的Tweak.x文件替换theos生成的Tweak.x文件后编译安装即可</p>
+<p>查看打印日志</p>
+ <img src="/2021/08/22/iOS-Tweak/images/logify.png" srcset="/img/loading.gif" lazyload class="">
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/iOS/">iOS</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/hook/">hook</a>
+                    
+                      <a class="hover-with-bg" href="/tags/iOS/">iOS</a>
+                    
+                      <a class="hover-with-bg" href="/tags/tweak/">tweak</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/22/iOS-cycript/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">iOS之cycript</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/22/IOS%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">
+                        <span class="hidden-mobile">IOS文件结构</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

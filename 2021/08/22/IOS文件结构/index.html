@@ -1,0 +1,599 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>IOS文件结构 - Cola&#39;S Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Cola'S Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="IOS文件结构">
+              
+                IOS文件结构
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-22 20:50" pubdate>
+        2021年8月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">IOS文件结构</h1>
+            
+            <div class="markdown-body">
+              <h2 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h2><p>目录结构</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs coq">/<br>|<br><span class="hljs-type">---Developer</span>/<br>|<br><span class="hljs-type">---Applications</span>/<br>|<br><span class="hljs-type">---Library</span>/<br>|<br><span class="hljs-type">---System</span>/<br>|<br><span class="hljs-type">---bin</span>/<br>|<br><span class="hljs-type">---sbin</span>/<br>|<br><span class="hljs-type">---boot</span>/<br>|<br><span class="hljs-type">---cores</span>/<br>|<br><span class="hljs-type">---dev</span>/<br>|<br><span class="hljs-type">---usr</span>/<br>|<br><span class="hljs-type">---lib</span>/<br>|<br><span class="hljs-type">---mnt</span>/<br>|<br><span class="hljs-type">---tmp</span> -&gt; private/var/tmp/<br>|<br><span class="hljs-type">---etc</span> -&gt; private/etc/<br>|<br><span class="hljs-type">---User</span> -&gt; /var/mobile/<br>|<br><span class="hljs-type">---var</span> -&gt; private/var/<br>|<br><span class="hljs-type">---private</span>/<br></code></pre></td></tr></table></figure>
+
+<h2 id="根目录"><a href="#根目录" class="headerlink" title="根目录"></a>根目录</h2><h3 id="1-Developer"><a href="#1-Developer" class="headerlink" title="1. /Developer"></a>1. /Developer</h3><pre><code>开发者相关库、工具
+</code></pre>
+<h3 id="2-Applications"><a href="#2-Applications" class="headerlink" title="2. /Applications"></a>2. /Applications</h3><pre><code>系统APP
+</code></pre>
+<h3 id="3-Library"><a href="#3-Library" class="headerlink" title="3. /Library"></a>3. /Library</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">用户缓存数据<br></code></pre></td></tr></table></figure>
+<p>越狱相关文件会存放该目录下</p>
+<p>3.1 /Library/dpkg <code>cydia dpkg目录</code></p>
+<pre><code>安装插件使用的文件路径、插件卸载脚本、插件签名
+/var/lib/dpkg/info
+
+info
+|
+--- re.frida.server.list 所使用的文件
+|
+--- re.frida.server.md5sums 签名
+|
+--- re.frida.server.prerm 卸载脚本
+</code></pre>
+<p>3.2 /Library/LaunchDaemons  <code>越狱后添加后台运行程序,以plist文件形式存放</code></p>
+<p>3.3 /Library/MobileSubstrate <code>越狱插件相关目录</code></p>
+<pre><code>/Library/MobileSubstrate/DynamicLibraries 
+
+越狱插件安装目录,结构如下
+
+DynamicLibraries 
+|
+---inject.plist
+|
+---inject.dylib
+
+plist文件中包含要hook的app或组件的信息，cydia负责将对应的dylib加载到hook的进程中
+</code></pre>
+<p> 3.4 /Library/PreferenceBundles <code>越狱插件的界面，如FlyJB会在设置中有个设置界面，对应该目录下的资源文件,注:要想使用界面功能需要先安装P  referenceLoader插件</code></p>
+<p> 3.5 /Library/PreferenceLoader/Preferences <code>越狱插件的用户偏好设置</code></p>
+<p> 3.6 /Library/Ringtones <code>系自带的来电铃声存放目录(ACC文件结构)</code></p>
+<h3 id="4-System"><a href="#4-System" class="headerlink" title="4.  /System"></a>4.  /System</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">系统缓存数据、库文件<br></code></pre></td></tr></table></figure>
+<p>4.1 /System/Library/LaunchDaemons</p>
+<pre><code>设置系统守护进程目录，plist文件设置
+</code></pre>
+<p>4.1 /System/Library/Frameworks   /System/Library/PrivateFrameworks</p>
+<pre><code>系统动态库
+</code></pre>
+<h3 id="5-bin-sbin"><a href="#5-bin-sbin" class="headerlink" title="5. /bin  /sbin"></a>5. /bin  /sbin</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">命令<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-boot"><a href="#6-boot" class="headerlink" title="6. /boot"></a>6. /boot</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">引导相关，该文件夹为空<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-dev"><a href="#7-dev" class="headerlink" title="7. /dev"></a>7. /dev</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">设备文件<br></code></pre></td></tr></table></figure>
+
+<h3 id="8-usr"><a href="#8-usr" class="headerlink" title="8. /usr"></a>8. /usr</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">系统核心库、命令<br></code></pre></td></tr></table></figure>
+
+<p>8.1  /usr/lib/substrate <code>越狱核心库文件</code></p>
+<pre><code>substrate
+|
+--- SubstrateBootstrap.dylib
+|
+--- SubstrateInserter.dylib
+|
+--- SubstrateLoader.dylib
+
+运行APP会加载3个dylib
+</code></pre>
+<h3 id="9-tmp"><a href="#9-tmp" class="headerlink" title="9. /tmp"></a>9. /tmp</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">软连接到 <span class="hljs-regexp">/private/</span>tmp/<br></code></pre></td></tr></table></figure>
+
+<h3 id="10-etc"><a href="#10-etc" class="headerlink" title="10. /etc"></a>10. /etc</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">软连接到 <span class="hljs-regexp">/private/</span>etc/<br></code></pre></td></tr></table></figure>
+
+<h3 id="11-User"><a href="#11-User" class="headerlink" title="11. /User"></a>11. /User</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">软件接到 <span class="hljs-regexp">/var/m</span>obile/<br></code></pre></td></tr></table></figure>
+
+<h3 id="12-var"><a href="#12-var" class="headerlink" title="12. /var"></a>12. /var</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">软件接到 <span class="hljs-keyword">private</span>/<span class="hljs-keyword">var</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="13-private"><a href="#13-private" class="headerlink" title="13. /private"></a>13. /private</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">核心文件系统<br></code></pre></td></tr></table></figure>
+<p>13.1 /private/etc <code>配置文件</code></p>
+<p>13.2 /private/system_data <code>空文件夹</code></p>
+<p>13.3 /private/xarts <code>unknow</code></p>
+<p>13.4 /private/var</p>
+<pre><code>系统核心目录，root、mobile家目录、app安装目录、用户数据、存储.........都在该目录下
+</code></pre>
+<h2 id="private-var目录"><a href="#private-var目录" class="headerlink" title="/private/var目录"></a>/private/var目录</h2><h3 id="1-Keychains"><a href="#1-Keychains" class="headerlink" title="1. Keychains"></a>1. Keychains</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">Keychains</span> 加密后数据<br></code></pre></td></tr></table></figure>
+
+<p>   1.1  /var/Keychains/keychain-2.db</p>
+<pre><code>存放加密后数据
+</code></pre>
+<p>1.2 /var/Keychains/TrustStore.sqlite3</p>
+<pre><code>导入证书数据
+</code></pre>
+<h3 id="2-MobileDevice"><a href="#2-MobileDevice" class="headerlink" title="2. MobileDevice"></a>2. MobileDevice</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">描述文件<br></code></pre></td></tr></table></figure>
+<p>2.1 /var/MobileDevice/ProvisioningProfiles</p>
+<pre><code>安装的描述文件
+</code></pre>
+<h3 id="3-MobileSoftwareUpdate"><a href="#3-MobileSoftwareUpdate" class="headerlink" title="3. MobileSoftwareUpdate"></a>3. MobileSoftwareUpdate</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">系统升级相关<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-binpack"><a href="#4-binpack" class="headerlink" title="4. binpack"></a>4. binpack</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">checkra</span>越狱后的checkra<span class="hljs-number">1</span>n APP安装目录<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-cache"><a href="#5-cache" class="headerlink" title="5. cache"></a>5. cache</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">缓存目录，apt会缓存数据到该目录<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-containers"><a href="#6-containers" class="headerlink" title="6. containers"></a>6. containers</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata">用户<span class="hljs-keyword">APP</span>安装目录、共享数据<br></code></pre></td></tr></table></figure>
+
+<p>6.1 /var/containers/Bundle/Application</p>
+<pre><code>用户APP安装目录
+</code></pre>
+<p>6.2 /var/containers/Shared</p>
+<pre><code>    APP共享数据目录
+</code></pre>
+<h3 id="7-db"><a href="#7-db" class="headerlink" title="7. db"></a>7. db</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">系统文件，铃声，壁纸，系统设置，界面，ui<br></code></pre></td></tr></table></figure>
+
+<h3 id="8-installd"><a href="#8-installd" class="headerlink" title="8. installd"></a>8. installd</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">安装APP，安装APP时可能会先缓存到<span class="hljs-regexp">/var/i</span>nstalld<span class="hljs-regexp">/Library/</span>Caches/com.apple.mobile.installd.staging<br></code></pre></td></tr></table></figure>
+
+<h3 id="9-keybags"><a href="#9-keybags" class="headerlink" title="9. keybags"></a>9. keybags</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">锁屏密码相关<br></code></pre></td></tr></table></figure>
+
+<h3 id="10-lib"><a href="#10-lib" class="headerlink" title="10. lib"></a>10. lib</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">cydia相关文件<br></code></pre></td></tr></table></figure>
+<p>10.1 /var/lib/apt <code>apt相关文件</code></p>
+<p>10.2 /var/lib/cydia/firmware.ver <code>cydia版本</code></p>
+<p>10.3 /var/lib/dpkg <code>软链接到/Library/dpkg</code></p>
+<h3 id="11-log-logs"><a href="#11-log-logs" class="headerlink" title="11. log logs"></a>11. log logs</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">日志相关<br></code></pre></td></tr></table></figure>
+
+<h3 id="12-networkd"><a href="#12-networkd" class="headerlink" title="12. networkd"></a>12. networkd</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">网络相关<br></code></pre></td></tr></table></figure>
+
+<h3 id="13-preferences"><a href="#13-preferences" class="headerlink" title="13. preferences"></a>13. preferences</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">偏好设置<br></code></pre></td></tr></table></figure>
+
+<h3 id="14-run"><a href="#14-run" class="headerlink" title="14. run"></a>14. run</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">UNKNOW</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="15-vm"><a href="#15-vm" class="headerlink" title="15. vm"></a>15. vm</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">虚拟内存<br></code></pre></td></tr></table></figure>
+
+<h3 id="16-wireless"><a href="#16-wireless" class="headerlink" title="16. wireless"></a>16. wireless</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">UNKNOW</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="17-tmp"><a href="#17-tmp" class="headerlink" title="17. tmp"></a>17. tmp</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">临时文件<br></code></pre></td></tr></table></figure>
+
+<h3 id="18-root"><a href="#18-root" class="headerlink" title="18. root"></a>18. root</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">root用户家目录<br></code></pre></td></tr></table></figure>
+
+<h3 id="19-mobile"><a href="#19-mobile" class="headerlink" title="19. mobile"></a>19. mobile</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">mobile用户家目录<br></code></pre></td></tr></table></figure>
+
+<p>19.1 Documents <code>mobile用户文档,CrackerXI会脱壳到该目录下</code></p>
+<p>19.2 Media <code>相册、电子书、录音等</code></p>
+<pre><code>相册照片
+/var/mobile/Media/DCIM
+
+iTunes上传的多媒体文件目录
+/var/mobile/Media/iTunes_Control
+
+照片里的图片
+/var/mobile/Media/Photos
+
+语音备忘录
+/var/mobile/Media/Recordings
+</code></pre>
+<p>​    </p>
+<p>19.3 Library <code>mobile用户缓存数据</code></p>
+<pre><code>APP安装后生成的安装路径、沙箱目录名称 会存储在该DB
+/var/mobile/Library/FrontBoard/applicationState.db
+
+存储通讯录
+/var/mobile/Library/AddressBook
+
+存储短信
+/var/mobile/Library/SMS
+
+存储备忘录
+/var/mobile/Library//var/mobile/Library
+</code></pre>
+<p>19.4 Containers <code>APP沙箱、共享数据等</code></p>
+<pre><code>APP沙箱目录
+/var/mobile/Containers/Data/Application/xxxx
+
+APP沙箱目录
+|
+--- Documents 文档目录,存储一些文件
+|
+--- Library 缓存数据
+|   |
+|   --- Caches 缓存
+|   |
+|   --- Preferences 用户偏好设置，一般该目录下会存在.plist
+|   | 
+|   --- Cookies 使用WebKit时cookie存储路径
+|   |
+|   --- WebKit/WebsiteData  H5本地缓存数据、IndexedDB、WebSQL等
+|   |
+|   --- SplashBoard/Snapshots 挂起快照,启动图缓存
+|   |
+|   --- .....
+|
+--- SystemData APP运行产生的数据一般很少使用
+|
+--- tmp  临时文件
+</code></pre>
+<p>​    </p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/iOS/">iOS</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/iOS/">iOS</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/22/iOS-Tweak/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">iOS之Tweak</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/22/ReactNative%E5%88%86%E6%9E%90/">
+                        <span class="hidden-mobile">ReactNative分析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

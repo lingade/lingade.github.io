@@ -1,0 +1,473 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>iOS之fishhook - Cola&#39;S Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Cola'S Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="iOS之fishhook">
+              
+                iOS之fishhook
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-22 21:37" pubdate>
+        2021年8月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">iOS之fishhook</h1>
+            
+            <div class="markdown-body">
+              <h2 id="fishhook"><a href="#fishhook" class="headerlink" title="fishhook"></a>fishhook</h2><p><a target="_blank" rel="noopener" href="https://github.com/facebook/fishhook">fishHook</a>是Facebook提供的一个动态修改链接mach-O文件的工具。利用MachO文件加载原理，通过重新绑定(rebind_symbols)懒加载表(Lazy Symbol Pointers)和非懒加载表(Non-Lazy Symbol Pointers)这两个表的指针达到C函数HOOK的目的。</p>
+<blockquote>
+<p>dyld加载macho文件和系统框架,对函数地址复制的过程，成为 <strong>“符号绑定“</strong></p>
+</blockquote>
+<h2 id="调试分析fishHook"><a href="#调试分析fishHook" class="headerlink" title="调试分析fishHook"></a>调试分析fishHook</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-comment">//</span><br><span class="hljs-comment">//  ViewController.m</span><br><span class="hljs-comment">//  fishhook</span><br><span class="hljs-comment">//</span><br><span class="hljs-comment">//  Created by Cola on 2020/5/24.</span><br><span class="hljs-comment">//  Copyright © 2020 Cola. All rights reserved.</span><br><span class="hljs-comment">//</span><br><br><span class="hljs-meta">#import <span class="hljs-meta-string">&quot;ViewController.h&quot;</span></span><br><span class="hljs-meta">#import <span class="hljs-meta-string">&quot;fishhook.h&quot;</span></span><br><br><span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">ViewController</span> ()</span><br><br><span class="hljs-keyword">@end</span><br><br><span class="hljs-class"><span class="hljs-keyword">@implementation</span> <span class="hljs-title">ViewController</span></span><br><br>- (<span class="hljs-keyword">void</span>)viewDidLoad &#123;<br>    [<span class="hljs-keyword">super</span> viewDidLoad];<br>   <br>    <span class="hljs-comment">//一个rebinding hook一个函数,想要hook多个函数，可以将rebinding添加至数组</span><br>    <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;1&quot;</span>);<br>    <span class="hljs-comment">//更改系统的NSLoga函数</span><br>    <span class="hljs-keyword">struct</span> rebinding nslog;<br>    nslog.name = <span class="hljs-string">&quot;NSLog&quot;</span>;<br>    nslog.replacement = myNSLog;<br>    nslog.replaced = &amp;sys_nslog;<br>    <br>    <span class="hljs-keyword">struct</span> rebinding rebs[<span class="hljs-number">1</span>] = &#123;nslog&#125;;<br>    <br>    <br>    rebind_symbols(rebs, <span class="hljs-number">1</span>);<br>     <br>&#125;<br><br>- (<span class="hljs-keyword">void</span>)touchesBegan:(<span class="hljs-built_in">NSSet</span>&lt;<span class="hljs-built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="hljs-built_in">UIEvent</span> *)event&#123;<br> <br>    <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;点击&quot;</span>);<br>&#125;<br><br><span class="hljs-comment">//函数指针</span><br><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> (*sys_nslog)(<span class="hljs-built_in">NSString</span> * _Nonnull format, ...);<br> <br><span class="hljs-comment">//定义一个新的函数</span><br><span class="hljs-keyword">void</span> myNSLog(<span class="hljs-built_in">NSString</span> * _Nonnull format, ...)&#123;<br>    format = [format stringByAppendingFormat:<span class="hljs-string">@&quot;\n HOOK成功🐂&quot;</span>];<br>    sys_nslog(format);<br>&#125;<br><br><span class="hljs-keyword">@end</span><br></code></pre></td></tr></table></figure>
+
+<ol>
+<li><p>通过machoView查看符号表(Lazy Symbol Pointers)的偏移量(比如NSLog的偏移量是) 0x00005000</p>
+</li>
+<li><p>在<code>rebind_symbols(rebs, 1);</code>下断点,</p>
+</li>
+<li><p>通过image list查看加载的macho文件和所有的框架</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs awk">(lldb) image list<br>[  <span class="hljs-number">0</span>] E10158F5-<span class="hljs-number">413</span>E-<span class="hljs-number">35</span>E1-A349-<span class="hljs-number">8</span>AFA71FFC955 <span class="hljs-number">0</span>x0000000103db1000 <span class="hljs-regexp">/Users/</span>cola<span class="hljs-regexp">/Library/</span>Developer<span class="hljs-regexp">/Xcode/</span>DerivedData<span class="hljs-regexp">/fishhook-dduxiymrdkidvtcxqmuqqwanbexr/</span>Build<span class="hljs-regexp">/Products/</span>Debug-iphonesimulator<span class="hljs-regexp">/fishhook.app/</span>fishhook <br>[  <span class="hljs-number">1</span>] EEA931D0-<span class="hljs-number">403</span>E-<span class="hljs-number">3</span>BC8-<span class="hljs-number">862</span>A-CBA037DE4A74 <span class="hljs-number">0</span>x00000001048e3000 <span class="hljs-regexp">/usr/</span>lib/dyld <br>[  <span class="hljs-number">2</span>] <span class="hljs-number">75369</span>F31-<span class="hljs-number">702</span>D-<span class="hljs-number">364</span>A-<span class="hljs-number">95</span>C3-<span class="hljs-number">8</span>AFA9DD4B3A2 <span class="hljs-number">0</span>x0000000103dbf000 <span class="hljs-regexp">/Applications/</span>Xcode.app<span class="hljs-regexp">/Contents/</span>Developer<span class="hljs-regexp">/Platforms/i</span>PhoneOS.platform<span class="hljs-regexp">/Library/</span>Developer<span class="hljs-regexp">/CoreSimulator/</span>Profiles<span class="hljs-regexp">/Runtimes/i</span>OS.simruntime<span class="hljs-regexp">/Contents/</span>Resources<span class="hljs-regexp">/RuntimeRoot/u</span>sr<span class="hljs-regexp">/lib/</span>dyld_sim <br>[  <span class="hljs-number">3</span>] <span class="hljs-number">56</span>E47800-<span class="hljs-number">2</span>CCB-<span class="hljs-number">3</span>B7D-B94B-CCF5F13D6BCF <span class="hljs-number">0</span>x00007fff256b8000 <span class="hljs-regexp">/Applications/</span>Xcode.app<span class="hljs-regexp">/Contents/</span>Developer<span class="hljs-regexp">/Platforms/i</span>PhoneOS.platform<span class="hljs-regexp">/Library/</span>Developer<span class="hljs-regexp">/CoreSimulator/</span>Profiles<span class="hljs-regexp">/Runtimes/i</span>OS.simruntime<span class="hljs-regexp">/Contents/</span>Resources<span class="hljs-regexp">/RuntimeRoot/</span>System<span class="hljs-regexp">/Library/</span>Frameworks<span class="hljs-regexp">/Foundation.framework/</span>Foundation <br>[  <span class="hljs-number">4</span>] <span class="hljs-number">3</span>EC683F6-<span class="hljs-number">36</span>EF-<span class="hljs-number">33</span>E1-<span class="hljs-number">8</span>B98-C95E12BA38D2 <span class="hljs-number">0</span>x00007fff513f6000 <span class="hljs-regexp">/Applications/</span>Xcode.app<span class="hljs-regexp">/Contents/</span>Developer<span class="hljs-regexp">/Platforms/i</span>PhoneOS.platform<span class="hljs-regexp">/Library/</span>Developer<span class="hljs-regexp">/CoreSimulator/</span>Profiles<span class="hljs-regexp">/Runtimes/i</span>OS.simruntime<span class="hljs-regexp">/Contents/</span>Resources<span class="hljs-regexp">/RuntimeRoot/u</span>sr<span class="hljs-regexp">/lib/</span>libobjc.A.dylib <br>[  <span class="hljs-number">5</span>] <span class="hljs-number">7881</span>AD7F-<span class="hljs-number">524</span>C-<span class="hljs-number">3</span>CFA-<span class="hljs-number">9595</span>-<span class="hljs-number">02</span>ED549166AA <span class="hljs-number">0</span>x00007fff4ff15000 <span class="hljs-regexp">/Applications/</span>Xcode.app<span class="hljs-regexp">/Contents/</span>Developer<span class="hljs-regexp">/Platforms/i</span>PhoneOS.platform<span class="hljs-regexp">/Library/</span>Developer<span class="hljs-regexp">/CoreSimulator/</span>Profiles<span class="hljs-regexp">/Runtimes/i</span>OS.simruntime<span class="hljs-regexp">/Contents/</span>Resources<span class="hljs-regexp">/RuntimeRoot/u</span>sr<span class="hljs-regexp">/lib/</span>libSystem.B.dylib <br><br>.......<br></code></pre></td></tr></table></figure></li>
+<li><p>macho文件的首地址+第一步的偏移量，就是NSLog的真实地址,读NSLog的符号表地址</p>
+<p>memory read  简写   x 0x0000000103db1000+0x00005000</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tap">(lldb) memory read 0x0000000103db1000+0x00005000<br>0x103db6000: fa 2d<span class="hljs-number"> 76 </span>25 ff 7f<span class="hljs-number"> 00 </span>00 f8 d1<span class="hljs-number"> 74 </span>25 ff 7f<span class="hljs-number"> 00 </span>00  .-v%......t%....<br>0x103db6010: f8<span class="hljs-number"> 26 </span>09<span class="hljs-number"> 48 </span>ff 7f<span class="hljs-number"> 00 </span>00<span class="hljs-number"> 44 </span>34 db<span class="hljs-number"> 03 </span>01<span class="hljs-number"> 00 </span>00<span class="hljs-number"> 00 </span> .&amp;.H....D4......<br></code></pre></td></tr></table></figure></li>
+<li><p>其中前八个字节为NSLog的地址<br>查看4中的前八个字节的地址的汇编代码</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs llvm">(lldb) dis -s <span class="hljs-number">0x7fff25762dfa</span><br>Foundation`NSLog:<br>    <span class="hljs-number">0x7fff25762dfa</span> &lt;+<span class="hljs-number">0</span>&gt;:  pushq  <span class="hljs-variable">%rbp</span><br>    <span class="hljs-number">0x7fff25762dfb</span> &lt;+<span class="hljs-number">1</span>&gt;:  movq   <span class="hljs-variable">%rsp</span><span class="hljs-punctuation">,</span> <span class="hljs-variable">%rbp</span><br>    <span class="hljs-number">0x7fff25762dfe</span> &lt;+<span class="hljs-number">4</span>&gt;:  subq   $<span class="hljs-number">0xd0</span><span class="hljs-punctuation">,</span> <span class="hljs-variable">%rsp</span><br>    <span class="hljs-number">0x7fff25762e05</span> &lt;+<span class="hljs-number">11</span>&gt;: testb  <span class="hljs-variable">%al</span><span class="hljs-punctuation">,</span> <span class="hljs-variable">%al</span><br>    <span class="hljs-number">0x7fff25762e07</span> &lt;+<span class="hljs-number">13</span>&gt;: je     <span class="hljs-number">0x7fff25762e2f</span>            <span class="hljs-comment">; &lt;+53&gt;</span><br>    <span class="hljs-number">0x7fff25762e09</span> &lt;+<span class="hljs-number">15</span>&gt;: movaps <span class="hljs-variable">%xmm0</span><span class="hljs-punctuation">,</span> <span class="hljs-number">-0</span>xa<span class="hljs-number">0</span>(<span class="hljs-variable">%rbp</span>)<br>    <span class="hljs-number">0x7fff25762e10</span> &lt;+<span class="hljs-number">22</span>&gt;: movaps <span class="hljs-variable">%xmm1</span><span class="hljs-punctuation">,</span> <span class="hljs-number">-0</span><span class="hljs-keyword">x</span><span class="hljs-number">90</span>(<span class="hljs-variable">%rbp</span>)<br></code></pre></td></tr></table></figure>
+
+<p>从中可以看见NSLog的地址</p>
+</li>
+<li><p>单步执行，执行fishhook的rebind_symbols方法后查看NSLog的真实地址</p>
+<p>和4相比地址已经改变</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tap">(lldb) memory read 0x000000010f550000+0x00005000<br>0x10f555000:<span class="hljs-number"> 50 </span>14<span class="hljs-number"> 55 </span>0f<span class="hljs-number"> 01 </span>00<span class="hljs-number"> 00 </span>00 f8 d1<span class="hljs-number"> 74 </span>25 ff 7f<span class="hljs-number"> 00 </span>00  P.U.......t%....<br>0x10f555010: f8<span class="hljs-number"> 26 </span>09<span class="hljs-number"> 48 </span>ff 7f<span class="hljs-number"> 00 </span>00<span class="hljs-number"> 54 </span>99<span class="hljs-number"> 34 </span>52 ff 7f<span class="hljs-number"> 00 </span>00  .&amp;.H....T.4R....<br></code></pre></td></tr></table></figure></li>
+<li><p>查看前八个字节对应地址的汇编代码，发现已经被替换成我们的myNSlog方法</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs llvm">(lldb) dis -s <span class="hljs-number">010</span>f<span class="hljs-number">551450</span><br>fishhook`myNSLog:<br>    <span class="hljs-number">0x10f551450</span> &lt;+<span class="hljs-number">0</span>&gt;:  pushq  <span class="hljs-variable">%rbp</span><br>    <span class="hljs-number">0x10f551451</span> &lt;+<span class="hljs-number">1</span>&gt;:  movq   <span class="hljs-variable">%rsp</span><span class="hljs-punctuation">,</span> <span class="hljs-variable">%rbp</span><br>    <span class="hljs-number">0x10f551454</span> &lt;+<span class="hljs-number">4</span>&gt;:  subq   $<span class="hljs-number">0x30</span><span class="hljs-punctuation">,</span> <span class="hljs-variable">%rsp</span><br>    <span class="hljs-number">0x10f551458</span> &lt;+<span class="hljs-number">8</span>&gt;:  movq   $<span class="hljs-number">0x0</span><span class="hljs-punctuation">,</span> <span class="hljs-number">-0</span><span class="hljs-keyword">x</span><span class="hljs-number">8</span>(<span class="hljs-variable">%rbp</span>)<br>    <span class="hljs-number">0x10f551460</span> &lt;+<span class="hljs-number">16</span>&gt;: leaq   <span class="hljs-number">-0</span><span class="hljs-keyword">x</span><span class="hljs-number">8</span>(<span class="hljs-variable">%rbp</span>)<span class="hljs-punctuation">,</span> <span class="hljs-variable">%rax</span><br>    <span class="hljs-number">0x10f551464</span> &lt;+<span class="hljs-number">20</span>&gt;: movq   <span class="hljs-variable">%rdi</span><span class="hljs-punctuation">,</span> <span class="hljs-number">-0</span><span class="hljs-keyword">x</span><span class="hljs-number">10</span>(<span class="hljs-variable">%rbp</span>)<br>    <span class="hljs-number">0x10f551468</span> &lt;+<span class="hljs-number">24</span>&gt;: movq   <span class="hljs-variable">%rax</span><span class="hljs-punctuation">,</span> <span class="hljs-variable">%rdi</span><br>    <span class="hljs-number">0x10f55146b</span> &lt;+<span class="hljs-number">27</span>&gt;: movq   <span class="hljs-number">-0</span><span class="hljs-keyword">x</span><span class="hljs-number">10</span>(<span class="hljs-variable">%rbp</span>)<span class="hljs-punctuation">,</span> <span class="hljs-variable">%rsi</span><br>(lldb) <br></code></pre></td></tr></table></figure></li>
+<li><p>调用原方法</p>
+<p>因为系统默认绑定的地址被保存到了，自定义的变量中，可以通过地址调用该方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-comment">//函数指针</span><br><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> (*sys_nslog)(<span class="hljs-built_in">NSString</span> * _Nonnull format, ...);<br></code></pre></td></tr></table></figure>
+
+<p>调用原方法</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sqf"><span class="hljs-comment">//定义一个新的函数</span><br>void myNSLog(NSString * <span class="hljs-variable">_Nonnull</span> <span class="hljs-built_in">format</span>, ...)&#123;<br>    <span class="hljs-built_in">format</span> = [<span class="hljs-built_in">format</span> stringByAppendingFormat:@<span class="hljs-string">&quot;\n HOOK成功🐂&quot;</span>];<br>    sys_nslog(<span class="hljs-built_in">format</span>);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="fishHOOK原理"><a href="#fishHOOK原理" class="headerlink" title="fishHOOK原理"></a>fishHOOK原理</h2><p><strong>重新绑定符号表</strong></p>
+<p>懒加载符号表与indirect symbols表一一对应</p>
+ <img src="/2021/08/22/iOS%E4%B9%8Bfishhook/images/%E6%87%92%E5%8A%A0%E8%BD%BD%E7%AC%A6%E5%8F%B7%E8%A1%A8.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>indirect symbols表中NSLog的Data值为A6</p>
+ <img src="/2021/08/22/iOS%E4%B9%8Bfishhook/images/indirectsymbols%E8%A1%A8.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>A6转为10进制为166,其中166对应着Symbols Table下的Symbols</p>
+ <img src="/2021/08/22/iOS%E4%B9%8Bfishhook/images/Symbols.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>其中 #166在String Table Index表的偏移为D7，符号表基址为83AC，NSLog的地址为 83AC+D7=8483</p>
+ <img src="/2021/08/22/iOS%E4%B9%8Bfishhook/images/StringTable.png" srcset="/img/loading.gif" lazyload class="">
+
+
+<p>而fishHook则是逆过程，通过String Table表NSLog的地址，找到Lazy Symbols Pointers(懒加载符号表)中的NSLog符号表地址，获取懒加载符号表的偏移.</p>
+<h2 id="fishHOOK能做什么"><a href="#fishHOOK能做什么" class="headerlink" title="fishHOOK能做什么"></a>fishHOOK能做什么</h2><ol>
+<li><p>应用安全防护：</p>
+<p> 将系统敏感函数，真实地址保存，并将该方法设置为宏定义,以后使用宏定义设置的方法，别人就无法HOOK该方法了，因为你使用的是函数的真实地址，并不是调用符号表中的函数地址，这样别人修改符号表是不影响程序的。</p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h4><p> 三方框架有可能会用到该函数，如果fishhook加载的过早会导致三方框架失效。</p>
+</li>
+</ol>
+<ol start="2">
+<li><p>启动优化、埋点、AOP</p>
+<ul>
+<li>定位所有方法的调用，hook objc_msgSend函数?</li>
+<li>二进制重排(layout)的目的在于将hot code聚合在一起，即使得最经常执行的代码或最需要关键执行的代码（如启动阶段的顺序调用）聚合在一起，形成一个更紧凑的__TEXT段。</li>
+</ul>
+</li>
+</ol>
+<p>​    </p>
+<p>​    </p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/iOS/">iOS</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/hook/">hook</a>
+                    
+                      <a class="hover-with-bg" href="/tags/iOS/">iOS</a>
+                    
+                      <a class="hover-with-bg" href="/tags/fishhook/">fishhook</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/22/iOS%E4%B9%8B%E5%8F%8D%E8%B0%83%E8%AF%95/">
+                        <span class="hidden-mobile">iOS之反调试</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

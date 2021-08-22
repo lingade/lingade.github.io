@@ -172,6 +172,523 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/22/JDB%E8%B0%83%E8%AF%95APP/" target="_self">
+          JDB调试APP
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/JDB%E8%B0%83%E8%AF%95APP/" target="_self">
+          
+          
+            
+          
+          1. 以调试模式运行APP1adb shell am start -D  com.cola.jni/com.cola.jni.MainActivity
+
+2.转发端口到本地使用DDMS转发端口
+ 
+
+或者通过adb转发到本地
+12adb jdwp  #获取可调试APP PID(判断目标APP是否可调试，将ro.debuggable设为1可调试所有APP)adb forward tcp:8700 j
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 01:28" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/jdb/">jdb</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/" target="_self">
+          AOSP导入IDE
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/" target="_self">
+          
+          
+            
+          
+          Java代码导入 Android Studio1.source build/envsetup.sh2.编译生成 idegen.jar1mmm development/tools/idegen/ 
+运行完毕上面的命令之后，就在根目录生成了2个文件：
+1android.ipr 和 android.iml
+
+3.排除不必要的模块，提高加载速度1打开android.iml, 找到excludeFolder
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 01:07" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/rom/">rom</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/22/Android-so%E5%BA%93%E4%B8%8E%E6%BA%90%E7%A0%81%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/" target="_self">
+          Android SO库与源码对应关系
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/Android-so%E5%BA%93%E4%B8%8E%E6%BA%90%E7%A0%81%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/" target="_self">
+          
+          
+            
+          
+          
+libandroid.so     frameworks/base/native/android
+
+libandroid_runtime.so    frameworks/base/core/jni
+
+libandroidfw.so    frameworks/base/libs/androidfw
+
+libaudioutils.so    system/media/audio_utils
+
+l
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 01:00" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/22/Magisk%E5%BC%80%E5%90%AFro-debuggable%E8%B0%83%E8%AF%95/" target="_self">
+          Magisk开启ro.debuggable调试
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/Magisk%E5%BC%80%E5%90%AFro-debuggable%E8%B0%83%E8%AF%95/" target="_self">
+          
+          
+            
+          
+          12345magisk resetprop ro.debuggable 1#查看ro.debuggablegetprop ro.debuggable#重启stop;start
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 00:57" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/magisk/">magisk</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/22/pixel-XL-AOSP%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/" target="_self">
+          pixel XL AOSP源码编译
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/pixel-XL-AOSP%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/" target="_self">
+          
+          
+            
+          
+          配置
+操作系统 ：虚拟机 ubuntu 16.04
+内存 ：12G
+硬盘 ：150G
+CPU ：4核
+
+编译过程1. 源码分支获取根据手机型号下载对应的版本，通过以下网站获取pixel XL android 10版本的源码标记 android-10.0.0_r17
+1https://source.android.com/setup/start/build-numbers#source-code-t
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 00:23" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/rom/">rom</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/22/pixel-XL%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91/" target="_self">
+          pixel XL内核编译
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/pixel-XL%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91/" target="_self">
+          
+          
+            
+          
+          配置
+操作系统 ：虚拟机 ubuntu 16.04
+内存 ：8G
+硬盘 ：150G
+CPU ：4核
+
+编译过程注： 编译环境见pixel XL源码编译
+1. 源码分支获取根据手机型号选择分支名称
+1https://source.android.google.cn/setup/build/building-kernels?hl=zh-cn#customize-build
+
+Pixel XL的分支名称
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 00:10" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/rom/">rom</a>
+            
+              <a href="/tags/%E5%86%85%E6%A0%B8/">内核</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/22/adb%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8DActivity/" target="_self">
+          adb查看当前Activity
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/adb%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8DActivity/" target="_self">
+          
+          
+            
+          
+          Android 8.1前1adb shell dumpsys activity | grep &quot;mFocus&quot;
+
+Android 8.1 后1adb shell dumpsys activity | grep &quot;mResume&quot;
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 00:07" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/adb/">adb</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/22/adb%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/" target="_self">
+          adb设置代理
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/adb%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/" target="_self">
+          
+          
+            
+          
+          设置代理1adb shell settings put global http_proxy 127.0.0.1:8888
+
+移除代理（需要重启）：1234567adb shell settings delete global http_proxyadb shell settings delete global global_http_proxy_hostadb shell settings del
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 00:05" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/adb/">adb</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/21/am%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
+          am常用命令
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/21/am%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
+          
+          
+            
+          
+          拨打电话100861adb shell am start -a android.intent.action.CALL -d tel:10086
+打开网址1adb shell am start -a android.intent.action.VIEW -d  http://gityuan.com
+
+启动Activity 启动包名为com.yuanhh.app，主Activity为.MainActi
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-21 23:56" pubdate>
+              2021-08-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/adb/">adb</a>
+            
+              <a href="/tags/am/">am</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/21/IOS13-3-1-%E8%B6%8A%E7%8B%B1%E5%90%8E%E8%AE%BE%E7%BD%AE%E4%B8%AD%E6%9C%AA%E6%98%BE%E7%A4%BA%E8%B6%8A%E7%8B%B1%E6%8F%92%E4%BB%B6/" target="_self">
           IOS13.3.1 越狱后设置中未显示越狱插件
         </a>
@@ -219,124 +736,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/21/SpringBoot-JWT-Token%E9%AA%8C%E8%AF%81/" target="_self">
-          SpringBoot+JWT Token验证
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/21/SpringBoot-JWT-Token%E9%AA%8C%E8%AF%81/" target="_self">
-          
-          
-            
-          
-          1. pom.xml 添加依赖12345 &lt;dependency&gt;       &lt;groupId&gt;com.auth0&lt;/groupId&gt;       &lt;artifactId&gt;java-jwt&lt;/artifactId&gt;       &lt;version&gt;3.8.1&lt;/version&gt;&lt;/dependency&gt;
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-21 23:44" pubdate>
-              2021-08-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/java/">java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/JWT/">JWT</a>
-            
-              <a href="/tags/java/">java</a>
-            
-              <a href="/tags/springboot/">springboot</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/21/Frida%E5%8A%A0%E8%BD%BDAPK-DEX%E6%96%87%E4%BB%B6%E5%B9%B6%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95/" target="_self">
-          Frida加载APK/DEX文件并调用方法
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/21/Frida%E5%8A%A0%E8%BD%BDAPK-DEX%E6%96%87%E4%BB%B6%E5%B9%B6%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95/" target="_self">
-          
-          
-            
-          
-          1. AndroidStudio创建项目创建returnNum方法
- 
-
-2. build项目，将apk push手机中1adb push 1.apk /data/local/tmp
-
-3. Frida加载APK调用方法1234567891011121314151617181920var DEXFactory = nullfunction loadAPK(path)&#123;    var Ac
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-21 23:08" pubdate>
-              2021-08-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/frida/">frida</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/android/">android</a>
-            
-              <a href="/tags/frida/">frida</a>
-            
-              <a href="/tags/hook/">hook</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
