@@ -172,6 +172,62 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/" target="_self">
+          AOSP导入IDE
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/" target="_self">
+          
+          
+            
+          
+          Java代码导入 Android Studio1.source build/envsetup.sh2.编译生成 idegen.jar1mmm development/tools/idegen/ 
+运行完毕上面的命令之后，就在根目录生成了2个文件：
+1android.ipr 和 android.iml
+
+3.排除不必要的模块，提高加载速度1打开android.iml, 找到excludeFolder
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 01:07" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/rom/">rom</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/22/Android-so%E5%BA%93%E4%B8%8E%E6%BA%90%E7%A0%81%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/" target="_self">
           Android SO库与源码对应关系
         </a>
@@ -676,70 +732,11 @@ Android 8.1 后1adb shell dumpsys activity | grep &quot;mResume&quot;
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/21/Frida%E5%8A%A0%E8%BD%BDAPK-DEX%E6%96%87%E4%BB%B6%E5%B9%B6%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95/" target="_self">
-          Frida加载APK/DEX文件并调用方法
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/21/Frida%E5%8A%A0%E8%BD%BDAPK-DEX%E6%96%87%E4%BB%B6%E5%B9%B6%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95/" target="_self">
-          
-          
-            
-          
-          1. AndroidStudio创建项目创建returnNum方法
- 
-
-2. build项目，将apk push手机中1adb push 1.apk /data/local/tmp
-
-3. Frida加载APK调用方法1234567891011121314151617181920var DEXFactory = nullfunction loadAPK(path)&#123;    var Ac
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-21 23:08" pubdate>
-              2021-08-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/frida/">frida</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/android/">android</a>
-            
-              <a href="/tags/frida/">frida</a>
-            
-              <a href="/tags/hook/">hook</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><span class="page-number current">3</span>
+      <a class="extend prev" rel="prev" href="/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/4/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

@@ -430,7 +430,7 @@
 <p>假消息将被添加到原始消息中。</p>
 <h4 id="EXP2"><a href="#EXP2" class="headerlink" title="EXP2"></a>EXP2</h4><figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs moonscript">test@test.com\nbcc:hack@hack.com<br></code></pre></td></tr></table></figure>
 
-<p>发送后邮件会抄送给<a href="mailto:&#104;&#x61;&#99;&#x6b;&#64;&#x68;&#x61;&#99;&#107;&#x2e;&#x63;&#111;&#x6d;">&#104;&#x61;&#99;&#x6b;&#64;&#x68;&#x61;&#99;&#107;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<p>发送后邮件会抄送给<a href="mailto:&#x68;&#x61;&#x63;&#x6b;&#64;&#104;&#97;&#x63;&#107;&#x2e;&#99;&#x6f;&#109;">&#x68;&#x61;&#x63;&#x6b;&#64;&#104;&#97;&#x63;&#107;&#x2e;&#99;&#x6f;&#109;</a></p>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="未授权访问"><a href="#未授权访问" class="headerlink" title="未授权访问"></a>未授权访问</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">smtpd_sasl_auth_enable = yes<br><span class="hljs-meta">#</span><span class="bash">指定postfix使用sasl验证 通俗的将就是启用smtp并要求进行账号、密码效验</span><br><br>smtpd_sasl_local_domain = $mydomain<br><span class="hljs-meta">#</span><span class="bash">指定SMTP认证的本地域名 本次配置可以使用 smtpd_sasl_local_domain = <span class="hljs-string">&#x27;&#x27;</span> 或干脆注释掉 默认为空</span><br><br>smtpd_sasl_security_options = noanonymous<br><span class="hljs-meta">#</span><span class="bash">取消smtp的匿名登录 此项默认值为noanonymous smtp若能匿名登录危害非常大 此项请务必指定为noanonymous</span><br></code></pre></td></tr></table></figure>
 
 
@@ -693,7 +693,7 @@
 </tr>
 <tr>
 <td>451 4.1.8</td>
-<td>Domain of Sender Address <a href="mailto:&#x58;&#120;&#120;&#x40;&#x78;&#120;&#x78;&#46;&#120;&#x78;&#x78;">&#x58;&#120;&#120;&#x40;&#x78;&#120;&#x78;&#46;&#120;&#x78;&#x78;</a> Does Not Resolve</td>
+<td>Domain of Sender Address <a href="mailto:&#88;&#x78;&#x78;&#64;&#x78;&#120;&#x78;&#46;&#120;&#120;&#120;">&#88;&#x78;&#x78;&#64;&#x78;&#120;&#x78;&#46;&#120;&#120;&#120;</a> Does Not Resolve</td>
 <td>无法解析送信者邮件信箱所属的网域</td>
 </tr>
 <tr>
@@ -1123,7 +1123,7 @@
 </tr>
 <tr>
 <td>550</td>
-<td>Mailbox (<a href="mailto:&#x78;&#x78;&#120;&#64;&#120;&#120;&#120;&#46;&#120;&#120;">&#x78;&#x78;&#120;&#64;&#120;&#120;&#120;&#46;&#120;&#120;</a>) Not Found Or Inactivated</td>
+<td>Mailbox (<a href="mailto:&#120;&#120;&#120;&#x40;&#x78;&#120;&#120;&#x2e;&#120;&#120;">&#120;&#120;&#120;&#x40;&#x78;&#120;&#120;&#x2e;&#120;&#120;</a>) Not Found Or Inactivated</td>
 <td>信箱不存在或没被启用</td>
 </tr>
 <tr>
@@ -1143,7 +1143,7 @@
 </tr>
 <tr>
 <td>550</td>
-<td>1. Requested Actions Not Taken As the Mailbox Is Unavailable 2. Not Our Customer 3. Invalid Recipient 4. No Such User Here 5. <a href="mailto:&#66;&#97;&#x72;&#97;&#x63;&#x6b;&#46;&#111;&#x62;&#x61;&#x6d;&#x61;&#64;&#116;&#x68;&#x69;&#x73;&#x63;&#x6f;&#109;&#112;&#x61;&#110;&#121;&#x2e;&#x63;&#x6f;&#x6d;">&#66;&#97;&#x72;&#97;&#x63;&#x6b;&#46;&#111;&#x62;&#x61;&#x6d;&#x61;&#64;&#116;&#x68;&#x69;&#x73;&#x63;&#x6f;&#109;&#112;&#x61;&#110;&#121;&#x2e;&#x63;&#x6f;&#x6d;</a>, This Thiscompany.com Mailbox Does Not Exist – Giving Up 6. Account Not Available 7. Address Rejected 8. User Account Is Unavailable</td>
+<td>1. Requested Actions Not Taken As the Mailbox Is Unavailable 2. Not Our Customer 3. Invalid Recipient 4. No Such User Here 5. <a href="mailto:&#66;&#x61;&#114;&#x61;&#99;&#x6b;&#46;&#111;&#x62;&#97;&#109;&#97;&#x40;&#116;&#104;&#105;&#x73;&#99;&#x6f;&#109;&#x70;&#97;&#x6e;&#x79;&#x2e;&#99;&#x6f;&#109;">&#66;&#x61;&#114;&#x61;&#99;&#x6b;&#46;&#111;&#x62;&#97;&#109;&#97;&#x40;&#116;&#104;&#105;&#x73;&#99;&#x6f;&#109;&#x70;&#97;&#x6e;&#x79;&#x2e;&#99;&#x6f;&#109;</a>, This Thiscompany.com Mailbox Does Not Exist – Giving Up 6. Account Not Available 7. Address Rejected 8. User Account Is Unavailable</td>
 <td>1. 所要求动作无法执行，信箱不存在 2. 不是我们的客户 3. 无效的收信者账号 4. 这里没有这个账号 5. THISCOMPANY.COM 这个账号不存在，放弃吧！ 6. 无此账号 7. 邮件地址被拒 8. 无此用户账号</td>
 </tr>
 <tr>
@@ -1153,8 +1153,8 @@
 </tr>
 <tr>
 <td>550</td>
-<td>1. 550 Verification Failed For <a href="mailto:&#x58;&#x78;&#120;&#64;&#x78;&#x78;&#x78;&#x2e;&#120;&#x78;&#120;">&#x58;&#x78;&#120;&#64;&#x78;&#x78;&#x78;&#x2e;&#120;&#x78;&#120;</a> 2. Previous (cached) Callout Verification Failure 3. Sender Verify Failed</td>
-<td>1. 此账号 <a href="mailto:&#x78;&#x78;&#120;&#x40;&#x78;&#120;&#x78;&#x2e;&#120;&#x78;&#120;">&#x78;&#x78;&#120;&#x40;&#x78;&#120;&#x78;&#x2e;&#120;&#x78;&#120;</a> 的身份核对失败 2. 前次存在快取里的身份核对失败 3. 寄信者的身份核对失败</td>
+<td>1. 550 Verification Failed For <a href="mailto:&#88;&#x78;&#x78;&#x40;&#120;&#120;&#120;&#x2e;&#x78;&#x78;&#120;">&#88;&#x78;&#x78;&#x40;&#120;&#120;&#120;&#x2e;&#x78;&#x78;&#120;</a> 2. Previous (cached) Callout Verification Failure 3. Sender Verify Failed</td>
+<td>1. 此账号 <a href="mailto:&#120;&#120;&#120;&#64;&#x78;&#x78;&#120;&#46;&#120;&#x78;&#120;">&#120;&#120;&#120;&#64;&#x78;&#x78;&#120;&#46;&#120;&#x78;&#120;</a> 的身份核对失败 2. 前次存在快取里的身份核对失败 3. 寄信者的身份核对失败</td>
 </tr>
 <tr>
 <td>通常意指寄信者已经被反垃圾信机制或是防火墙列入黑名单</td>
@@ -1433,8 +1433,8 @@
 </tr>
 <tr>
 <td>552 5.1.1</td>
-<td>Sorry, Mailbox <a href="mailto:&#65;&#x6c;&#x61;&#x6e;&#64;&#x74;&#x68;&#105;&#115;&#x63;&#111;&#109;&#112;&#97;&#x6e;&#121;&#46;&#99;&#111;&#109;">&#65;&#x6c;&#x61;&#x6e;&#64;&#x74;&#x68;&#105;&#115;&#x63;&#111;&#109;&#112;&#97;&#x6e;&#121;&#46;&#99;&#111;&#109;</a> Is Over Quota Temporarily</td>
-<td>很抱歉，<a href="mailto:&#65;&#x6c;&#x61;&#110;&#64;&#x54;&#x68;&#x69;&#115;&#x43;&#x6f;&#x6d;&#112;&#97;&#x6e;&#121;&#x2e;&#99;&#x6f;&#x6d;">&#65;&#x6c;&#x61;&#110;&#64;&#x54;&#x68;&#x69;&#115;&#x43;&#x6f;&#x6d;&#112;&#97;&#x6e;&#121;&#x2e;&#99;&#x6f;&#x6d;</a>这个信箱容量暂时超过上限</td>
+<td>Sorry, Mailbox <a href="mailto:&#65;&#x6c;&#97;&#110;&#64;&#x74;&#x68;&#x69;&#115;&#99;&#x6f;&#109;&#x70;&#97;&#x6e;&#121;&#46;&#99;&#x6f;&#109;">&#65;&#x6c;&#97;&#110;&#64;&#x74;&#x68;&#x69;&#115;&#99;&#x6f;&#109;&#x70;&#97;&#x6e;&#121;&#46;&#99;&#x6f;&#109;</a> Is Over Quota Temporarily</td>
+<td>很抱歉，<a href="mailto:&#x41;&#x6c;&#x61;&#110;&#64;&#x54;&#104;&#105;&#115;&#x43;&#x6f;&#109;&#112;&#x61;&#110;&#121;&#x2e;&#99;&#111;&#x6d;">&#x41;&#x6c;&#x61;&#110;&#64;&#x54;&#104;&#105;&#115;&#x43;&#x6f;&#109;&#112;&#x61;&#110;&#121;&#x2e;&#99;&#111;&#x6d;</a>这个信箱容量暂时超过上限</td>
 </tr>
 <tr>
 <td>收信端邮件账号信箱容量暂时超过上限。</td>
@@ -1573,8 +1573,8 @@
 </tr>
 <tr>
 <td>554</td>
-<td>1. Smtp Relay Service Does Not Allow Your Ip Address To Relay Mail To <a href="mailto:&#88;&#x78;&#120;&#64;&#x78;&#x78;&#120;&#x2e;&#120;&#120;&#120;">&#88;&#x78;&#120;&#64;&#x78;&#x78;&#120;&#x2e;&#120;&#120;&#120;</a> 2. Smtp Service Does Not Allow Your Ip Address 3. Client Host Rejected: Access Denied</td>
-<td>1. SMTP寄信服务不允许寄信者的IP地址传递信件给 <a href="mailto:&#x78;&#x78;&#x78;&#x40;&#120;&#x78;&#120;&#46;&#x78;&#x78;&#120;">&#x78;&#x78;&#x78;&#x40;&#120;&#x78;&#120;&#46;&#x78;&#x78;&#120;</a> 2. SMTP寄信服务不允许寄信者的IP地址传递信件 3. 客户端被拒绝登入：存取拒绝</td>
+<td>1. Smtp Relay Service Does Not Allow Your Ip Address To Relay Mail To <a href="mailto:&#x58;&#120;&#120;&#x40;&#x78;&#x78;&#x78;&#46;&#120;&#120;&#x78;">&#x58;&#120;&#120;&#x40;&#x78;&#x78;&#x78;&#46;&#120;&#120;&#x78;</a> 2. Smtp Service Does Not Allow Your Ip Address 3. Client Host Rejected: Access Denied</td>
+<td>1. SMTP寄信服务不允许寄信者的IP地址传递信件给 <a href="mailto:&#120;&#x78;&#x78;&#64;&#x78;&#x78;&#120;&#x2e;&#120;&#x78;&#120;">&#120;&#x78;&#x78;&#64;&#x78;&#x78;&#120;&#x2e;&#120;&#x78;&#120;</a> 2. SMTP寄信服务不允许寄信者的IP地址传递信件 3. 客户端被拒绝登入：存取拒绝</td>
 </tr>
 <tr>
 <td>寄信端邮件服务器为杜绝计算机病毒以及被当作垃圾信跳板，使用者必须经过 SMTP Auth 的身份认证才能寄信</td>
@@ -1633,8 +1633,8 @@
 </tr>
 <tr>
 <td>571</td>
-<td>1. Email Address We Do Not Relay 2. the Following Addresses Had Permanent Delivery Errors: <a href="mailto:&#x58;&#x78;&#120;&#x40;&#x78;&#x78;&#120;&#x2e;&#120;&#x78;&#x78;">&#x58;&#x78;&#120;&#x40;&#x78;&#x78;&#120;&#x2e;&#120;&#x78;&#x78;</a></td>
-<td>1. 我们无法为此收件者传递邮件(不提供转寄) 2. 此收信邮件账号有永久性收件上的问题：<a href="mailto:&#x78;&#120;&#120;&#64;&#120;&#120;&#120;&#46;&#x78;&#x78;&#x78;">&#x78;&#120;&#120;&#64;&#120;&#120;&#120;&#46;&#x78;&#x78;&#x78;</a></td>
+<td>1. Email Address We Do Not Relay 2. the Following Addresses Had Permanent Delivery Errors: <a href="mailto:&#x58;&#x78;&#120;&#64;&#120;&#x78;&#120;&#46;&#120;&#x78;&#120;">&#x58;&#x78;&#120;&#64;&#120;&#x78;&#120;&#46;&#120;&#x78;&#120;</a></td>
+<td>1. 我们无法为此收件者传递邮件(不提供转寄) 2. 此收信邮件账号有永久性收件上的问题：<a href="mailto:&#120;&#120;&#x78;&#64;&#x78;&#x78;&#120;&#x2e;&#x78;&#120;&#x78;">&#120;&#120;&#x78;&#64;&#x78;&#x78;&#120;&#x2e;&#x78;&#120;&#x78;</a></td>
 </tr>
 <tr>
 <td>原因一：收件者邮件服务器设定错误，误认自己不代管收件者网域 原因二：寄信者没经过 SMTP Auth (我的外寄服务器(SMTP)需要认证) 的验证寄信模式 原因三：不被允许做寄信的动作 原因四：寄信端邮件服务器在黑名单中</td>

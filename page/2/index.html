@@ -172,6 +172,60 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/22/iOS%E4%B9%8B%E5%8F%8D%E8%B0%83%E8%AF%95/" target="_self">
+          iOS之反调试
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/iOS%E4%B9%8B%E5%8F%8D%E8%B0%83%E8%AF%95/" target="_self">
+          
+          
+            
+          
+          ptrace 反调ptrace反调试，阻止LLDB附加调试
+在Unix 系统中，提供了一个系统调用 ptrace 用于实现断点调试和对进程进行跟踪和控制，而 PT_DENY_ATTACH 是苹果增加的一个 ptrace 选项，这个参数用来告诉系统，阻止调试器依附，本质就是通过26号系统调用来完成的，目前大多反调试都利用该方案,代码如下：
+123456789101112131415161718192
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 21:25" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/iOS/">iOS</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/iOS/">iOS</a>
+            
+              <a href="/tags/%E5%8F%8D%E8%B0%83%E8%AF%95/">反调试</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/22/iOS-cycript/" target="_self">
           iOS之cycript
         </a>
@@ -676,67 +730,11 @@ IDA反编译对应_init_proc方法
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/" target="_self">
-          AOSP导入IDE
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/" target="_self">
-          
-          
-            
-          
-          Java代码导入 Android Studio1.source build/envsetup.sh2.编译生成 idegen.jar1mmm development/tools/idegen/ 
-运行完毕上面的命令之后，就在根目录生成了2个文件：
-1android.ipr 和 android.iml
-
-3.排除不必要的模块，提高加载速度1打开android.iml, 找到excludeFolder
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-22 01:07" pubdate>
-              2021-08-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/android/">android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/android/">android</a>
-            
-              <a href="/tags/rom/">rom</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
