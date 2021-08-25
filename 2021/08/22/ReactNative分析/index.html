@@ -225,7 +225,7 @@
 
 <h4 id="2-1-2-新建js文件，复制strEnc、strDec方法和相关依赖方法，并使用node运行解密"><a href="#2-1-2-新建js文件，复制strEnc、strDec方法和相关依赖方法，并使用node运行解密" class="headerlink" title="2.1.2 新建js文件，复制strEnc、strDec方法和相关依赖方法，并使用node运行解密"></a>2.1.2 新建js文件，复制strEnc、strDec方法和相关依赖方法，并使用node运行解密</h4> <img src="/2021/08/22/ReactNative%E5%88%86%E6%9E%90/images/node%E5%AE%9E%E7%8E%B0%E5%8A%A0%E8%A7%A3%E5%AF%86.png" srcset="/img/loading.gif" lazyload class="">
 
-<h4 id="2-1-3编写burp插件，java调用js加解密方法"><a href="#2-1-3编写burp插件，java调用js加解密方法" class="headerlink" title="2.1.3编写burp插件，java调用js加解密方法"></a>2.1.3编写burp插件，java调用js加解密方法</h4><p>xxxxx</p>
+<h4 id="2-1-3编写burp插件，java调用js加解密方法"><a href="#2-1-3编写burp插件，java调用js加解密方法" class="headerlink" title="2.1.3编写burp插件，java调用js加解密方法"></a>2.1.3编写burp插件，java调用js加解密方法</h4><p>TODO</p>
 <h3 id="2-2-bundle代码篡改"><a href="#2-2-bundle代码篡改" class="headerlink" title="2.2 bundle代码篡改"></a>2.2 bundle代码篡改</h3><p>对于非对称加密需要将bundle中的公钥进行替换，所以需要对bundle进行篡改。<br>index.android.bundle中的js最终是需要被load到内存中，所以在某一时刻是可以获取，将load前的index.android.bundle进行篡改。</p>
 <h4 id="2-2-1-分析rn加载流程"><a href="#2-2-1-分析rn加载流程" class="headerlink" title="2.2.1 分析rn加载流程"></a>2.2.1 分析rn加载流程</h4><p><strong>com.facebook.react.ReactNativeHost.createReactInstanceManager</strong>方法</p>
 <img src="/2021/08/22/ReactNative%E5%88%86%E6%9E%90/images/createReactInstanceManager.png" srcset="/img/loading.gif" lazyload class="">

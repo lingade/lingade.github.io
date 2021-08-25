@@ -172,6 +172,64 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/22/JDB%E8%B0%83%E8%AF%95APP/" target="_self">
+          JDB调试APP
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/JDB%E8%B0%83%E8%AF%95APP/" target="_self">
+          
+          
+            
+          
+          1. 以调试模式运行APP1adb shell am start -D  com.cola.jni/com.cola.jni.MainActivity
+
+2.转发端口到本地使用DDMS转发端口
+ 
+
+或者通过adb转发到本地
+12adb jdwp  #获取可调试APP PID(判断目标APP是否可调试，将ro.debuggable设为1可调试所有APP)adb forward tcp:8700 j
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 01:28" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/jdb/">jdb</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/22/AOSP%E5%AF%BC%E5%85%A5IDE/" target="_self">
           AOSP导入IDE
         </a>
@@ -671,60 +729,6 @@ Android 8.1 后1adb shell dumpsys activity | grep &quot;mResume&quot;
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E8%B6%8A%E7%8B%B1/">越狱</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/21/SpringBoot-JWT-Token%E9%AA%8C%E8%AF%81/" target="_self">
-          SpringBoot+JWT Token验证
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/21/SpringBoot-JWT-Token%E9%AA%8C%E8%AF%81/" target="_self">
-          
-          
-            
-          
-          1. pom.xml 添加依赖12345 &lt;dependency&gt;       &lt;groupId&gt;com.auth0&lt;/groupId&gt;       &lt;artifactId&gt;java-jwt&lt;/artifactId&gt;       &lt;version&gt;3.8.1&lt;/version&gt;&lt;/dependency&gt;
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-21 23:44" pubdate>
-              2021-08-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/java/">java</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/JWT/">JWT</a>
-            
-              <a href="/tags/java/">java</a>
-            
-              <a href="/tags/springboot/">springboot</a>
             
           </div>
         

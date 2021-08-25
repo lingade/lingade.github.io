@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>frida gadget - Cola&#39;S Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Cola'S Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="frida gadget">
+              
+                frida gadget
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-25 18:40" pubdate>
+        2021年8月25日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">frida gadget</h1>
+            
+            <div class="markdown-body">
+              <h2 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h2><h3 id="1-下载gadget"><a href="#1-下载gadget" class="headerlink" title="1.下载gadget"></a>1.下载gadget</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus">frida-gadget-xxxxx-android-arm<span class="hljs-selector-class">.so</span><span class="hljs-selector-class">.xz</span><br>frida-gadget-xxxxx-android-arm64<span class="hljs-selector-class">.so</span>.xz<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="2-APK解包"><a href="#2-APK解包" class="headerlink" title="2. APK解包"></a>2. APK解包</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">apktool d -r xx.apk  <span class="hljs-comment">//-r 不反编译资源文件</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-添加lib和修改smali"><a href="#3-添加lib和修改smali" class="headerlink" title="3.添加lib和修改smali"></a>3.添加lib和修改smali</h3><h4 id="3-1-1-将gadget-so拷贝到解包后lib-xxx-目录下"><a href="#3-1-1-将gadget-so拷贝到解包后lib-xxx-目录下" class="headerlink" title="3.1.1 将gadget.so拷贝到解包后lib/xxx/目录下"></a>3.1.1 将gadget.so拷贝到解包后lib/xxx/目录下</h4><h4 id="3-1-2-修改入口smali的construct-method"><a href="#3-1-2-修改入口smali的construct-method" class="headerlink" title="3.1.2 修改入口smali的construct method"></a>3.1.2 修改入口smali的construct method</h4><h4 id="3-1-3-将locals加1"><a href="#3-1-3-将locals加1" class="headerlink" title="3.1.3 将locals加1"></a>3.1.3 将locals加1</h4><h4 id="3-1-4-寄存器名称v0的数字使用locals数量的最后一个"><a href="#3-1-4-寄存器名称v0的数字使用locals数量的最后一个" class="headerlink" title="3.1.4 寄存器名称v0的数字使用locals数量的最后一个"></a>3.1.4 寄存器名称v0的数字使用locals数量的最后一个</h4><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs smali">const-string v0, <span class="hljs-string">&quot;frida-gadget&quot;</span><span class="hljs-built_in"></span><br><span class="hljs-built_in">invoke-static </span>&#123;v0&#125;, <span class="hljs-class">Ljava/lang/System;</span>-&gt;loadLibrary(<span class="hljs-class">Ljava/lang/String;</span>)V<br></code></pre></td></tr></table></figure>
+
+ <img src="/2021/08/25/frida-gadget/images/%E6%B7%BB%E5%8A%A0lib%E5%92%8C%E4%BF%AE%E6%94%B9smali.png" srcset="/img/loading.gif" lazyload class="">
+
+<h3 id="4-添加权限"><a href="#4-添加权限" class="headerlink" title="4.添加权限"></a>4.添加权限</h3><p>在AndroidManifest.xml中添加权限，一般的APK都会申请下面两个权限<br>，所以不用添加</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">uses-permission</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;android.permission.INTERNET&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">uses-permission</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">uses-permission</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;android.permission.ACCESS_NETWORK_STATE&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">uses-permission</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="5-打包"><a href="#5-打包" class="headerlink" title="5.打包"></a>5.打包</h3><p>直接apktool b xxx打包经常会报资源错误，可以尝试以下方式：</p>
+<ul>
+<li><p>直接删除出错的layout文件 </p>
+</li>
+<li><p>修改出错的layout文件</p>
+</li>
+<li><p>不解包资源文件，也就是在解包的时候加入-r选项<br>通过<code>-f -p </code>选项使得打包时忽略这些资源<br><code>apktool b -f -p . xxx -o output.apk</code></p>
+<p>-f =&gt; –force-all<br>-p =&gt; resource path</p>
+</li>
+</ul>
+<h3 id="6-签名-安装"><a href="#6-签名-安装" class="headerlink" title="6.签名/安装"></a>6.签名/安装</h3><h2 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h2><h3 id="1-下载gadget-1"><a href="#1-下载gadget-1" class="headerlink" title="1.下载gadget"></a>1.下载gadget</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">frida</span>-gadget-<span class="hljs-number">15</span>.<span class="hljs-number">0</span>.<span class="hljs-number">18</span>-ios-universal.dylib.gz<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-脱壳后的应用包"><a href="#2-脱壳后的应用包" class="headerlink" title="2.脱壳后的应用包"></a>2.脱壳后的应用包</h3><h3 id="3-新建MonkeyApp-工程"><a href="#3-新建MonkeyApp-工程" class="headerlink" title="3.新建MonkeyApp 工程"></a>3.新建MonkeyApp 工程</h3> <img src="/2021/08/25/frida-gadget/images/MonkeyApp.png" srcset="/img/loading.gif" lazyload class="">
+
+<h3 id="4-引入-FridaGadget-dylib"><a href="#4-引入-FridaGadget-dylib" class="headerlink" title="4. 引入 FridaGadget.dylib"></a>4. 引入 FridaGadget.dylib</h3> <img src="/2021/08/25/frida-gadget/images/%E5%BC%95%E5%85%A5FridaGadget.png" srcset="/img/loading.gif" lazyload class="">
+
+<h3 id="5-编译运行"><a href="#5-编译运行" class="headerlink" title="5.编译运行"></a>5.编译运行</h3><h2 id="RIru加载gadget"><a href="#RIru加载gadget" class="headerlink" title="RIru加载gadget"></a>RIru加载gadget</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;jni.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/types.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;pthread.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;android/log.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;dlfcn.h&gt;</span></span><br><br><span class="hljs-keyword">extern</span> <span class="hljs-string">&quot;C&quot;</span> &#123;<br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> EXPORT __attribute__((visibility(<span class="hljs-meta-string">&quot;default&quot;</span>))) __attribute__((used))</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> LOG_TAG  <span class="hljs-meta-string">&quot;C_COLA&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)</span><br><span class="hljs-keyword">static</span>  <span class="hljs-keyword">char</span>* loadPkgNameStr = <span class="hljs-literal">NULL</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">char</span> *<span class="hljs-title">loadPkgName</span><span class="hljs-params">(JNIEnv *env, jstring appDataDir)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (!appDataDir)<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br><br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *app_data_dir = env-&gt;<span class="hljs-built_in">GetStringUTFChars</span>(appDataDir, <span class="hljs-literal">NULL</span>);<br>    <span class="hljs-keyword">int</span> user = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">char</span> package_name[<span class="hljs-number">256</span>];<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">sscanf</span>(app_data_dir, <span class="hljs-string">&quot;/data/%*[^/]/%d/%s&quot;</span>, &amp;user, package_name) != <span class="hljs-number">2</span>) &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">sscanf</span>(app_data_dir, <span class="hljs-string">&quot;/data/%*[^/]/%s&quot;</span>, package_name) != <span class="hljs-number">1</span>) &#123;<br>            package_name[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;\0&#x27;</span>;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>        &#125;<br>    &#125;<br>    env-&gt;<span class="hljs-built_in">ReleaseStringUTFChars</span>(appDataDir, app_data_dir);<br>    <span class="hljs-keyword">return</span> package_name;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">getPkgNameFromFile</span><span class="hljs-params">(<span class="hljs-keyword">char</span>* hookPackageName)</span></span>&#123;<br>    FILE* file = <span class="hljs-literal">NULL</span>;<br>    file = <span class="hljs-built_in">fopen</span>(<span class="hljs-string">&quot;/data/local/tmp/pkg_name&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>);<br>    <span class="hljs-keyword">if</span> (file != <span class="hljs-literal">NULL</span>) &#123;<br>      <span class="hljs-built_in">fgets</span>(hookPackageName,<span class="hljs-number">200</span>,file);<br>      <span class="hljs-built_in">fclose</span>(file);<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">hack_thread</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *arg)</span></span><br><span class="hljs-function"></span>&#123;<br> <br>    <span class="hljs-built_in">LOGD</span>(<span class="hljs-string">&quot;hook thread :%d&quot;</span>, <span class="hljs-built_in">gettid</span>());<br>    <span class="hljs-built_in">sleep</span>(<span class="hljs-number">0</span>);<span class="hljs-comment">//部分APP运行后会立即检测，延迟注入可以绕过检测</span><br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* soPath_32 = <span class="hljs-string">&quot;/system/lib/libcola.so&quot;</span>;<br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* soPath_64 = <span class="hljs-string">&quot;/system/lib64/libcola.so&quot;</span>;<br>    <span class="hljs-keyword">void</span>* handle_64 = <span class="hljs-built_in">dlopen</span>( soPath_64, RTLD_LAZY );<br>    <span class="hljs-keyword">if</span>( !handle_64 )<br>        &#123;<br>            <span class="hljs-built_in">LOGD</span>(<span class="hljs-string">&quot;[%s](%d) dlopen 64bit lib get error: %s\n&quot;</span>, __FILE__, __LINE__, <span class="hljs-built_in">dlerror</span>());<br>            <span class="hljs-keyword">void</span>* handle_32 = <span class="hljs-built_in">dlopen</span>( soPath_32, RTLD_LAZY );<br>               <span class="hljs-keyword">if</span>( !handle_32 )<br>                    &#123;<br>                     <span class="hljs-built_in">LOGD</span>(<span class="hljs-string">&quot;[%s](%d) dlopen 32bit lib get error: %s\n&quot;</span>, __FILE__, __LINE__, <span class="hljs-built_in">dlerror</span>());<br>                    &#125;<br><br>        &#125;<br>    <span class="hljs-built_in">LOGD</span>(<span class="hljs-string">&quot;so  inject finish&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>&#125;<br><br><br><br><span class="hljs-function">EXPORT <span class="hljs-keyword">void</span> <span class="hljs-title">nativeForkAndSpecializePre</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">        JNIEnv *env, jclass clazz, jint *_uid, jint *gid, jintArray *gids, jint *runtimeFlags,</span></span><br><span class="hljs-params"><span class="hljs-function">        jobjectArray *rlimits, jint *mountExternal, jstring *seInfo, jstring *niceName,</span></span><br><span class="hljs-params"><span class="hljs-function">        jintArray *fdsToClose, jintArray *fdsToIgnore, jboolean *is_child_zygote,</span></span><br><span class="hljs-params"><span class="hljs-function">        jstring *instructionSet, jstring *appDataDir, jboolean *isTopApp, jobjectArray *pkgDataInfoList,</span></span><br><span class="hljs-params"><span class="hljs-function">        jobjectArray *whitelistedDataInfoList, jboolean *bindMountAppDataDirs, jboolean *bindMountAppStorageDirs)</span> </span>&#123;<br><br>        loadPkgNameStr = <span class="hljs-built_in">loadPkgName</span>(env, *appDataDir);<br><br>&#125;<br><br><span class="hljs-function">EXPORT <span class="hljs-keyword">int</span> <span class="hljs-title">nativeForkAndSpecializePost</span><span class="hljs-params">(JNIEnv *env, jclass clazz, jint res)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (res == <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-comment">// in app process</span><br>          <span class="hljs-keyword">if</span> (loadPkgNameStr != <span class="hljs-literal">NULL</span>) &#123;<br>               <span class="hljs-keyword">char</span>  hookPkgName[<span class="hljs-number">200</span>] = <span class="hljs-string">&quot; &quot;</span>;<br>               <span class="hljs-built_in">getPkgNameFromFile</span>(hookPkgName);<br>               <span class="hljs-keyword">if</span>(!<span class="hljs-built_in">strncmp</span>(hookPkgName,loadPkgNameStr,<span class="hljs-built_in">strlen</span>(loadPkgNameStr)))&#123;<br>                   <span class="hljs-keyword">int</span> ret;<br>                   <span class="hljs-keyword">pthread_t</span> ntid;<br>                <span class="hljs-comment">//    LOGD(&quot;begin sleep 15000ms&quot;);</span><br>                <span class="hljs-comment">//    sleep(15000);</span><br>                   <span class="hljs-keyword">if</span>((ret = <span class="hljs-built_in">pthread_create</span>(&amp;ntid, <span class="hljs-literal">NULL</span>, hack_thread, <span class="hljs-literal">NULL</span>))) &#123;<br>                              <span class="hljs-built_in">LOGD</span>(<span class="hljs-string">&quot;can&#x27;t create thread: %s\n&quot;</span>, <span class="hljs-built_in">strerror</span>(ret));<br>                      &#125;<br>               &#125;<br>          &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-comment">// in zygote process, res is child pid</span><br>        <span class="hljs-comment">// don&#x27;t print log here, see https://github.com/RikkaApps/Riru/blob/77adfd6a4a6a81bfd20569c910bc4854f2f84f5e/riru-core/jni/main/jni_native_method.cpp#L55-L66</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br>EXPORT __attribute__((<span class="hljs-built_in">visibility</span>(<span class="hljs-string">&quot;default&quot;</span>))) <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">specializeAppProcessPre</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">        JNIEnv *env, jclass clazz, jint *_uid, jint *gid, jintArray *gids, jint *runtimeFlags,</span></span><br><span class="hljs-params"><span class="hljs-function">        jobjectArray *rlimits, jint *mountExternal, jstring *seInfo, jstring *niceName,</span></span><br><span class="hljs-params"><span class="hljs-function">        jboolean *startChildZygote, jstring *instructionSet, jstring *appDataDir,</span></span><br><span class="hljs-params"><span class="hljs-function">        jboolean *isTopApp, jobjectArray *pkgDataInfoList, jobjectArray *whitelistedDataInfoList,</span></span><br><span class="hljs-params"><span class="hljs-function">        jboolean *bindMountAppDataDirs, jboolean *bindMountAppStorageDirs)</span> </span>&#123;<br>    <span class="hljs-comment">// added from Android 10, but disabled at least in Google Pixel devices</span><br>&#125;<br><br>EXPORT __attribute__((<span class="hljs-built_in">visibility</span>(<span class="hljs-string">&quot;default&quot;</span>))) <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">specializeAppProcessPost</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">        JNIEnv *env, jclass clazz)</span> </span>&#123;<br>    <span class="hljs-comment">// added from Android 10, but disabled at least in Google Pixel devices</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-function">EXPORT <span class="hljs-keyword">void</span> <span class="hljs-title">nativeForkSystemServerPre</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">        JNIEnv *env, jclass clazz, <span class="hljs-keyword">uid_t</span> *uid, <span class="hljs-keyword">gid_t</span> *gid, jintArray *gids, jint *runtimeFlags,</span></span><br><span class="hljs-params"><span class="hljs-function">        jobjectArray *rlimits, jlong *permittedCapabilities, jlong *effectiveCapabilities)</span> </span>&#123;<br><br>&#125;<br><br><span class="hljs-function">EXPORT <span class="hljs-keyword">int</span> <span class="hljs-title">nativeForkSystemServerPost</span><span class="hljs-params">(JNIEnv *env, jclass clazz, jint res)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (res == <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-comment">// in system server process</span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-comment">// in zygote process, res is child pid</span><br>        <span class="hljs-comment">// don&#x27;t print log here, see https://github.com/RikkaApps/Riru/blob/77adfd6a4a6a81bfd20569c910bc4854f2f84f5e/riru-core/jni/main/jni_native_method.cpp#L55-L66</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-function">EXPORT <span class="hljs-keyword">int</span> <span class="hljs-title">shouldSkipUid</span><span class="hljs-params">(<span class="hljs-keyword">int</span> uid)</span> </span>&#123;<br>    <span class="hljs-comment">// by default, Riru only call module functions in &quot;normal app processes&quot; (10000 &lt;= uid % 100000 &lt;= 19999)</span><br>    <span class="hljs-comment">// false = don&#x27;t skip</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br><br><span class="hljs-function">EXPORT <span class="hljs-keyword">void</span> <span class="hljs-title">onModuleLoaded</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">// called when the shared library of Riru core is loaded</span><br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="ROM定制加载gadget"><a href="#ROM定制加载gadget" class="headerlink" title="ROM定制加载gadget"></a>ROM定制加载gadget</h2><p>APP启动流程的任意一点，都可以加载gadget.so</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">dlopen<br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>load<br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>loadLibrary<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="objection自动添加gadget"><a href="#objection自动添加gadget" class="headerlink" title="objection自动添加gadget"></a>objection自动添加gadget</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">objection</span> patchapk -s  xxxxx.apk <br>objection patchipa -s  xxxxx.ipa<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/frida/">frida</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/android/">android</a>
+                    
+                      <a class="hover-with-bg" href="/tags/frida/">frida</a>
+                    
+                      <a class="hover-with-bg" href="/tags/hook/">hook</a>
+                    
+                      <a class="hover-with-bg" href="/tags/iOS/">iOS</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/23/android%E5%BC%80%E6%9C%BA%E5%90%8E%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/">
+                        <span class="hidden-mobile">android开机后都发生了什么?</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

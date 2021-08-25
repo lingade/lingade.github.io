@@ -172,6 +172,62 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/22/iOS%E4%B9%8Bfishhook/" target="_self">
+          iOS之fishhook
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/iOS%E4%B9%8Bfishhook/" target="_self">
+          
+          
+            
+          
+          fishhookfishHook是Facebook提供的一个动态修改链接mach-O文件的工具。利用MachO文件加载原理，通过重新绑定(rebind_symbols)懒加载表(Lazy Symbol Pointers)和非懒加载表(Non-Lazy Symbol Pointers)这两个表的指针达到C函数HOOK的目的。
+
+dyld加载macho文件和系统框架,对函数地址复制的过程，成为 “符号
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 21:37" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/iOS/">iOS</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/hook/">hook</a>
+            
+              <a href="/tags/iOS/">iOS</a>
+            
+              <a href="/tags/fishhook/">fishhook</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/22/iOS%E4%B9%8B%E5%8F%8D%E8%B0%83%E8%AF%95/" target="_self">
           iOS之反调试
         </a>
@@ -665,64 +721,6 @@ IDA反编译对应_init_proc方法
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/android/">android</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/22/JDB%E8%B0%83%E8%AF%95APP/" target="_self">
-          JDB调试APP
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/22/JDB%E8%B0%83%E8%AF%95APP/" target="_self">
-          
-          
-            
-          
-          1. 以调试模式运行APP1adb shell am start -D  com.cola.jni/com.cola.jni.MainActivity
-
-2.转发端口到本地使用DDMS转发端口
- 
-
-或者通过adb转发到本地
-12adb jdwp  #获取可调试APP PID(判断目标APP是否可调试，将ro.debuggable设为1可调试所有APP)adb forward tcp:8700 j
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-22 01:28" pubdate>
-              2021-08-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/android/">android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/android/">android</a>
-            
-              <a href="/tags/jdb/">jdb</a>
             
           </div>
         
