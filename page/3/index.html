@@ -172,6 +172,66 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/22/so%E5%87%BD%E6%95%B0%E8%BF%90%E8%A1%8C%E9%A1%BA%E5%BA%8F/" target="_self">
+          SO函数运行顺序
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/so%E5%87%BD%E6%95%B0%E8%BF%90%E8%A1%8C%E9%A1%BA%E5%BA%8F/" target="_self">
+          
+          
+            
+          
+          加载运行流程 
+
+1. _init1extern &quot;C&quot; void _init(void) &#123; &#125; 
+编译生成后会在.init段
+ 
+
+IDA反编译对应_init_proc方法
+ 
+
+
+2. constructor1234567891011__attribute__( (constructor(1)) ) void aaaa( void )&#123;	LO
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 12:03" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/22/JDB%E8%B0%83%E8%AF%95APP/" target="_self">
           JDB调试APP
         </a>
@@ -676,59 +736,6 @@ Android 8.1 后1adb shell dumpsys activity | grep &quot;mResume&quot;
               <a href="/tags/adb/">adb</a>
             
               <a href="/tags/am/">am</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/21/IOS13-3-1-%E8%B6%8A%E7%8B%B1%E5%90%8E%E8%AE%BE%E7%BD%AE%E4%B8%AD%E6%9C%AA%E6%98%BE%E7%A4%BA%E8%B6%8A%E7%8B%B1%E6%8F%92%E4%BB%B6/" target="_self">
-          IOS13.3.1 越狱后设置中未显示越狱插件
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/21/IOS13-3-1-%E8%B6%8A%E7%8B%B1%E5%90%8E%E8%AE%BE%E7%BD%AE%E4%B8%AD%E6%9C%AA%E6%98%BE%E7%A4%BA%E8%B6%8A%E7%8B%B1%E6%8F%92%E4%BB%B6/" target="_self">
-          
-          
-            
-          
-          
-进入 cydia 重新安装 cydia substrate如果还未显示，重新安装 Preference Loader
-
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-21 23:53" pubdate>
-              2021-08-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/iOS/">iOS</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%B6%8A%E7%8B%B1/">越狱</a>
             
           </div>
         
