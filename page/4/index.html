@@ -172,6 +172,173 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/08/22/adb%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8DActivity/" target="_self">
+          adb查看当前Activity
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/adb%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8DActivity/" target="_self">
+          
+          
+            
+          
+          Android 8.1前1adb shell dumpsys activity | grep &quot;mFocus&quot;
+
+Android 8.1 后1adb shell dumpsys activity | grep &quot;mResume&quot;
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 00:07" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/adb/">adb</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/22/adb%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/" target="_self">
+          adb设置代理
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/22/adb%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/" target="_self">
+          
+          
+            
+          
+          设置代理1adb shell settings put global http_proxy 127.0.0.1:8888
+
+移除代理（需要重启）：1234567adb shell settings delete global http_proxyadb shell settings delete global global_http_proxy_hostadb shell settings del
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-22 00:05" pubdate>
+              2021-08-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/adb/">adb</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/21/am%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
+          am常用命令
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/21/am%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
+          
+          
+            
+          
+          拨打电话100861adb shell am start -a android.intent.action.CALL -d tel:10086
+打开网址1adb shell am start -a android.intent.action.VIEW -d  http://gityuan.com
+
+启动Activity 启动包名为com.yuanhh.app，主Activity为.MainActi
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-21 23:56" pubdate>
+              2021-08-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/android/">android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/adb/">adb</a>
+            
+              <a href="/tags/am/">am</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/21/IOS13-3-1-%E8%B6%8A%E7%8B%B1%E5%90%8E%E8%AE%BE%E7%BD%AE%E4%B8%AD%E6%9C%AA%E6%98%BE%E7%A4%BA%E8%B6%8A%E7%8B%B1%E6%8F%92%E4%BB%B6/" target="_self">
           IOS13.3.1 越狱后设置中未显示越狱插件
         </a>

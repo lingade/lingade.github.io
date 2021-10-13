@@ -172,6 +172,176 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/10/13/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" target="_self">
+          反序列化漏洞
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/13/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" target="_self">
+          
+          
+            
+          
+          1.什么是java序列化与反序列化？ 
+
+1.1 序列化Java 序列化是指把 Java 对象转换为字节序列的过程，以便于保存在内存、文件、数据库中，例如：json序列化、XML序列化、二进制序列化、SOAP序列化、对象持久化存储（服务重启当前用户操作序列化保存到磁盘）
+java.io.ObjectOutputStream 类中的**writeObject()**可以实现序列化。
+1.2 反序列化
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-13 14:23" pubdate>
+              2021-10-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">反序列化</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">反序列化</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/10/13/URLDNS%E5%88%A9%E7%94%A8%E9%93%BE/" target="_self">
+          URLDNS利用链
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/13/URLDNS%E5%88%A9%E7%94%A8%E9%93%BE/" target="_self">
+          
+          
+            
+          
+          在一些漏洞没有回显的时候可以采用DNSLog来验证漏洞是否存在，下面将分析该利用链接
+生成payload使用ysoserial生成序列化后的payload1java -jar ysoserial.jar  URLDNS &quot;http://xxxx.ceye.io&quot;
+
+编写代码生成payload
+创建URL对象
+put到hashmap中
+反射修改URL对象的hashCode为-1
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-13 14:16" pubdate>
+              2021-10-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">反序列化</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">反序列化</a>
+            
+              <a href="/tags/DNSlog%E6%B3%A8%E5%85%A5/">DNSlog注入</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/10/13/Shiro550%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" target="_self">
+          Shiro550漏洞复现
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/13/Shiro550%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" target="_self">
+          
+          
+            
+          
+          漏洞概述shiro框架可以实现自动登录，当用户选择开启免登录功能时，shiro会自动对用户对象序列化并加密，通过Set-Cookie: rememberMe发送给客户端。
+当用户下次访问网站时，如果存在cookie rememberMe，在过滤器中会对该字段的值进行解密，来判断是否是合法免登录用户，服务端处理rememberMe流程：
+
+获取rememberMe cookie值
+BASE64解码
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-13 10:14" pubdate>
+              2021-10-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/shiro/">shiro</a>
+            
+              <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">反序列化</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/08/25/frida%E6%95%99%E7%A8%8B/" target="_self">
           frida教程
         </a>
@@ -577,189 +747,6 @@ SMTP 的全称是“Simple Mail Transfer Protocol”，即简单邮件传输协�
               <a href="/tags/SMTP/">SMTP</a>
             
               <a href="/tags/IMAP/">IMAP</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/22/Linux%E6%90%AD%E5%BB%BAMQTT/" target="_self">
-          Linux搭建mqtt环境
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/22/Linux%E6%90%AD%E5%BB%BAMQTT/" target="_self">
-          
-          
-            
-          
-          选择Broker目前主流的Broker有以下3个：
-
- Mosquitto  ，下载地址：http://mosquitto.org/files/binary/
-
-VerneMQ
-
-EMQTT
-
-
-环境搭建使用EMQTT搭建mqtt环境
-1. 下载对应版本的安装包1https://www.emqx.io/downloads#broker
-
-2. 解压并运行1emqx console
-
-3.访问web
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-22 22:54" pubdate>
-              2021-08-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">环境搭建</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/mqtt/">mqtt</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/22/%E8%AF%81%E4%B9%A6%E4%BD%93%E7%B3%BB/" target="_self">
-          证书体系
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/22/%E8%AF%81%E4%B9%A6%E4%BD%93%E7%B3%BB/" target="_self">
-          
-          
-            
-          
-          X509标准X.509 - 这是一种证书标准,主要定义了证书中应该包含哪些内容，证书主要包括颁发者和被办法者的信息,以及被颁发者的公钥，和CA机构对这些信息的认证，
-
-两种编码方式：
-
-
-PEM - Privacy Enhanced Mail,打开看文本格式,以”—–BEGIN…”开头, “—–END…”结尾,内容是BASE64编码.
-  Apache和*NIX服务器偏向于使用这种编码格式.
-
-
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-22 22:29" pubdate>
-              2021-08-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E8%AF%81%E4%B9%A6/">证书</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/x509/">x509</a>
-            
-              <a href="/tags/pkcs/">pkcs</a>
-            
-              <a href="/tags/android%E7%AD%BE%E5%90%8D/">android签名</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/22/xposed%E6%A1%86%E6%9E%B6/" target="_self">
-          xposed框架
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/22/xposed%E6%A1%86%E6%9E%B6/" target="_self">
-          
-          
-            
-          
-          1、概述hook是Windows中提供的一种用以替换DOS下“中断”的系统机制。每当特定的消息发出，在没有到达目的窗口前，钩子程序就先捕获该消息，亦即钩子函数先得到控制权。这时钩子函数即可以加工处理（改变）该消息，也可以不作处理而继续传递该消息，还可以强制结束消息的传递。
-Xposed框架核心思想:在于将java层普通函数注册成本地JNI方法，以此来变相实现HOOk机制。
-1.1 核心思想一、Xp
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-22 22:24" pubdate>
-              2021-08-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/xposed/">xposed</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/android/">android</a>
-            
-              <a href="/tags/hook/">hook</a>
-            
-              <a href="/tags/xposed/">xposed</a>
             
           </div>
         
