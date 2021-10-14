@@ -172,6 +172,62 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" target="_self">
+          Padding Oracle Attack(Shiro-721)漏洞复现
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" target="_self">
+          
+          
+            
+          
+          漏洞概述由于Shiro cookie中通过AES/CBC/PKCS5加密rememberMe字段，攻击者可以控制rememberMe字段的前16字节（IV），通过Padding Oracle攻击来构造恶意的rememberMe字段，进行反序列化攻击，最终导致任意代码执行。
+影响版本Apache Shiro &lt;1.42
+漏洞原理Shiro-721是因为使用AES/CBC/PKCS5导致了Pad
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-14 14:59" pubdate>
+              2021-10-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/shiro/">shiro</a>
+            
+              <a href="/tags/Padding-Oracle/">Padding Oracle</a>
+            
+              <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">反序列化</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/10/13/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" target="_self">
           反序列化漏洞
         </a>
@@ -692,61 +748,6 @@ PEST Easy Fi
               <a href="/tags/flash/">flash</a>
             
               <a href="/tags/%E9%97%AA%E5%AD%98/">闪存</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/22/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E6%B8%97%E9%80%8F/" target="_self">
-          邮件服务渗透
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/22/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E6%B8%97%E9%80%8F/" target="_self">
-          
-          
-            
-          
-          POP3、SMTP和IMAPSMTP
-SMTP 的全称是“Simple Mail Transfer Protocol”，即简单邮件传输协议（25号端口）。它是一组用于从源地址到目的地址传输邮件的规范，通过它来控制邮件的中转方式。SMTP 协议属于 TCP/IP 协议簇，它帮助每台计算机在发送或中转信件时找到下一个目的地。SMTP是一个“推”的协议，它不允许根据需要从远程服务器上“拉”来消息。SMT
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-22 23:11" pubdate>
-              2021-08-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/POP3/">POP3</a>
-            
-              <a href="/tags/SMTP/">SMTP</a>
-            
-              <a href="/tags/IMAP/">IMAP</a>
             
           </div>
         

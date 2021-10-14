@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      567 字
+      577 字
     </span>
   
 
@@ -225,7 +225,7 @@
 <li>BASE64解码</li>
 <li>取前16位作为AES解密的IV</li>
 <li>取[16:]作为代解密数据</li>
-<li>通过硬编码密钥<strong>kPH+bIxk5D2deZiIxcaaaA==</strong>+IV使用AES/CBC解密</li>
+<li>通过硬编码密钥<strong>kPH+bIxk5D2deZiIxcaaaA==</strong>+IV使用AES/CBC/pkcs5解密(&gt;1.4.1版本采用AES/GCM)</li>
 <li>反序列化解密后数据</li>
 </ol>
 <p>因为AES是<strong>硬编码</strong>，导致了攻击者可以构造恶意数据造成反序列化的RCE漏洞。</p>

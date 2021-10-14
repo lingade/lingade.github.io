@@ -1,0 +1,520 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>Padding Oracle Attack(Shiro-721)漏洞复现 - Cola&#39;S Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Cola'S Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Padding Oracle Attack(Shiro-721)漏洞复现">
+              
+                Padding Oracle Attack(Shiro-721)漏洞复现
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-14 14:59" pubdate>
+        2021年10月14日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Padding Oracle Attack(Shiro-721)漏洞复现</h1>
+            
+            <div class="markdown-body">
+              <h1 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h1><p>由于Shiro cookie中通过AES/CBC/PKCS5加密rememberMe字段，攻击者可以控制rememberMe字段的前16字节（IV），通过Padding Oracle攻击来构造恶意的rememberMe字段，进行反序列化攻击，最终导致任意代码执行。</p>
+<h1 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h1><p>Apache Shiro &lt;1.42</p>
+<h1 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h1><p>Shiro-721是因为使用AES/CBC/PKCS5导致了<strong>Padding Oracle</strong> 攻击，下面详细介绍Padding Oracle Attack(填充提示攻击)</p>
+<h2 id="Padding-Oracle-Attack"><a href="#Padding-Oracle-Attack" class="headerlink" title="Padding Oracle Attack"></a>Padding Oracle Attack</h2><p>该漏洞存在条件如下：</p>
+<ol>
+<li>攻击者获取密文，IV（初始向量，rememberMe字段的前16字节）。</li>
+<li>修改密文并且触发解密操纵，解密成功和解密失败存在差异性。</li>
+</ol>
+<h3 id="1-分组密码的填充"><a href="#1-分组密码的填充" class="headerlink" title="1. 分组密码的填充"></a>1. 分组密码的填充</h3><p>AES、DES在加密时一般会采用分组加密，将明文进行分组，常见的64bit、128bit、256bit。</p>
+<p>分组带来一个问题，就是明文不可能恰好是block的整数倍，对于不能整除剩余的部分数据就涉及到填充操作。</p>
+<p>常用的填充操作有PKCS5和PKCS7，在最后一个block中将不足的bit位数作为bit值进行填充，例如最后一个分组（block）缺少3个bit，就填充3个0x03到结尾，缺少n个bit，就填充n个0x0n。在解密时会校验明文的填充是否满足该规则，如果是以N个0x0N结束，则意味着解密操作执行成功，否则解密操作失败。</p>
+ <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/0.png" srcset="/img/loading.gif" lazyload class="">
+
+<h3 id="2-CBC模式密码算法"><a href="#2-CBC模式密码算法" class="headerlink" title="2. CBC模式密码算法"></a>2. CBC模式密码算法</h3><p>分组密码算法有四种模式，分别是ECB、CBC、CFB和OFB，其中CBC是IPSEC的标准做法，CBC主要是引入一个初始化向量（IV）来加强密文的随机性，保证相同明文通过相同的密钥加密的结果不一样。</p>
+<p><strong>CBC加密过程:</strong> </p>
+ <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/1.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<ol>
+<li>明文经过填充后，分为不同的组block，以组的方式对数据进行处理 </li>
+<li>初始化向量（IV）首先和第一组明文进行XOR（异或）操作，得到”中间值“</li>
+<li>采用密钥对中间值进行块加密，删除第一组加密的密文 （加密过程涉及复杂的变换、移位等） </li>
+<li>第一组加密的密文作为第二组的初始向量（IV），参与第二组明文的异或操作  </li>
+<li>依次执行块加密，最后将每一块的密文拼接成密文  </li>
+</ol>
+<p><strong>由于初始化向量（IV）每次加密都是随机的，所以IV经常会被放在密文的前面，解密时先获取前面的IV，再对后面的密文进行解密</strong></p>
+<p><strong>CBC解密过程:</strong></p>
+ <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/2.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<ol>
+<li>会将密文进行分组（按照加密采用的分组大小），前面的第一组是初始化向量，从第二组开始才是真正的密文</li>
+<li>使用加密密钥对密文的第一组进行解密，得到”中间值“  </li>
+<li>将中间值和初始化向量进行异或，得到该组的明文</li>
+<li>前一块密文是后一块密文的IV，通过异或中间值，得到明文</li>
+<li>块全部解密完成后，拼接得到明文，密码算法校验明文的格式（填充格式是否正确）</li>
+<li>校验通过得到明文，校验失败得到密文 </li>
+</ol>
+<h3 id="3-padding-oracle-attack破解密文的明文"><a href="#3-padding-oracle-attack破解密文的明文" class="headerlink" title="3. padding oracle attack破解密文的明文"></a>3. padding oracle attack破解密文的明文</h3><p>此处以一个例子进行猜解，假设有这样一个应用，请求如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">http</span>://www.example.com/decrypt.jsp?data=<span class="hljs-number">7</span>B<span class="hljs-number">216</span>A<span class="hljs-number">634951170</span>FF<span class="hljs-number">851</span>D<span class="hljs-number">6</span>CC<span class="hljs-number">68</span>FC<span class="hljs-number">9537858795</span>A<span class="hljs-number">28</span>ED<span class="hljs-number">4</span>AAC<span class="hljs-number">6</span><br></code></pre></td></tr></table></figure>
+
+<p>现在让我们来看看在不知道明文的情况下，如何猜解处明文。首先我们将密文分组，前面8个字节为初始化向量，后面16个字节为加密后的数据：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tap">初始化向量： 7B <span class="hljs-number"> 21 </span> 6A <span class="hljs-number"> 63 </span><span class="hljs-number"> 49 </span><span class="hljs-number"> 51 </span><span class="hljs-number"> 17 </span> 0F<br>第一组密文： F8 <span class="hljs-number"> 51 </span> D6  CC <span class="hljs-number"> 68 </span> FC <span class="hljs-number"> 95 </span> 37<br>第二组密文：<span class="hljs-number"> 85 </span><span class="hljs-number"> 87 </span><span class="hljs-number"> 95 </span> A2  8E  D4  AA  C6<br></code></pre></td></tr></table></figure>
+
+<p>首先我们破解第一组密文<code>http://www.example.com/decrypt.jsp?data=7B216A634951170FF851D6CC68FC9537</code>通过构造前面初始向量即可破解出第一组密文的明文 </p>
+<ol>
+<li><p>将初始化向量全部设置为0，提交如下请求<code>http://www.example.com/decrypt.jsp?data=00000000000000000F851D6CC68FC9537</code> ，服务器势必会解密失败，返回HTTP 500，那是因为在对数据进行解密的时候，明文最后一个字节的填充是Ox3D,不满足填充规则，校验失败，此时示意图如下：</p>
+ <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/3.png" srcset="/img/loading.gif" lazyload class=""></li>
+<li><p>依次将初始化向量最后一个字节从0x01~0xFF递增，直到解密的明文最后一个字节为0x01，成为一个正确的padding，当初始化向量为<code>000000000000003C</code>时，成功了，服务器返回HTTP 200，解密示意图如下：</p>
+ <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/4.png" srcset="/img/loading.gif" lazyload class=""></li>
+<li><p>我们已知构造成功的IV最后一个字节为0x3C，最后一个填充字符为0x01，则我们能通过异或XOR计算出，第一组密文解密后的中间值最后一个字节：0x01 xor 0x3C = 0x3D;<br><strong>重点：第一组密文解密的中间值是一直不变的，同样也是正确的，我们通过构造IV值，使得最后一位填充值满足0x01，符合padding规则，则意味着程序解密成功（当前解密的结果肯定不是原来的明文），通过循环测试的方法，猜解出中间值得最后一位，再利用同样的方式猜解前面的中间值，直到获取到完整的中间值</strong></p>
+</li>
+<li><p>下面我们将构造填充值为0x02 0x02的场景，即存在2个填充字节，填充值为0x02，此时我们已经知道了中间值得最后一位为0x3D,计算出初始向量的最后一位为 0x3D xor 0x02 = 0x3F, 即初始向量为<code>0000000000000003F</code>，遍历倒数第二个字节从0x00~0xFF，直到响应成功，示例图如下：</p>
+ <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/5.png" srcset="/img/loading.gif" lazyload class="">
+<p>此时，我们猜解出中间值得后两个字节分别为 0x26 0x3D</p>
+</li>
+<li><p>通过同样的方式，完成第一组密文中间值得猜解</p>
+ <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/6.png" srcset="/img/loading.gif" lazyload class=""></li>
+<li><p>当第一组密文的中间值猜解成功后，我们将中间值和已知的IV做异或，则得到第一组密文的明文</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs excel"><span class="hljs-number">0</span>x39 <span class="hljs-number">0</span>x73 <span class="hljs-number">0</span>x23 <span class="hljs-number">0</span>x22 <span class="hljs-number">0</span>x07 <span class="hljs-number">0</span>x6A <span class="hljs-number">0</span>x26 <span class="hljs-number">0</span>x3D <br><span class="hljs-built_in">xor</span> <br><span class="hljs-number">0</span>x7B <span class="hljs-number">0</span>x21 <span class="hljs-number">0</span>x6A <span class="hljs-number">0</span>x63 <span class="hljs-number">0</span>x49 <span class="hljs-number">0</span>x51 <span class="hljs-number">0</span>x17 <span class="hljs-number">0</span>x0F<br>= <br>BRIAN;<span class="hljs-number">12</span><br></code></pre></td></tr></table></figure></li>
+<li><p>继续破解第二组密文，第二组密文的IV向量是第一组密文，随意按照上述的逻辑构造第一组密文，即可破解出第二组明文。</p>
+</li>
+</ol>
+<h3 id="4-伪造明文的密文"><a href="#4-伪造明文的密文" class="headerlink" title="4. 伪造明文的密文"></a>4. 伪造明文的密文</h3><p>在不知道密钥的情况下，完成数据的加密，绕过服务端的校验（解密成功+明文有效），达到攻击的目的；<br>伪造明文其实就是上面猜解逆向的过程。通过遍历密文+已知的IV+Padding来确定伪造的密文。</p>
+<h1 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h1><ol>
+<li>更新版本Apache Shior到最新版本</li>
+<li>关闭rememberMe持久化登录功能</li>
+<li>临时防范建议：<ul>
+<li>拦截Cookie中长度过大的rememberMe值</li>
+<li>拦截访问过于频繁的IP, 因为该漏洞需要爆破Cookie</li>
+</ul>
+</li>
+</ol>
+<h2 id="官方修复方案"><a href="#官方修复方案" class="headerlink" title="官方修复方案"></a>官方修复方案</h2><p>在**&gt;=1.4.2**版本中，官方对Shiro-721漏洞做了修复，<code>AesCipherService</code>类设置使用的加密算法</p>
+<h3 id="1-4-1-版本-有漏洞版本"><a href="#1-4-1-版本-有漏洞版本" class="headerlink" title="1.4.1 版本(有漏洞版本)"></a>1.4.1 版本(有漏洞版本)</h3> <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/7.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>设置加密算法采用AES，其父类<code>AbstractSymmetricCipherService</code>指定了加密模式及填充方式</p>
+ <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/8.png" srcset="/img/loading.gif" lazyload class="">
+
+<h3 id="1-4-2-版本-修复版本"><a href="#1-4-2-版本-修复版本" class="headerlink" title="1.4.2 版本(修复版本)"></a>1.4.2 版本(修复版本)</h3><p><code>AesCipherService</code>类，加密方式由<strong>CBC</strong>更换为<strong>GCM</strong></p>
+<img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/9.png" srcset="/img/loading.gif" lazyload class="">
+
+<h3 id="1-8-0-版本-2021-8-24版本"><a href="#1-8-0-版本-2021-8-24版本" class="headerlink" title="1.8.0 版本(2021-8-24版本)"></a>1.8.0 版本(2021-8-24版本)</h3><p><code>AesCipherService</code>类，加密方式为<strong>GCM</strong>并设置填充方式为<strong>NoPadding</strong></p>
+ <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/10.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<h2 id="CBC与GCM加密模式区别"><a href="#CBC与GCM加密模式区别" class="headerlink" title="CBC与GCM加密模式区别"></a>CBC与GCM加密模式区别</h2><ol>
+<li><p>AES/GCM是流加密的模式，不需要对明文进行填充。AES/CBC是块加密的模式，需要对明文进行填充。</p>
+</li>
+<li><p>AES/CBC中必须要用到padding，导致最后一个明文块与其他密文块不同，因此可能会受到padding Oracle attacks，从而可以直接通过初始向量IV和密码，即可得到明文。</p>
+</li>
+<li><p>AES/GCM可以并行加密解密，AES/CBC的模式决定了它只能串行地进行加密。因为加密是耗时较久的步骤。</p>
+</li>
+<li><p>AES/GCM提供了GMAC信息校验码，用以校验密文的完整性。AES/CBC没有，无法有效地校验密文的完整性。</p>
+</li>
+<li><p>AES/GCM中进行AES加密的是counter，AES/CBC中进行AES加密的是明文块。</p>
+</li>
+</ol>
+<p>GCM(GMAC Counter Mode)，使用了Counter的模式，并且带有GMAC消息认证码，因为GCM是基于CTR(Counter Mode)的，所以以下介绍CTR Mode：</p>
+ <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/11.png" srcset="/img/loading.gif" lazyload class="">
+
+
+
+<p>从上图可知，在CTR模式中，不再对明文进行加密，而是对一个逐次累加的计数器进行加密，用加密后得到的比特序列与明文分组进行异或，得到每一个明文块的密文。计数器的初始值，是依据于一个nonce的。<br>因为计数器是递增的，所以加密得到的比特序列是不同的，再与明文进行异或，可以避免相同的明文块被加密成一样的密文块。<br>因为每一个明文块的加密都是独立的，不依赖于其他明文块，所以CTR模式的AES加密是可以并行地对明文块进行加密的，并且不会有错误传播的现象。<br>以下为CTR解密模式：<br> <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/12.png" srcset="/img/loading.gif" lazyload class=""></p>
+<p>CTR的解密也是较为直接的。直接对计数器进行加密，得到比特序列，再和对应的密文块进行异或，就可以得到相应的明文块。<br>因为CTR模式下的AES加密是针对计数器进行加密的，所以CTR模式是不需要padding的。</p>
+<h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h1><p><a target="_blank" rel="noopener" href="https://github.com/AonCyberLabs/PadBuster">padbuster</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/longofo/PaddingOracleAttack-Shiro-721">PaddingOracleAttack-Shiro-721</a></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/833582b2f560">https://www.jianshu.com/p/833582b2f560</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/shiro/">shiro</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Padding-Oracle/">Padding Oracle</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">反序列化</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/13/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">
+                        <span class="hidden-mobile">反序列化漏洞</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
