@@ -185,7 +185,7 @@
           
           漏洞概述由于Shiro cookie中通过AES/CBC/PKCS5加密rememberMe字段，攻击者可以控制rememberMe字段的前16字节（IV），通过Padding Oracle攻击来构造恶意的rememberMe字段，进行反序列化攻击，最终导致任意代码执行。
 影响版本Apache Shiro &lt;1.42
-漏洞原理Shiro-721是因为使用AES/CBC/PKCS5导致了Pad
+漏洞原理Shiro-721漏洞是因为使用AES/CBC/PKCS5导致了P
         </a>
       </p>
 

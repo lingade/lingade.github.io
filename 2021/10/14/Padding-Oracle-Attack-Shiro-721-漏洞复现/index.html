@@ -220,11 +220,11 @@
             <div class="markdown-body">
               <h1 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h1><p>由于Shiro cookie中通过AES/CBC/PKCS5加密rememberMe字段，攻击者可以控制rememberMe字段的前16字节（IV），通过Padding Oracle攻击来构造恶意的rememberMe字段，进行反序列化攻击，最终导致任意代码执行。</p>
 <h1 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h1><p>Apache Shiro &lt;1.42</p>
-<h1 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h1><p>Shiro-721是因为使用AES/CBC/PKCS5导致了<strong>Padding Oracle</strong> 攻击，下面详细介绍Padding Oracle Attack(填充提示攻击)</p>
+<h1 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h1><p>Shiro-721漏洞是因为使用AES/CBC/PKCS5导致了<strong>Padding Oracle</strong> 攻击，下面详细介绍Padding Oracle Attack(填充提示攻击)</p>
 <h2 id="Padding-Oracle-Attack"><a href="#Padding-Oracle-Attack" class="headerlink" title="Padding Oracle Attack"></a>Padding Oracle Attack</h2><p>该漏洞存在条件如下：</p>
 <ol>
 <li>攻击者获取密文，IV（初始向量，rememberMe字段的前16字节）。</li>
-<li>修改密文并且触发解密操纵，解密成功和解密失败存在差异性。</li>
+<li>修改密文并且触发解密操作，解密成功和解密失败存在差异性。</li>
 </ol>
 <h3 id="1-分组密码的填充"><a href="#1-分组密码的填充" class="headerlink" title="1. 分组密码的填充"></a>1. 分组密码的填充</h3><p>AES、DES在加密时一般会采用分组加密，将明文进行分组，常见的64bit、128bit、256bit。</p>
 <p>分组带来一个问题，就是明文不可能恰好是block的整数倍，对于不能整除剩余的部分数据就涉及到填充操作。</p>
@@ -293,7 +293,7 @@
 </ul>
 </li>
 </ol>
-<h2 id="官方修复方案"><a href="#官方修复方案" class="headerlink" title="官方修复方案"></a>官方修复方案</h2><p>在**&gt;=1.4.2**版本中，官方对Shiro-721漏洞做了修复，<code>AesCipherService</code>类设置使用的加密算法</p>
+<h2 id="官方修复方案"><a href="#官方修复方案" class="headerlink" title="官方修复方案"></a>官方修复方案</h2><p>在&gt;=1.4.2版本中，官方对Shiro-721漏洞做了修复，<code>AesCipherService</code>类中设置使用的加密算法</p>
 <h3 id="1-4-1-版本-有漏洞版本"><a href="#1-4-1-版本-有漏洞版本" class="headerlink" title="1.4.1 版本(有漏洞版本)"></a>1.4.1 版本(有漏洞版本)</h3> <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/7.png" srcset="/img/loading.gif" lazyload class="">
 
 <p>设置加密算法采用AES，其父类<code>AbstractSymmetricCipherService</code>指定了加密模式及填充方式</p>
