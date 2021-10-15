@@ -293,10 +293,11 @@
 </ul>
 </li>
 </ol>
-<h2 id="官方修复方案"><a href="#官方修复方案" class="headerlink" title="官方修复方案"></a>官方修复方案</h2><p>在&gt;=1.4.2版本中，官方对Shiro-721漏洞做了修复，<code>AesCipherService</code>类中设置使用的加密算法</p>
-<h3 id="1-4-1-版本-有漏洞版本"><a href="#1-4-1-版本-有漏洞版本" class="headerlink" title="1.4.1 版本(有漏洞版本)"></a>1.4.1 版本(有漏洞版本)</h3> <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/7.png" srcset="/img/loading.gif" lazyload class="">
+<h2 id="官方修复方案"><a href="#官方修复方案" class="headerlink" title="官方修复方案"></a>官方修复方案</h2><p>在&gt;=1.4.2版本中，官方对Shiro-721漏洞做了修复。</p>
+<h3 id="1-4-1-版本-有漏洞版本"><a href="#1-4-1-版本-有漏洞版本" class="headerlink" title="1.4.1 版本(有漏洞版本)"></a>1.4.1 版本(有漏洞版本)</h3><p><code>AesCipherService</code>类中设置使用的加密算法</p>
+ <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/7.png" srcset="/img/loading.gif" lazyload class="">
 
-<p>设置加密算法采用AES，其父类<code>AbstractSymmetricCipherService</code>指定了加密模式及填充方式</p>
+<p>设置加密算法采用AES，其父类<code>AbstractSymmetricCipherService</code>指定了加密模式及填充方式为<strong>CBC/PKCS5</strong></p>
  <img src="/2021/10/14/Padding-Oracle-Attack-Shiro-721-%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/images/8.png" srcset="/img/loading.gif" lazyload class="">
 
 <h3 id="1-4-2-版本-修复版本"><a href="#1-4-2-版本-修复版本" class="headerlink" title="1.4.2 版本(修复版本)"></a>1.4.2 版本(修复版本)</h3><p><code>AesCipherService</code>类，加密方式由<strong>CBC</strong>更换为<strong>GCM</strong></p>
